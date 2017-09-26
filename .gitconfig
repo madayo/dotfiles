@@ -1,0 +1,3 @@
+[core]
+    # windows環境向けのbatファイルが存在するの無効化しておく
+    safecrlf = false

@@ -1,0 +1,36 @@
+#!/bin/sh
+
+if git rev-parse --verify HEAD >/dev/null 2>&1
+then
+    against=HEAD
+else
+    # Initial commit: diff against an empty tree object
+    against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
+fi
+
+RETURN=0
+# 拡張子がphpのものに対して実施
+# 削除したファイル名に対して各コマンドを発行すると、ファイルが見つからないよとエラーになるので削除「D」は除外
+for FILE in `git diff --staged --name-only --diff-filter=ACMRTUXB $against | grep "\.php$"`; do
+    # シンタックスチェック
+    if php -l $FILE>&/dev/null; then
+        ### 訂正しないでチェックだけの場合はこっち
+        # warningはスルー
+        phpcs --standard=PSR2 -n $FILE>&/dev/null
+        if [ $? != 0 ]; then
+            echo "$FILEはPSR2に準拠していません。"
+            RETURN=1
+        fi
+        # 構文エラーが存在しない場合は,php_codesnifferで更にチェック。問題があれば強制的に修正する
+        #phpcbf --standard=PSR2 -n $FILE>&/dev/null
+        #if [ $? != 0 ]; then
+        #    echo "$FILEがPSR2に準拠していなかったので修正しました。"
+        #    git add $FILE
+        #fi
+    else
+        echo "$FILEに構文エラーがあります。"
+        RETURN=1
+    fi
+done
+
+exit $RETURN
