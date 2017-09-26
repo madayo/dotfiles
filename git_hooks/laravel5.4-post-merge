@@ -1,0 +1,68 @@
+#!/bin/sh
+
+# シェバンに-eを書くとartisanコマンド側でExceptionが発生した場合に後続処理が打ち切られてしまう  
+
+cd `git rev-parse --git-dir | xargs dirname`
+BASE_DIR=`pwd`
+cd ${BASE_DIR}
+
+message() {
+  echo "-------------------------- $@" 
+}
+
+# 引数に渡したファイルがmerge対象ファイルに含まれていれば、特定のコマンドを実行する
+# $1~$N-1:含まれているか確認するファイル名（前方一致なのでディレクトリ名も可。正規表現得書文字はエスケープすること
+# $N:実行したいコマンド
+# 引数の取得部分が見慣れない書き方になっているのはbash以外のシェルでも使用できるようにするため
+check_run() {
+  local command="`eval echo '$'$#`" 
+  for arg in "$@" 
+  do
+    if [ "$arg" != "$command" ]; then
+      git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD | grep -E --quiet "^$arg" && local contains=true
+    fi
+  done
+  if [ $contains ]; then
+    message "${command} を実施します。" 
+    eval $command
+  fi
+}
+
+message "プロジェクトの最適化を開始します。" 
+
+# composer check
+check_run composer\.lock "php composer.phar install --ansi" 
+
+# env
+check_run \.env\.local "echo '.envを手動で最新化してください！！！！！！！！！！！！！！！！！！！！！！！！！！！！！'" 
+
+# migration
+check_run database\/migrations\/ "php artisan migrate --ansi" 
+
+# yarn
+check_run package\.json "yarn install" 
+
+# webpack
+check_run resources\/assets\/js\/ resources\/assets\/css\/ webpack\.mix\.js "yarn run dev" 
+
+message "ローカルにキャッシュされているhtmlファイルの削除。bladeファイルに変更が発生した場合は自動的に再生成されるが、ときどき再生成されないことがあるので念のため実施" 
+php artisan view:clear --ansi
+
+message "cache,sessionまわりのクリア" 
+php artisan cache:clear --ansi
+
+message "設定ファイルのキャッシュ化" 
+php artisan config:cache --ansi
+
+message "ルーティングファイルのキャッシュ化" 
+result=`php artisan route:cache --ansi`
+if [ $? -ne 0 ]; then
+    echo 'ルーティングファイルのキャッシュ化に失敗しました。'
+fi
+echo $result
+
+# message "phpunit" 
+# ${BASE_DIR}/vendor/bin/phpunit --colors=always
+
+# message "LaravelDusk" 
+# php artisan dusk --colors=always

@@ -1,0 +1,53 @@
+[user]
+    # .gitconfig.localで各自が定義する
+    #name = xxx
+    #email = xxx@xxx
+[core]
+    # 既にサクラエディタが起動済みの場合、多重起動出来ないと怒られる。構文自体は下記であっているのでコメントで残しておく
+    #editor = 'D:/sakura/sakura.exe'
+# commit時のみCRLFをLFに自動変換する。checkout時には変換しない
+    autocrlf = input
+# laravelプロジェクトであれば,.gitattributeで自動的に変換しないようにしてくれるが一応有効化しておく
+    safecrlf = true
+[diff]
+    tool = WinMergeU
+    guitool = WinMergeU
+# おそらく直前のdiffセクション内に記載した値の具体的な設定として機能する。configファイル内で有効なaliasなイメージ？
+[difftool "WinMerge"]
+# f:フィルタ。全ファイルを対象
+# e:escで閉じるを有効
+# r:再帰
+# u:「最近使用した・・・」の履歴にパス情報を追加しない
+# dl:左側タイトルバー
+# dr:右側タイトルバー
+# wr;右側を読み取り専用
+# cygpath:cygwin環境下のbashを使用しているので、$LOCALなどで/tmp/・・・というパスが取得できる。しかしwinmergeはwindows環境下で動作するので左記パスを参照できない。
+    cmd = `cygpath $WINMERGE` -f '*.*' -e -u -dl 'new' -dr 'old' -wr \"`cygpath -w ${REMOTE}`\" \"`cygpath -w ${LOCAL}`\" 
+[merge]
+    tool = WinMerge
+# LOCAL,REMOTE,MERGE:ウィンドウの表示順序
+[mergetool "WinMerge"]
+    cmd = `cygpath $WINMERGE` -e -r -u \"{$LOCAL}\" \"${REMOTE}\" \"${MERGED}\"
+[color]
+    ui = true
+[alias]
+### 見やすいlog
+    plog = log --pretty='format:%C(yellow)%h %C(green)%cd %C(reset)%s %C(red)%d %C(cyan)[%an]' --date=iso
+    logg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd, %cr) %C(bold blue)<%an>%Creset' --date=iso
+### Winmergeを使用した比較
+# y:起動しますか？にyesで答える
+# d:ディレクトリ単位で
+# t:外部ツール使用
+    windiff = difftool -y -d -t WinMerge --no-symlinks
+### 文字単位でのdiff
+    worddiff = diff --word-diff=plain --word-diff-regex=.
+### addしたものについてphpcs, phpcbf
+    phpcs = !"git diff --staged --name-only | grep '\\.php' | xargs -I{} phpcs -n --standard=PSR2 {}"
+    phpcbf = !"git diff --staged --name-only | grep '\\.php' | xargs -I{} phpcbf -n --standard=PSR2 {}"
+### stagingにあるものを再度diff,add
+    rediff =  !"git diff --staged --name-only | grep '\\.php' | xargs -I{} git diff {}"
+    readd =  !"git diff --staged --name-only | grep '\\.php' | xargs -I{} git add {}"
+
+# 環境に依存する情報は別ファイルに切り出す
+[include]
+    path = .gitconfig.local
