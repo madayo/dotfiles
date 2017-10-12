@@ -1,68 +1,66 @@
+" プラグインマネージャー --------------------------------------------------------------------------
+if &compatible
+  set nocompatible
+endif
+
+let g:dein_dir = expand('~/.vim/dein')
+let s:dein_repo_dir = g:dein_dir . '/repos/github.com/Shougo/dein.vim' 
+
+if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+endif
+
+set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+
+if dein#load_state(g:dein_dir)
+  " プラグインリストを収めたTOMLファイル
+  let s:toml = g:dein_dir . '/dein.toml'
+  "let s:lazy_toml = g:dein_dir . '/dein_lazy.toml'
+
+  call dein#begin(expand('~/.vim/dein'), [$MYVIMRC,s:toml])
+
+  " TOMLファイルにpluginを記述
+  call dein#load_toml(s:toml, {'lazy': 0})
+  "call dein#load_toml(s:lazy_toml, {'lazy': 1})
+
+  call dein#end()
+  call dein#save_state()
+endif
+
+filetype plugin indent on
 syntax enable
-set background=dark
-"set background=light
-colorscheme solarized
 
-""" エンコード（基本的にwindows環境を考慮していない設定。Linux環境下で問題なく動くような設定）
-" 改行コード
-set fileformat=unix
-" 新規ファイル作成時の文字コード
-set encoding=utf-8
-" ファイル読み込み時の文字コード。左から順に試していく
-set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
-" ファイル書き込み時の文字コード。これを指定すると元ファイルの文字コードを無視して強制的に保存される。特に指定していない場合は元の値を保持する。あまり指定しない方がいい。
-" :set fileencoding=utf-8
-" 行番号
-" 若干重くなる？必要なときだけ打ち込む
-"set number
+" 未インストールのプラグインがあれば自動でインストール
+"if dein#check_install()
+"  call dein#install()
+"endif
 
-" 半角スペースインデントの設定
-set tabstop=4
-set autoindent
-set expandtab
-set shiftwidth=4
-
-" コメント行から新たに改行した場合に自動的に#を付与する処理を無効化
-" 効いていない。。。
-set formatoptions-=ro
-
-" phpのシンタックスチェック
-" 有効にしたらなにやら挙動がおかしい。保存する→フォーカスが当たっている行がずれるがキャッシュ？が表示されており実際に操作している行と画面に表示される行が合わない
-"augroup PHP
-"	autocmd!
-"	autocmd FileType php set makeprg=php\ -l\ %
-"	" php -lの構文チェックでエラーがなければ「No syntax errors」の一行だけ出力される
-"	autocmd BufWritePost *.php silent make | if len(getqflist()) != 1 | copen | else | cclose | endif
-"augroup END
+" プラグイン設定 --------------------------------------------------------------------------
+" molokai
+colorscheme darkblue
 
 
-"""""""""" プラグイン
-""""""" 入力補完
-""""" neocomplcache
-""""" https://github.com/Shougo/neocomplete.vim
-""" 基本
-" AutoComplPopがインストールされている場合競合するので無効化
-"let g:acp_enableAtStartup = 0
-" 当プラグインの自動起動
-let g:neocomplcache_enable_at_startup = 1
-" smartcaseの有効化。大文字が入力されるまで大文字・小文字を区別しないで補完
-let g:neocomplcache_enable_smart_case = 1
-" _区切りの補完の有効化
-let g:neocomplcache_enable_underbar_completion = 1
-" 大文字を入力した場合にワイルドカード検索してくれる。FAの場合F*A*と内部で変換される。結構処理重くなる
-"let g:neocomplcache_enable_camel_case_completion = 1
-" キャッシュする最低文字数。ちょっとよくわかんないのでおすすめ設定をそのまましている
-let g:neocomplcache_min_syntax_length = 3
-" 自動的にロックするバッファ名のパターン。ちょっとよくわかんないのでおすすめ設定をそのまましている
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-" 読み込み先の辞書ファイル設定。デフォルトではdictionaryを読み込んでくれるので特に拡張はしない
-let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : ''
-    \ }
-""" キーバインド
-" Ctrl+z 直前の補完のキャンセル。補完された文字列の削除
-inoremap <expr> <C-z> neocomplcache#undo_completion()
-" TAB 補完候補の中から、共通する文字列部分を補完
-inoremap <expr> <TAB> pumvisible() ? neocomplcache#complete_common_string() : "\<TAB>"
-" Ctrl+q ポップアップのクローズ。
-"inoremap <expr> <C-q> neocomplcache#smart_close_popup()
+" 基本設定 --------------------------------------------------------------------------
+syntax on "コードの色分け
+set expandtab "タブで挿入する文字をスペースに
+set number "行番号を表示する
+set title "編集中のファイル名を表示
+"set cursorline "カーソルのある行にアンダーラインを引く
+set showmatch "括弧入力時の対応する括弧を表示
+set tabstop=4 "インデントをスペース4つ分に設定
+set shiftwidth=4 "自動インデントの幅
+set smartindent "オートインデント
+set smarttab "新しい行を作った時に高度な自動インデント
+set clipboard=unnamed,autoselect "OSのクリッポボードと連携
+set matchpairs& matchpairs+=<:> "対応カッコに＜＞を追加
+set backspace=eol,indent,start
+
+" ファイル自動生成 --------------------------------------------------------------------------
+set noswapfile "スワップファイルを作らない
+set nobackup "バックアップを作成しない
+set viminfo= "viminfoを作成しない
+
+" 検索 --------------------------------------------------------------------------
+"set ignorecase "大文字/小文字の区別なく検索する
+"set smartcase "検索文字列に大文字が含まれている場合は区別して検索する
+set wrapscan "検索時に最後まで行ったら最初に戻る
