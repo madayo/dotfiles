@@ -42,7 +42,6 @@ if ssh-add -l >&/dev/null ; then
     echo "ssh-agent: Identity is already stored."
 else
     ssh-add
-    ssh-add ~/.ssh/id_rsa_l
 fi
 #################################################################### デフォルトコマンドの拡張
 function ssh() {
