@@ -54,7 +54,16 @@ set smarttab "新しい行を作った時に高度な自動インデント
 set clipboard=unnamed,autoselect "OSのクリッポボードと連携
 set matchpairs& matchpairs+=<:> "対応カッコに＜＞を追加
 set backspace=eol,indent,start
-
+" 矢印キーを無効にする
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+inoremap <Up> <Nop>
+inoremap <Down> <Nop>
+inoremap <Left> <Nop>
+inoremap <Right> <Nop>
+ 
 " ファイル自動生成 --------------------------------------------------------------------------
 set noswapfile "スワップファイルを作らない
 set nobackup "バックアップを作成しない
