@@ -19,6 +19,7 @@ $apt install tmux
 $apt install vim
 $apt install php
 $apt install curl
+$apt install inetutils
 
 # vimプラグイン管理ツール Dein.vim. NeoBundleは開発終了。その後継。
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh -o /tmp/installer.sh
