@@ -47,7 +47,8 @@
 ### stagingにあるものを再度diff,add
     rediff =  !"git diff --staged --name-only | grep '\\.php' | xargs -I{} git diff {}"
     readd =  !"git diff --staged --name-only | grep '\\.php' | xargs -I{} git add {}"
-
+### branchの派生元リビジョン
+    branch-base = !"f(){ git show-branch --sha1-name $1 $2 | tail -1; };f"
 # 環境に依存する情報は別ファイルに切り出す
 [include]
     path = .gitconfig.local
