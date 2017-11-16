@@ -3,9 +3,6 @@
 # タイムゾーン
 export TZ=JST-9
 
-# windows環境下のHomeディレクトリへ移動
-cd `cygpath -w ${HOMEPATH}`
-
 #################################################################### alias
 alias mysql='mysql --protocol TCP'
 alias ll='ls -la --color=auto'
