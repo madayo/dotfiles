@@ -12,7 +12,7 @@ alias less='less -N'
 alias diffv='diff --side-by-side --suppress-common-lines'
 # composer 関連
 # 何故か環境変数COMPOSER_HOMEとPATHの設定では動かなかったのでaliasで擬似的にパスを通す
-alias composer='${COMPOSER_HOME}/composer --ansi'
+alias composer='php /usr/local/bin/composer.phar --ansi'
 alias phpunit='phpunit --color=always'
 #################################################################### tmux
 # 初回シェル時のみ tmux実行
