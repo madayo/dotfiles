@@ -1,8 +1,9 @@
 #! /bin/bash -e
 
+os="`uname -s`"
+
 # OSの確認とインストールコマンドの振り分け
 function set_install_cmd () {
-  local os="`uname -s`"
   if [[ $os =~ ^CYGWIN.*$ ]]; then
     apt=apt-cyg
     # apt-cygのインストール
@@ -25,3 +26,7 @@ $apt install inetutils
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh -o /tmp/installer.sh
 sh /tmp/installer.sh ~/.vim/dein
 
+# Window * cygwinの場合はwindowsユーザディレクトリのシンボリックリンク作成
+if [[ $os =~ ^CYGWIN.*$ ]]; then
+  ln -s `cygpath -u $HOMEPATH` win_user_dir
+fi 
