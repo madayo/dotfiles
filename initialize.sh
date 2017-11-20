@@ -2,39 +2,22 @@
 
 os="`uname -s`"
 
-# OSの確認とインストールコマンドの振り分け
-function set_install_cmd () {
-  if [[ $os =~ ^CYGWIN.*$ ]]; then
-    apt=apt-cyg
-    # apt-cygのインストール
-    cd ~
-    wget https://raw.githubusercontent.com/transcode-open/apt-cyg/master/apt-cyg
-    chmod 755 apt-cyg
-    mv apt-cyg /usr/local/bin/
-  fi
-}
+# apt-cygのインストール
+cd ~
+wget https://raw.githubusercontent.com/transcode-open/apt-cyg/master/apt-cyg
+chmod 755 apt-cyg
+mv apt-cyg /usr/local/bin/
+apt-cyg -m ftp://ftp.iij.ad.jp/pub/cygwin/ update
 
-set_install_cmd
 # 各種コマンドのインストール
-$apt install tmux
-$apt install vim
-$apt install php
-$apt install php-json
-$apt install php-phar
-$apt install php-mbstring
-$apt install php-zlib
-$apt install php-curl
-$apt install curl
-$apt install inetutils
+apt-cyg install tmux
+apt-cyg install vim
+apt-cyg install php php-json php-phar php-mbstring php-zlib php-curl
+apt-cyg install curl inetutils
 
 # vimプラグイン管理ツール Dein.vim. NeoBundleは開発終了。その後継。
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh -o /tmp/installer.sh
 sh /tmp/installer.sh ~/.vim/dein
-
-# Window * cygwinの場合はwindowsユーザディレクトリのシンボリックリンク作成
-if [[ $os =~ ^CYGWIN.*$ ]]; then
-  ln -s `cygpath -u $HOMEPATH` win_user_dir
-fi 
 
 ### composerのグローバルインストール
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -47,3 +30,8 @@ mv ./composer.phar /usr/local/bin/
 composer config -g repos.packagist composer https://packagist.jp
 ## 処理を並列化して高速化
 composer global require hirak/prestissimo
+
+# windowsユーザディレクトリのシンボリックリンク作成
+ln -s `cygpath -u $HOMEPATH` win_user_dir
+
+source ~/.bashrc
