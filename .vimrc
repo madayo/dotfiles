@@ -1,6 +1,3 @@
-" neovim
-let g:python3_host_prog = expand('!which python3')
-
 " プラグインマネージャー --------------------------------------------------------------------------
 if &compatible
   set nocompatible

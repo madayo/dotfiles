@@ -11,15 +11,13 @@ apt-cyg -m ftp://ftp.iij.ad.jp/pub/cygwin/ update
 
 # 各種コマンドのインストール
 apt-cyg install tmux
-apt-cyg install vim pyhton3 python3-devel python3-pip
+apt-cyg install vim
 apt-cyg install php php-json php-phar php-mbstring php-zlib php-curl
 apt-cyg install curl inetutils
 
 # vimプラグイン管理ツール Dein.vim. NeoBundleは開発終了。その後継。
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh -o /tmp/installer.sh
 sh /tmp/installer.sh ~/.vim/dein
-# neovim
-pip3 install neovim
 
 ### composerのグローバルインストール
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
