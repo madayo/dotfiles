@@ -6,6 +6,11 @@ if %ERRORLEVEL% neq 0 (
   exit /B 1
 )
 
+if not defined CYGWIN_HOME (
+  echo ŠÂ‹«•Ï”CYGWIN_HOME‚ðÝ’è‚µ‚Ä‚­‚¾‚³‚¢B >&2
+  exit /b
+)
+
 call :makeSymbolicLink .gitconfig git_global\.gitconfig
 call :makeSymbolicLink .bash_profile .bash_profile
 call :makeSymbolicLink .bashrc .bashrc
