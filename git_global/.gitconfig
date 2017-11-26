@@ -31,6 +31,7 @@
 [color]
     ui = true
 [alias]
+    st = status
 ### 見やすいlog
     plog = log --pretty='format:%C(yellow)%h %C(green)%cd %C(reset)%s %C(red)%d %C(cyan)[%an]' --date=iso
     logg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd, %cr) %C(bold blue)<%an>%Creset' --date=iso
