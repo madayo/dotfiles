@@ -9,6 +9,8 @@ elif [[ `echo $1 | grep '\.staging\.'` ]] ; then
     tmux select-pane -P 'fg=colour179,bg=colour233'
 elif [[ `echo $1 | grep '\.dev\.'` ]] ; then
     tmux select-pane -P 'fg=colour34,bg=colour233'
+else
+    tmux select-pane -P 'fg=colour5,bg=colour233'
 fi
 
 echo $pane_id
