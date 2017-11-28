@@ -9,3 +9,9 @@ repo = 'Shougo/unite.vim.git'
 
 [[plugins]]
 repo = 'Shougo/neomru.vim.git'
+
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides.git'
+
+
+
