@@ -22,12 +22,16 @@ To enable the settings, please do the following.
 3. ***Create symbolic links***  
 Please exec below commnads on `cmd.exe` by administrator.  
     ```bat
-    dotfiles\link.bat
+    link.bat
     ```  
-4. ***Set git commiter info***  
+4. ***Initialize***  
+    ```sh
+    sh initialize.sh
+    ```  
+5. ***Set git commiter info***  
 Git `user.name` and `user.email` have not been set yet, so please set your name and email in `~/.gitconfig.local`.
     ```sh
     [user]
         name = foo
         email = bar@baz
-    ```  
+    ```  `  
