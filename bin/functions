@@ -1,0 +1,9 @@
+#! /bin/bash -e
+
+function print_error() {
+  printf "\e[1;37;41m[Error] $1\e[m"
+}
+
+function print_info() {
+  printf "\e[36;40;1m[Info] $1\e[m"
+}
