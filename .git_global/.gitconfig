@@ -3,8 +3,7 @@
     #name = xxx
     #email = xxx@xxx
 [core]
-    # 既にサクラエディタが起動済みの場合、多重起動出来ないと怒られる。構文自体は下記であっているのでコメントで残しておく
-    #editor = 'D:/sakura/sakura.exe'
+    editor = vim
 # commit時のみCRLFをLFに自動変換する。checkout時には変換しない
     autocrlf = input
 # laravelプロジェクトであれば,.gitattributeで自動的に変換しないようにしてくれるが一応有効化しておく

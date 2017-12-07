@@ -45,7 +45,7 @@ while read -p "$PROMPT" yn; do
             ;;
         esac
       done
-      ;;
+    ;;
     'n' ) break ;;
   esac
 done
@@ -53,3 +53,4 @@ done
 printf "\e[1;32mCompleted!\e[m\n"
 
 source ~/.bashrc
+tmux
