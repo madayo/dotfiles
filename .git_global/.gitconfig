@@ -33,8 +33,8 @@
 [alias]
     st = status
 ### 見やすいlog
-    plog = log --pretty='format:%C(yellow)%h %C(green)%cd %C(reset)%s %C(red)%d %C(cyan)[%an]' --date=iso
-    logg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd, %cr) %C(bold blue)<%an>%Creset' --date=iso
+    plog = log --pretty='format:%C(yellow)%h %C(green)%cd %C(reset)%s %C(red)%d %C(cyan)<%an | %ae>' --date=iso
+    logg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd, %cr) %C(bold blue)<%an | %ae>%Creset' --date=iso
 ### Winmergeを使用した比較
 # y:起動しますか？にyesで答える
 # d:ディレクトリ単位で

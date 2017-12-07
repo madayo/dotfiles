@@ -1,9 +1,32 @@
 #! /bin/bash -e
 
 function print_error() {
-  printf "\e[1;37;41m[Error] $1\e[m"
+  printf "\e[1;37;41m[Error] $1\e[m\n"
 }
 
 function print_info() {
-  printf "\e[36;40;1m[Info] $1\e[m"
+  printf "\e[36;40;1m[Info] $1\e[m\n"
+}
+
+function ln_dotfile() {
+  source=$1
+  # 引数が1つしか指定されていない場合は、リンク名と実ファイル名を同じものにする
+  if [ $# -ne 2 ]; then
+    dest=$1
+  else
+    dest=$2
+  fi
+  # 既にファイルが存在する場合はバックアップ
+  do_backup_if_present $dest
+  ln -nfs $source $dest
+}
+
+function do_backup_if_present() {
+  dest=$1
+  # 既に同名のファイルが存在する場合のみバックアップ作成
+  if [[ -e $dest ]]; then
+    backup_time=`date +"%Y%m%d_%H%M%S"`
+    mv $dest "${dest}.${backup_time}"
+    print_info "present ${dest} was moved to ${dest}.${backup_time}"
+  fi
 }
