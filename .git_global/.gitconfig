@@ -4,10 +4,10 @@
     #email = xxx@xxx
 [core]
     editor = vim
-# commit時のみCRLFをLFに自動変換する。checkout時には変換しない
-    autocrlf = input
-# laravelプロジェクトであれば,.gitattributeで自動的に変換しないようにしてくれるが一応有効化しておく
-    safecrlf = true
+    autocrlf = input # commit: CRLF->LF, checkout: 変換なし
+    safecrlf = true  # 改行コードの混在を拒否する
+[push]
+    default  = simple # branchやtag名を指定しなかった場合、現在のbranchをpushする。同名のbranchが存在しない場合は拒否する
 [diff]
     tool = WinMergeU
     guitool = WinMergeU
