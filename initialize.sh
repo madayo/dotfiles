@@ -1,18 +1,15 @@
 #! /bin/bash -e
 
-PROMPT=">   "
-
-# Ubuntu-only stuff. Abort if not Ubuntu.
-if [[ ! "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]];then
-  print_error 'Only ubuntu is enabled.'
-  exit 1
-fi
-
 source ~/dotfiles/bin/functions
 
-# update
-sudo apt update
-sudo apt upgrade -y
+PROMPT=">   "
+
+# Ubuntu or Windows(MINGW) only stuff. Abort if not Ubuntu.
+#if [[ ! "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] || [[ $(uname)" =~ MINGW ]];then
+if [[ ! "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] && [[ ! "$(uname 2> /dev/null)" =~ MINGW ]] ;then
+  print_error 'Only ubuntu or Windows(MINGW) is enabled.'
+  exit 1
+fi
 
 # link
 /bin/bash ~/dotfiles/link.sh
@@ -53,4 +50,4 @@ done
 printf "\e[1;32mCompleted!\e[m\n"
 
 source ~/.bashrc
-tmux
+which tmux > /dev/null 2>&1 && tmux

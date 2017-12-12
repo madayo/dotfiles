@@ -1,5 +1,10 @@
 [[ "$-" != *i* ]] && return
 
+# Windows用
+if [[ "$(uname 2> /dev/null)" =~ MINGW ]];then
+  export MSYS=winsymlinks:nativestrict
+fi
+
 # タイムゾーン
 export TZ=JST-9
 
@@ -8,6 +13,7 @@ alias mysql='mysql --protocol TCP'
 alias ll='ls -la --color=auto'
 alias grep='grep --color=auto'
 alias less='less -N'
+alias color='curl -L http://bit.ly/WcP1DB | /bin/bash'
 # 左右に並べてdiff
 alias diffv='diff --side-by-side --suppress-common-lines'
 # composer 関連
@@ -17,9 +23,7 @@ alias phpunit='phpunit --color=always'
 #################################################################### tmux
 # 初回シェル時のみ tmux実行
 if [ ${SHLVL} = 1 ]; then
-  # tmux.conf側の256色設定が効かなかったので、起動オプションで256色設定を有効にする
-  # 256色が有効かどうかは https://gist.github.com/kawaz/5150778 
-  tmux -2
+  which tmux > /dev/null 2>&1 && tmux
 fi
 #################################################################### ssh-agent
 echo -n "ssh-agent: "

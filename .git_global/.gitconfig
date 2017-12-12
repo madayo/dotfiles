@@ -6,6 +6,7 @@
     editor = vim
     autocrlf = input # commit: CRLF->LF, checkout: 変換なし
     safecrlf = true  # 改行コードの混在を拒否する
+    filemode = false # 権限などfilemodeが変化しただけでは差異と認識させない
 [push]
     default  = simple # branchやtag名を指定しなかった場合、現在のbranchをpushする。同名のbranchが存在しない場合は拒否する
 [diff]
