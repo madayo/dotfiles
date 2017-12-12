@@ -12,6 +12,3 @@ repo = 'Shougo/neomru.vim.git'
 
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides.git'
-
-
-

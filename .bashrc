@@ -23,7 +23,7 @@ alias phpunit='phpunit --color=always'
 #################################################################### tmux
 # 初回シェル時のみ tmux実行
 if [ ${SHLVL} = 1 ]; then
-  which tmux > /dev/null 2>&1 && tmux
+  which tmux > /dev/null 2>&1 && tmux -2
 fi
 #################################################################### ssh-agent
 echo -n "ssh-agent: "
@@ -68,3 +68,7 @@ function sftp() {
     command sftp $@
   fi
 }
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
