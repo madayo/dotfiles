@@ -12,3 +12,6 @@ repo = 'Shougo/neomru.vim.git'
 
 [[plugins]]
 repo = 'Yggdroot/indentLine'
+
+[[plugins]]
+repo = 'bronson/vim-trailing-whitespace'
