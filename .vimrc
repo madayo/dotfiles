@@ -3,8 +3,8 @@ source ~/.vim/conf/.vimrc.plugin.dein
 """ プラグイン設定
 " unite
 source ~/.vim/conf/.vimrc.plugin.dein.unite
-" vim-indent-guides
-source ~/.vim/conf/.vimrc.plugin.dein.vim-indent-guides
+" indentLine
+source ~/.vim/conf/.vimrc.plugin.dein.indentLine
 
 " 基本設定
 source ~/.vim/conf/.vimrc.basic

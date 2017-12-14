@@ -11,4 +11,4 @@ repo = 'Shougo/unite.vim.git'
 repo = 'Shougo/neomru.vim.git'
 
 [[plugins]]
-repo = 'nathanaelkane/vim-indent-guides.git'
+repo = 'Yggdroot/indentLine'
