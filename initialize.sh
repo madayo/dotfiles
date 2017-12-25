@@ -15,10 +15,10 @@ fi
 
 # set git author
 echo "----------------------------"
-echo "Would you like to set committer information in '~/.gitconfig.local'? (y/n)" 
+echo "Would you like to set committer information in '~/.gitconfig.local'? (y/n)"
 while read -p "$PROMPT" yn; do
   case $yn in
-    'y' ) 
+    'y' )
       echo '[user.name]?'
       read -p "$PROMPT" name
       echo '[user.email]?'
@@ -28,14 +28,14 @@ while read -p "$PROMPT" yn; do
   email = $email"
       echo "$input"
       echo "Is this all right? (y/n)"
- 
+
       while read -p "$PROMPT" yn; do
         case $yn in
-          'y' ) 
+          'y' )
             do_backup_if_present "~/.gitconfig.local"
             echo "$input" > ~/.gitconfig.local
             break 2 ;;
-          'n' ) 
+          'n' )
             echo "Would you like to set committer information in '~/.gitconfig.local'? (y/n)";
             break;
             ;;
@@ -48,7 +48,7 @@ done
 
 # copmoser install
 if [[ "$(composer --version > /dev/null 2>&1; echo $?)" -ne 0 ]] ;then
-  if [[ "$(sh ./bin/composer_install.sh)" -ne 0 ]] ;then
+  if [[ "$(sh ./bin/composer_install.sh > /dev/null; echo $?)" -ne 0 ]] ;then
     print_error 'copmoser install is failed.'
     exit 1;
   else
