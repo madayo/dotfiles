@@ -1,13 +1,5 @@
 [[ "$-" != *i* ]] && return
 
-# Windows用
-if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
-  export MSYS=winsymlinks:nativestrict
-fi
-
-# タイムゾーン
-export TZ=JST-9
-
 #################################################################### alias
 alias mysql='mysql --protocol TCP'
 alias ll='ls -la --color=auto'
@@ -45,7 +37,7 @@ function ssh() {
   # tmux起動時
   if [[ -n $(printenv TMUX) ]] ; then
     # 現在のペインIDの退避と背景色の書き換え
-    local pane_id=`sh ~/dotfiles/bin/change_color_on_tmux_current_pane.sh $@`
+    local pane_id=`sh ~/dotfiles/bin/tmux/change_color_on_tmux_current_pane.sh $@`
     # 通常通りコマンド続行
     command ssh $@
     # デフォルトの色設定に戻す
@@ -58,7 +50,7 @@ function sftp() {
   # tmux起動時
   if [[ -n $(printenv TMUX) ]] ; then
     # 現在のペインIDの退避と背景色の書き換え
-    local pane_id=`sh ~/dotfiles/bin/change_color_on_tmux_current_pane.sh $@`
+    local pane_id=`sh ~/dotfiles/bin/tmux/change_color_on_tmux_current_pane.sh $@`
     # 通常通りコマンド続行
     command sftp $@
     # デフォルトの色設定に戻す

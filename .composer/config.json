@@ -1,0 +1,11 @@
+{
+    "config": {
+        "vendor-dir": "$COMPOSER_HOME/vendor"
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url" : "https://packagist.jp"
+        }
+    }
+}

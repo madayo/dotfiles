@@ -48,7 +48,7 @@ done
 
 # copmoser install
 if [[ "$(composer --version > /dev/null 2>&1; echo $?)" -ne 0 ]] ;then
-  if [[ "$(sh ./bin/composer_install.sh) -ne 0 ]] ;then
+  if [[ "$(sh ./bin/composer_install.sh)" -ne 0 ]] ;then
     print_error 'copmoser install is failed.'
     exit 1;
   else

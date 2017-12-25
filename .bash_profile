@@ -22,6 +22,15 @@
 # a patch to the cygwin mailing list.
 
 # User dependent .bash_profile file
+# Windows用
+if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
+  # lnコマンドでwindowsのシンボリックリンクを作成できるようにする
+  export MSYS=winsymlinks:nativestrict
+  export COMPOSER_HOME="${HOME}/.composer"
+  export PATH="${PATH}:${COMPOSER_HOME}/vendor/bin"
+fi
+# タイムゾーン
+export TZ=JST-9
 
 # source the users bashrc if it exists
 if [ -f "${HOME}/.bashrc" ] ; then
