@@ -11,7 +11,7 @@ if [[ ! "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] && [[ ! "$(uname 2> /dev/n
 fi
 
 # link
-/bin/bash ~/dotfiles/link.sh
+/bin/bash ~/dotfiles/bin/link.sh
 
 # set git author
 echo "----------------------------"
