@@ -5,7 +5,14 @@ git clone https://github.com/Yosuke-Shimada/dotfiles.git
 cd dotfiles
 /bin/bash initialize.sh
 ```  
-# Windows(MSYS)
+# Windows(MSYS)  
+## MSYS2のインストール  
+http://www.msys2.org/
+```sh
+pacman -Sy
+pacman -Sy git tmux vim curl
+```  
+## initialize  
 *管理者権限でコンソールを起動しておくこと*  
 ```sh
 cd ~/
