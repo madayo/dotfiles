@@ -14,3 +14,10 @@ cd dotfiles
 export MSYS=winsymlinks:nativestrict
 /bin/bash initialize.sh
 ```  
+## 必要に応じて各種シンボリックリンク作成
+```sh
+# ssh
+ln -s /c/Users/simada/Documents/.ssh/ ~/.ssh
+# viコマンド
+ln -s /usr/bin/vim /usr/bin/vi
+```  
