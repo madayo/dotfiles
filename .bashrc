@@ -17,8 +17,7 @@ alias color='curl -L http://bit.ly/WcP1DB | /bin/bash'
 # 左右に並べてdiff
 alias diffv='diff --side-by-side --suppress-common-lines'
 # composer 関連
-# 何故か環境変数COMPOSER_HOMEとPATHの設定では動かなかったのでaliasで擬似的にパスを通す
-alias composer='php /usr/local/bin/composer.phar --ansi'
+alias composer='composer --ansi'
 alias phpunit='phpunit --color=always'
 #################################################################### tmux
 # 初回シェル時のみ tmux実行

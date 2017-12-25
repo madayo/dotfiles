@@ -46,7 +46,18 @@ while read -p "$PROMPT" yn; do
   esac
 done
 
-printf "\e[1;32mCompleted!\e[m\n"
+# copmoser install
+if [[ "$(composer --version > /dev/null 2>&1; echo $?)" -ne 0 ]] ;then
+  if [[ "$(sh ./bin/composer_install.sh) -ne 0 ]] ;then
+    print_error 'copmoser install is failed.'
+    exit 1;
+  else
+    print_info 'composer is installed on /usr/local/bin .'
+  fi
+fi
+
+
+print_success 'Completed!'
 
 source ~/.bashrc
 which tmux > /dev/null 2>&1 && tmux
