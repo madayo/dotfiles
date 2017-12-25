@@ -4,10 +4,9 @@ source ~/dotfiles/bin/functions
 
 PROMPT=">   "
 
-# Ubuntu or Windows(MINGW) only stuff. Abort if not Ubuntu.
-#if [[ ! "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] || [[ $(uname)" =~ MINGW ]];then
-if [[ ! "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] && [[ ! "$(uname 2> /dev/null)" =~ MINGW ]] ;then
-  print_error 'Only ubuntu or Windows(MINGW) is enabled.'
+# Ubuntu or Windows(MSYS) only stuff. Abort if not Ubuntu.
+if [[ ! "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] && [[ ! "$(uname 2> /dev/null)" =~ MSYS ]] ;then
+  print_error 'Only ubuntu or Windows(MSYS) is enabled.'
   exit 1
 fi
 

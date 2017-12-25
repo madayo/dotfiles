@@ -1,7 +1,7 @@
 [[ "$-" != *i* ]] && return
 
 # Windows用
-if [[ "$(uname 2> /dev/null)" =~ MINGW ]];then
+if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
   export MSYS=winsymlinks:nativestrict
 fi
 
