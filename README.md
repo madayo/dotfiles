@@ -9,8 +9,8 @@ cd dotfiles
 ## MSYS2のインストール  
 http://www.msys2.org/
 ```sh
-pacman -Sy
-pacman -Sy git tmux vim curl
+pacman -Sy --noconfirm
+pacman -Sy git tmux vim curl --noconfirm
 ```  
 ## initialize  
 *管理者権限でコンソールを起動しておくこと*  
