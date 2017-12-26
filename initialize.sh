@@ -57,7 +57,4 @@ if [[ "$(composer --version > /dev/null 2>&1; echo $?)" -ne 0 ]] ;then
 fi
 
 
-print_success 'Completed!'
-
-source ~/.bashrc
-which tmux > /dev/null 2>&1 && tmux
+print_success 'Completed! Please reopen console window.'
