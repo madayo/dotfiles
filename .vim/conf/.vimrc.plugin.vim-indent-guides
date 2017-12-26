@@ -1,0 +1,8 @@
+let g:indent_guides_enable_on_vim_startup = 1 " 起動時に自動的に有効化
+" 色変更
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=23
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=29
+
+let g:indent_guides_start_level= 1 " ガイドを始めるインデントの回数
+let g:indent_guides_guide_size = 1 " 1ガイドあたりの幅

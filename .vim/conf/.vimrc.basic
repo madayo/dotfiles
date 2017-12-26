@@ -12,13 +12,14 @@ set backspace=eol,indent,start
 set expandtab "タブで挿入する文字をスペースに
 set tabstop=2 " タブ文字が占める幅
 set shiftwidth=2 " smartindentで増減する幅
+set softtabstop=2 " いくつの連続した空白を1回で削除するか
 " ファイル別設定
 augroup fileTypeIndent
   autocmd!
-  autocmd BufNewFile,BufRead *.sh  setlocal ts=2 softtabstop=2 sw=2
-  autocmd BufNewFile,BufRead *.py  setlocal ts=2 softtabstop=2 sw=2
-  autocmd BufNewFile,BufRead *.php setlocal ts=4 softtabstop=4 sw=4
-  autocmd BufNewFile,BufRead *.json setlocal ts=4 softtabstop=4 sw=4
+  autocmd BufNewFile,BufRead *.sh   setlocal ts=2 softtabstop=2 sw=2 softtabstop=2
+  autocmd BufNewFile,BufRead *.py   setlocal ts=2 softtabstop=2 sw=2 softtabstop=2
+  autocmd BufNewFile,BufRead *.php  setlocal ts=4 softtabstop=4 sw=4 softtabstop=4
+  autocmd BufNewFile,BufRead *.json setlocal ts=4 softtabstop=4 sw=4 softtabstop=4
 augroup END
 
 set autoindent " 改行時に前の行のインデントを継続

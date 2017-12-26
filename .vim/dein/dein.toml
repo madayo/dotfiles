@@ -11,7 +11,7 @@ repo = 'Shougo/unite.vim.git'
 repo = 'Shougo/neomru.vim.git'
 
 [[plugins]]
-repo = 'Yggdroot/indentLine'
+repo = 'nathanaelkane/vim-indent-guides'
 
 [[plugins]]
 repo = 'bronson/vim-trailing-whitespace'
