@@ -1,9 +1,9 @@
-# To the extent possible under law, the author(s) have dedicated all 
-# copyright and related and neighboring rights to this software to the 
-# public domain worldwide. This software is distributed without any warranty. 
-# You should have received a copy of the CC0 Public Domain Dedication along 
-# with this software. 
-# If not, see <http://creativecommons.org/publicdomain/zero/1.0/>. 
+# To the extent possible under law, the author(s) have dedicated all
+# copyright and related and neighboring rights to this software to the
+# public domain worldwide. This software is distributed without any warranty.
+# You should have received a copy of the CC0 Public Domain Dedication along
+# with this software.
+# If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 
 # base-files version 4.2-4
 
@@ -22,12 +22,28 @@
 # a patch to the cygwin mailing list.
 
 # User dependent .bash_profile file
+
 # Windows用
 if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
   # lnコマンドでwindowsのシンボリックリンクを作成できるようにする
   export MSYS=winsymlinks:nativestrict
   export COMPOSER_HOME="${HOME}/.composer"
   export PATH="${PATH}:${COMPOSER_HOME}/vendor/bin"
+  # minntyでは一部コマンドで対話モードが無効化されてしまうので、winptyで常にラップする
+  case "$TERM" in
+  screen-256color)
+    # The following *.exe programs are known to require a Win32 Console
+    # for interactive usage, therefore let's launch them through winpty
+    # when run inside `mintty`.
+    for name in node python php
+    do
+      case "$(type -p "$name".exe 2>/dev/null)" in
+      ''|/usr/bin/*) continue;;
+      esac
+      alias $name="winpty $name.exe"
+    done
+  ;;
+esac
 fi
 # タイムゾーン
 export TZ=JST-9

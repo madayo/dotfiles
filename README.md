@@ -11,7 +11,7 @@ http://www.msys2.org/
 ```sh
 pacman -Syu --noconfirm
 # 何も更新されなくなるまで何度か実行する。
-pacman -Sy git tmux vim --noconfir
+pacman -Sy git tmux vim winpty --noconfir
 ```  
 ## initialize  
 *管理者権限でコンソールを起動しておくこと*  

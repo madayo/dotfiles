@@ -1,5 +1,7 @@
 #! /bin/bash -e
 
+export MSYS=winsymlinks:nativestrict
+
 source ~/dotfiles/bin/functions
 
 PROMPT=">   "
