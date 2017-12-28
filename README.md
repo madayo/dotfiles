@@ -13,6 +13,7 @@ pacman -Syu --noconfirm
 # 何も更新されなくなるまで何度か実行する。
 pacman -Sy git --noconfirm
 ```  
+環境変数追加`MSYS2_PATH_TYPE`に`inherit`を設定する。  
 ## initialize  
 *管理者権限でコンソールを起動しておくこと*  
 ```sh
