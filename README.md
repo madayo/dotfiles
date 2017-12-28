@@ -18,7 +18,6 @@ pacman -Syu --noconfirm
 cd ~/
 git clone https://github.com/Yosuke-Shimada/dotfiles.git
 cd dotfiles
-export MSYS=winsymlinks:nativestrict
 /bin/bash initialize.sh
 ```  
 ## 必要に応じて各種シンボリックリンク作成
