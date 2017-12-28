@@ -13,7 +13,7 @@ alias phpunit='phpunit --color=always'
 #################################################################### tmux
 # 初回シェル時のみ tmux実行
 if [ ${SHLVL} = 1 ]; then
-  which tmux > /dev/null 2>&1 && tmux -2
+  which tmux > /dev/null 2>&1 && tmux -S $(find /tmp -name 'tmux*')/default -2
 fi
 #################################################################### ssh-agent
 echo -n "ssh-agent: "
@@ -37,6 +37,8 @@ function ssh() {
   if [[ -n $(printenv TMUX) ]] ; then
     # 現在のペインIDの退避と背景色の書き換え
     local pane_id=`sh ~/dotfiles/bin/tmux/change_color_on_tmux_current_pane.sh $@`
+    tmux select-pane -T "${!#}"
+
     # 通常通りコマンド続行
     command ssh $@
     # デフォルトの色設定に戻す

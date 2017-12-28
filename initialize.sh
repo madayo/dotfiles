@@ -1,6 +1,28 @@
 #! /bin/bash -e
 
-export MSYS=winsymlinks:nativestrict
+
+
+# Windows用
+if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
+  export MSYS=winsymlinks:nativestrict
+  pacman -Sy git vim winpty make autoconf pkg-config automake-wrapper gcc mingw-w64-x86_64-ncurses ncurses-devel libtool --noconfirm
+  cd ~/
+  git clone https://github.com/libevent/libevent.git
+  cd libevent
+  sh autogen.sh
+  ./configure
+  make
+  make install
+  cd ~/
+  git clone https://github.com/tmux/tmux
+  cd tmux
+  sh autogen.sh
+  ./configure
+  make
+  make install
+  tmux -S /tmp/tmux-[uid]/default
+fi
+
 
 source ~/dotfiles/bin/functions
 

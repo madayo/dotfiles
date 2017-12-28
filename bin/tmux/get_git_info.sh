@@ -14,15 +14,8 @@ function get_git_info {
       str+="#[fg=green][${branch_name}]"
     fi
     str+="#[fg=yellow]<${user_name} | ${email_address}> "
-  else
-    str="ssh接続情報出したいな"
   fi
   echo "$str"
 }
 
-tmux set -g status-right-length 80
-tmux set -g status-right "\
-#{?client_prefix,#[reverse],}\
-$(get_git_info)\
-#[fg=cyan][%Y-%m-%d(%a) %H:%M]"
-
+echo "$(get_git_info)"
