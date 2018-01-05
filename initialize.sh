@@ -80,5 +80,6 @@ if [[ "$(composer --version > /dev/null 2>&1; echo $?)" -ne 0 ]] ;then
   fi
 fi
 
+composer global install
 
 print_success 'Completed! Please reopen console window.'
