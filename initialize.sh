@@ -1,6 +1,8 @@
 #! /bin/bash -e
 
+SCRIPT_DIR=$(cd $(dirname $0); pwd)
 
+source bin/functions
 
 # Windows用
 if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
@@ -20,11 +22,9 @@ if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
   ./configure
   make
   make install
-  tmux -S /tmp/tmux-[uid]/default
 fi
 
-
-source ~/dotfiles/bin/functions
+cd $SCRIPT_DIR
 
 PROMPT=">   "
 
@@ -35,7 +35,7 @@ if [[ ! "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] && [[ ! "$(uname 2> /dev/n
 fi
 
 # link
-/bin/bash ~/dotfiles/bin/link.sh
+/bin/bash ./bin/link.sh
 
 # set git author
 echo "----------------------------"
