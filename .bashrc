@@ -9,7 +9,8 @@ alias color='curl -L http://bit.ly/WcP1DB | /bin/bash'
 alias diffv='diff --side-by-side --suppress-common-lines'
 # composer 関連
 alias composer='composer --ansi'
-alias phpunit='phpunit --color=always'
+alias phpfixd='php-cs-fixer --ansi fix --dry-run --diff --diff-format udiff'
+alias phpfix='php-cs-fixer --ansi fix'
 #################################################################### tmux
 # 初回シェル時のみ tmux実行
 if [ ${SHLVL} = 1 ]; then

@@ -1,6 +1,7 @@
 {
     "require": {
         "hirak/prestissimo": "^0.3.7",
-        "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "*",
+        "friendsofphp/php-cs-fixer": "^2.9"
     }
 }
