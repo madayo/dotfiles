@@ -1,36 +1,35 @@
-#!/bin/sh
+#!/bin/bash
 
 if git rev-parse --verify HEAD >/dev/null 2>&1
 then
-    against=HEAD
+  against=HEAD
 else
-    # Initial commit: diff against an empty tree object
-    against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
+  # Initial commit: diff against an empty tree object
+  against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
 fi
 
-RETURN=0
+RETURN=1
+default_args="--ansi --path-mode=intersection --stop-on-violation --dry-run --using-cache=no --config=${COMPOSER_HOME}/conf/php-cs-fixer/.php_cs.dist"
 # 拡張子がphpのものに対して実施
 # 削除したファイル名に対して各コマンドを発行すると、ファイルが見つからないよとエラーになるので削除「D」は除外
-for FILE in `git diff --staged --name-only --diff-filter=ACMRTUXB $against | grep "\.php$"`; do
-    # シンタックスチェック
-    if php -l $FILE>&/dev/null; then
-        ### 訂正しないでチェックだけの場合はこっち
-        # warningはスルー
-        phpcs --standard=PSR2 -n $FILE>&/dev/null
-        if [ $? != 0 ]; then
-            echo "$FILEはPSR2に準拠していません。"
-            RETURN=1
-        fi
-        # 構文エラーが存在しない場合は,php_codesnifferで更にチェック。問題があれば強制的に修正する
-        #phpcbf --standard=PSR2 -n $FILE>&/dev/null
-        #if [ $? != 0 ]; then
-        #    echo "$FILEがPSR2に準拠していなかったので修正しました。"
-        #    git add $FILE
-        #fi
-    else
-        echo "$FILEに構文エラーがあります。"
-        RETURN=1
-    fi
-done
+FILES=`echo "$(git diff --staged --name-only --diff-filter=ACMRTUXB HEAD | grep '\.php$')" | tr '\n' ' '`
+php-cs-fixer fix ${default_args} ${FILES}>&/dev/null
+case $? in
+  0)  RETURN=0 ;;
+  1)  echo 'General error (or PHP minimal requirement not matched).' ;;
+  4)  echo 'Some files have invalid syntax (only in dry-run mode).' ;;
+  8)  echo 'Some files need fixing (only in dry-run mode).' ;;
+  16) echo 'Configuration error of the application.' ;;
+  32) echo 'Configuration error of a Fixer.' ;;
+  64) echo 'Exception raised within the application.' ;;
+  *)  echo 'Other error.' ;;
+esac
 
-exit $RETURN
+# 強制的に修正してしまう。git diff で自動修正された箇所を確認する
+if [ ${RETURN} -ne 0 ];then
+  php-cs-fixer fix ${default_args} --diff --diff-format udiff ${FILES}
+  php-cs-fixer fix ${default_args} ${FILES}
+fi
+
+
+exit ${RETURN}

@@ -1,17 +1,17 @@
 [user]
-    # .gitconfig.localで各自が定義する
-    #name = xxx
-    #email = xxx@xxx
+  # .gitconfig.localで各自が定義する
+  #name = xxx
+  #email = xxx@xxx
 [core]
-    editor = vim
-    autocrlf = input # commit: CRLF->LF, checkout: 変換なし
-    safecrlf = true  # 改行コードの混在を拒否する
-    filemode = false # 権限などfilemodeが変化しただけでは差異と認識させない
+  editor = vim
+  autocrlf = input # commit: CRLF->LF, checkout: 変換なし
+  safecrlf = true  # 改行コードの混在を拒否する
+  filemode = false # 権限などfilemodeが変化しただけでは差異と認識させない
 [push]
-    default  = simple # branchやtag名を指定しなかった場合、現在のbranchをpushする。同名のbranchが存在しない場合は拒否する
+  default  = simple # branchやtag名を指定しなかった場合、現在のbranchをpushする。同名のbranchが存在しない場合は拒否する
 [diff]
-    tool = WinMergeU
-    guitool = WinMergeU
+  tool = WinMergeU
+  guitool = WinMergeU
 # おそらく直前のdiffセクション内に記載した値の具体的な設定として機能する。configファイル内で有効なaliasなイメージ？
 [difftool "WinMerge"]
 # f:フィルタ。全ファイルを対象
@@ -22,34 +22,31 @@
 # dr:右側タイトルバー
 # wr;右側を読み取り専用
 # cygpath:cygwin環境下のbashを使用しているので、$LOCALなどで/tmp/・・・というパスが取得できる。しかしwinmergeはwindows環境下で動作するので左記パスを参照できない。
-    cmd = `cygpath $WINMERGE` -f '*.*' -e -u -dl 'new' -dr 'old' -wr \"`cygpath -w ${REMOTE}`\" \"`cygpath -w ${LOCAL}`\" 
+  cmd = `cygpath $WINMERGE` -f '*.*' -e -u -dl 'new' -dr 'old' -wr \"`cygpath -w ${REMOTE}`\" \"`cygpath -w ${LOCAL}`\" 
 [merge]
-    tool = WinMerge
+  tool = WinMerge
 # LOCAL,REMOTE,MERGE:ウィンドウの表示順序
 [mergetool "WinMerge"]
-    cmd = `cygpath $WINMERGE` -e -r -u \"{$LOCAL}\" \"${REMOTE}\" \"${MERGED}\"
+  cmd = `cygpath $WINMERGE` -e -r -u \"{$LOCAL}\" \"${REMOTE}\" \"${MERGED}\"
 [color]
-    ui = true
+  ui = true
 [alias]
-    st = status
+  st = status
 ### 見やすいlog
-    plog = log --pretty='format:%C(yellow)%h %C(green)%cd %C(reset)%s %C(red)%d %C(cyan)<%an | %ae>' --date=iso
-    logg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd, %cr) %C(bold blue)<%an | %ae>%Creset' --date=iso
+  plog = log --pretty='format:%C(yellow)%h %C(green)%cd %C(reset)%s %C(red)%d %C(cyan)<%an | %ae>' --date=iso
+  logg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd, %cr) %C(bold blue)<%an | %ae>%Creset' --date=iso
 ### Winmergeを使用した比較
 # y:起動しますか？にyesで答える
 # d:ディレクトリ単位で
 # t:外部ツール使用
-    windiff = difftool -y -d -t WinMerge --no-symlinks
+  windiff = difftool -y -d -t WinMerge --no-symlinks
 ### 文字単位でのdiff
-    worddiff = diff --word-diff=plain --word-diff-regex=.
-### addしたものについてphpcs, phpcbf
-    phpcs = !"git diff --staged --name-only | grep '\\.php' | xargs -I{} phpcs -n --standard=PSR2 {}"
-    phpcbf = !"git diff --staged --name-only | grep '\\.php' | xargs -I{} phpcbf -n --standard=PSR2 {}"
+  worddiff = diff --word-diff=plain --word-diff-regex=.
 ### stagingにあるものを再度diff,add
-    rediff =  !"git diff --staged --name-only | grep '\\.php' | xargs -I{} git diff {}"
-    readd =  !"git diff --staged --name-only | grep '\\.php' | xargs -I{} git add {}"
+  rediff =  !"git diff --staged --name-only | grep '\\.php' | xargs -I{} git diff {}"
+  readd =  !"git diff --staged --name-only | grep '\\.php' | xargs -I{} git add {}"
 ### branchの派生元リビジョン
-    branch-base = !"f(){ git show-branch --sha1-name $1 $2 | tail -1; };f"
+  branch-base = !"f(){ git show-branch --sha1-name $1 $2 | tail -1; };f"
 # 環境に依存する情報は別ファイルに切り出す
 [include]
-    path = .gitconfig.local
+  path = .gitconfig.local
