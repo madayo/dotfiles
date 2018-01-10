@@ -29,7 +29,8 @@ if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
   export MSYS=winsymlinks:nativestrict
   export COMPOSER_HOME="${HOME}/.composer"
   export PATH="${PATH}:${COMPOSER_HOME}/vendor/bin"
-  # minntyでは一部コマンドで対話モードが無効化されてしまうので、winptyで常にラップする
+  # windowsのコンソール上で起動されることを前提としているので、minntyでは一部コマンドで対話モードが無効化されてしまう。winptyで常にラップする
+  # ただし今度はパイプなどでつなぐと、 winpty stdout is not a tty とエラーになるので、linuxコマンドに結果を渡したい場合はhoge.exeと拡張子付きで実行すること
   case "$TERM" in
   screen-256color)
     # The following *.exe programs are known to require a Win32 Console
