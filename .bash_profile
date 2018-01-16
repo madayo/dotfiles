@@ -22,7 +22,7 @@
 # a patch to the cygwin mailing list.
 
 # User dependent .bash_profile file
-export PS1='\[\e[0;32m\]\u@\H\[\e[0;0m\]\[\e[0;34m\]:\[\e[0;0m\]\[\e[0;35m\]\w\[\e[0;0m\]\$ '
+export PS1='\[\e[0;32m\]\u@\H\[\e[0;0m\]\[\e[0;34m\]:\[\e[0;0m\]\[\e[0;35m\]\w\[\e[0;0m\]\[\e[0;34m\]\$\[\e[0;0m\] '
 # Windows用
 if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
   # lnコマンドでwindowsのシンボリックリンクを作成できるようにする
