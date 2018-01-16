@@ -4,26 +4,6 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 
 source bin/functions
 
-# Windows用
-if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
-  export MSYS=winsymlinks:nativestrict
-  pacman -Sy git vim winpty make autoconf pkg-config automake-wrapper gcc mingw-w64-x86_64-ncurses ncurses-devel libtool --noconfirm
-  cd ~/
-  git clone https://github.com/libevent/libevent.git
-  cd libevent
-  sh autogen.sh
-  ./configure
-  make
-  make install
-  cd ~/
-  git clone https://github.com/tmux/tmux
-  cd tmux
-  sh autogen.sh
-  ./configure
-  make
-  make install
-fi
-
 cd $SCRIPT_DIR
 
 PROMPT=">   "
@@ -33,6 +13,12 @@ if [[ ! "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] && [[ ! "$(uname 2> /dev/n
   print_error 'Only ubuntu or Windows(MSYS) is enabled.'
   exit 1
 fi
+
+# package install
+/bin/bash install_package.sh
+
+# tmux install
+/bin/bash install_tmux.sh
 
 # link
 /bin/bash ./bin/link.sh
