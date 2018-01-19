@@ -7,7 +7,7 @@ if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
 fi
 
 # for ubuntu
-if [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]]
+if [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]];then
   sudo apt-get update
   sudo apt-get -y upgrade
   sudo apt-get -y dist-upgrade
