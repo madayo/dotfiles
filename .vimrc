@@ -7,6 +7,8 @@ source ~/.vim/conf/.vimrc.basic
 source ~/.vim/conf/.vimrc.color
 " 検索
 source ~/.vim/conf/.vimrc.search
+" vimdiff
+source ~/.vim/conf/.vimrc.vimdiff
 
 """ プラグイン設定
 " unite

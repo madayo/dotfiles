@@ -1,0 +1,4 @@
+highlight DiffAdd    cterm=NONE ctermfg=10 ctermbg=22    " green
+highlight DiffDelete cterm=NONE ctermfg=10 ctermbg=52    " red
+highlight DiffChange cterm=bold ctermfg=10 ctermbg=26    " blue
+highlight DiffText   cterm=bold,underline ctermfg=7 ctermbg=39    " white
