@@ -28,39 +28,15 @@ if [ $? == 2 ] ; then
 fi
 # 登録済みのキーが存在しない場合はssh-add実行
 if ssh-add -l >&/dev/null ; then
-    echo "ssh-agent: Identity is already stored."
+  echo "ssh-agent: Identity is already stored."
 else
-    ssh-add
+  ssh-add
 fi
 #################################################################### デフォルトコマンドの拡張
-function ssh() {
-  # tmux起動時
-  if [[ -n $(printenv TMUX) ]] ; then
-    # 現在のペインIDの退避と背景色の書き換え
-    local pane_id=`sh ~/dotfiles/bin/tmux/change_color_on_tmux_current_pane.sh $@`
-    tmux select-pane -T "${!#}"
-
-    # 通常通りコマンド続行
-    command ssh $@
-    # デフォルトの色設定に戻す
-    tmux select-pane -t $pane_id -P 'default'
-  else
-    command ssh $@
-  fi
-}
-function sftp() {
-  # tmux起動時
-  if [[ -n $(printenv TMUX) ]] ; then
-    # 現在のペインIDの退避と背景色の書き換え
-    local pane_id=`sh ~/dotfiles/bin/tmux/change_color_on_tmux_current_pane.sh $@`
-    # 通常通りコマンド続行
-    command sftp $@
-    # デフォルトの色設定に戻す
-    tmux select-pane -t $pane_id -P 'default'
-  else
-    command sftp $@
-  fi
-}
+# tmux起動時
+if [[ -n $(printenv TMUX) ]] ; then
+  . ~/dotfiles/bin/tmux/expand_functions.sh
+fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
