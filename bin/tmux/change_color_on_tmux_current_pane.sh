@@ -4,13 +4,13 @@
 pane_id=`tmux display -p '#{pane_id}'`
 # 接続先ホスト名に応じて背景色、文字色を切り替え
 if [[ `echo $1 | grep '\.production\.'` ]] ; then
-    tmux select-pane -P 'fg=colour166,bg=colour233'
+  tmux select-pane -P 'bg=#190707'
 elif [[ `echo $1 | grep '\.staging\.'` ]] ; then
-    tmux select-pane -P 'fg=colour179,bg=colour233'
+  tmux select-pane -P 'bg=#181407'
 elif [[ `echo $1 | grep '\.dev\.'` ]] ; then
-    tmux select-pane -P 'fg=colour34,bg=colour233'
+  tmux select-pane -P 'bg=#07190B'
 else
-    tmux select-pane -P 'fg=colour5,bg=colour233'
+  tmux select-pane -P 'bg=#070719'
 fi
 
 echo $pane_id
