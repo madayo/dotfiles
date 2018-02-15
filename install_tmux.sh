@@ -7,16 +7,15 @@ if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
   git clone https://github.com/libevent/libevent.git
   cd libevent
   sh autogen.sh
-  ./configure
-  make
-  make install
+  ./configure && make && make install
+
   cd ~/
   git clone https://github.com/tmux/tmux
   cd tmux
+  # checkout latest tag
+  git checkout $(git tag | sort -V | tail -n 1)
   sh autogen.sh
-  ./configure
-  make
-  make install
+  ./configure && make && make install
 fi
 
 # for ubuntu
@@ -35,7 +34,5 @@ if [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]];then
   # checkout latest tag
   sudo git checkout $(git tag | sort -V | tail -n 1)
   sudo sh autogen.sh
-  sudo ./configure && sudo make
-
-  sudo cp ./tmux /usr/local/bin
+  sudo ./configure && sudo make && sudo make install
 fi
