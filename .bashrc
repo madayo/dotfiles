@@ -4,7 +4,6 @@
 alias ll='ls -la --color=auto'
 alias grep='grep --color=auto'
 alias less='less -N'
-alias color='curl -L http://bit.ly/WcP1DB | /bin/bash'
 # 左右に並べてdiff
 alias diffv='diff --side-by-side --suppress-common-lines'
 # composer 関連
