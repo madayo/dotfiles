@@ -13,4 +13,9 @@ done
 # リンク貼るが、ほかとディレクトリ構成が異なるものは個別に対応する
 ln_dotfile ~/dotfiles/.git_global/.gitconfig ~/.gitconfig
 
+# for windows
+if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
+  ln -s $(cygpath $HOMEDRIVE$HOMEPATH/.ssh) ~/.ssh
+fi
+
 source ~/.bash_profile

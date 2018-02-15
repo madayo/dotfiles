@@ -3,7 +3,8 @@
 # for windows
 if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
   export MSYS=winsymlinks:nativestrict
-  pacman -Sy git vim tree winpty --noconfirm
+  pacman -Sy vim tree winpty --noconfirm
+  ln -s /usr/bin/vim /usr/bin/vi
 fi
 
 # for ubuntu

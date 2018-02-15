@@ -22,10 +22,3 @@ git clone https://github.com/Yosuke-Shimada/dotfiles.git
 cd dotfiles
 /bin/bash initialize.sh
 ```  
-## 必要に応じて各種シンボリックリンク作成
-```sh
-# ssh
-ln -s $(cygpath $HOMEDRIVE$HOMEPATH/.ssh) ~/.ssh
-# viコマンド
-ln -s /usr/bin/vim /usr/bin/vi
-```  
