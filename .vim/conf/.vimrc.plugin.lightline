@@ -2,6 +2,72 @@ set laststatus=2 " ステータスラインを常に表示
 set showmode " 現在のモードを表示
 set showcmd " 打ったコマンドをステータスラインの下に表示
 set ruler " ステータスラインの右側にカーソルの現在位置を表示する
+set noshowmode " vim標準のモード表示を無効化
+" http://itchyny.hatenablog.com/entry/20130828/1377653592
 let g:lightline = {
   \ 'colorscheme': 'one',
+  \ 'active' : {
+    \ 'left': [
+      \ [ 'mode', 'paste' ],
+      \ [ 'fugitive', 'filename' ]
+    \ ],
+    \ 'right': [
+      \ [ 'lineinfo' ],
+      \ [ 'percent' ],
+      \ [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ]
+    \ ]
+  \ },
+  \ 'component': {
+    \ 'charvaluehex': '0x%B'
+  \ },
+  \ 'component_function': {
+    \ 'modified': 'LightlineModified',
+    \ 'readonly': 'LightlineReadonly',
+    \ 'fugitive': 'LightlineFugitive',
+    \ 'filename': 'LightlineFilename',
+    \ 'fileformat': 'LightlineFileformat',
+    \ 'filetype': 'LightlineFiletype',
+    \ 'fileencoding': 'LightlineFileencoding',
+    \ 'mode': 'LightlineMode'
+  \ }
 \ }
+function! LightlineModified()
+  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! LightlineReadonly()
+  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
+endfunction
+
+function! LightlineFilename()
+  return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
+        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \  &ft == 'unite' ? unite#get_status_string() :
+        \  &ft == 'vimshell' ? vimshell#get_status_string() :
+        \ '' != expand('%') ? expand('%') : '[No Name]') .
+        \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
+endfunction
+
+function! LightlineFugitive()
+  if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
+    return fugitive#head()
+  else
+    return ''
+  endif
+endfunction
+
+function! LightlineFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! LightlineFiletype()
+  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+
+function! LightlineFileencoding()
+  return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+endfunction
+
+function! LightlineMode()
+  return winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
