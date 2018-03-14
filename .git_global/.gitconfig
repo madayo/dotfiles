@@ -6,8 +6,7 @@
   st = status
   difft = difftool
 ### 見やすいlog
-  plog = log --pretty='format:%C(yellow)%h %C(green)%cd %C(reset)%s %C(red)%d %C(cyan)<%an | %ae>' --date=iso
-  logg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd, %cr) %C(bold blue)<%an | %ae>%Creset' --date=iso
+  flog = log --graph --pretty='format:%C(yellow)%h %C(green)(%cd,%cr) %C(red)%d %C(reset)%s : %b%- %C(cyan)<%an | %ae>' --date=iso
 ### 文字単位でのdiff
   worddiff = diff --word-diff=plain --word-diff-regex=.
 ### stagingにあるものを再度diff,add
