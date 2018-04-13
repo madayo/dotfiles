@@ -27,24 +27,25 @@ export PS1='\[\e[0;32m\][\u@\H]\[\e[0;0m\]\e[0;34m\]:\[\e[0;35m\]\W \[\e[0;0m\]\
 if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
   # lnコマンドでwindowsのシンボリックリンクを作成できるようにする
   export MSYS=winsymlinks:nativestrict
-  export COMPOSER_HOME="${HOME}/.composer"
-  export PATH="${PATH}:${COMPOSER_HOME}/vendor/bin"
+  # windows 環境下でcomposerを利用する場合。若干バグあり。未対応
+  #export COMPOSER_HOME="${HOME}/.composer"
+  #export PATH="${PATH}:${COMPOSER_HOME}/vendor/bin"
   # windowsのコンソール上で起動されることを前提としているので、minntyでは一部コマンドで対話モードが無効化されてしまう。winptyで常にラップする
   # ただし今度はパイプなどでつなぐと、 winpty stdout is not a tty とエラーになるので、linuxコマンドに結果を渡したい場合はhoge.exeと拡張子付きで実行すること
-  case "$TERM" in
-  screen-256color)
-    # The following *.exe programs are known to require a Win32 Console
-    # for interactive usage, therefore let's launch them through winpty
-    # when run inside `mintty`.
-    for name in node python php
-    do
-      case "$(type -p "$name".exe 2>/dev/null)" in
-      ''|/usr/bin/*) continue;;
-      esac
-      alias $name="winpty $name.exe"
-    done
-  ;;
-esac
+  #case "$TERM" in
+  #screen-256color)
+  #  # The following *.exe programs are known to require a Win32 Console
+  #  # for interactive usage, therefore let's launch them through winpty
+  #  # when run inside `mintty`.
+  #  for name in node python php
+  #  do
+  #    case "$(type -p "$name".exe 2>/dev/null)" in
+  #    ''|/usr/bin/*) continue;;
+  #    esac
+  #    alias $name="winpty $name.exe"
+  #  done
+  #  ;;
+  #esac
 fi
 # タイムゾーン
 export TZ=JST-9

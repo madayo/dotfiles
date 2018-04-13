@@ -11,9 +11,15 @@ alias composer='composer --ansi'
 alias phpfixd='php-cs-fixer --ansi fix --dry-run --diff --diff-format udiff'
 alias phpfix='php-cs-fixer --ansi fix'
 #################################################################### tmux
-# 初回シェル時のみ tmux実行
-if [ ${SHLVL} = 1 ]; then
-  which tmux > /dev/null 2>&1 && tmux -S $(find /tmp -name 'tmux*')/default -2
+# 初回シェル時のみ tmux実行.
+if [[ ${SHLVL} = 1 ]]; then
+  # windows
+  if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
+    #which tmux > /dev/null 2>&1 && tmux -S $(find /tmp -name 'tmux*')/default -2
+  # linux
+  else
+    which tmux > /dev/null 2>&1 && tmux -2
+  fi
 fi
 #################################################################### ssh-agent
 echo -n "ssh-agent: "
@@ -29,7 +35,8 @@ fi
 if ssh-add -l >&/dev/null ; then
   echo "ssh-agent: Identity is already stored."
 else
-  ssh-add
+  # 拡張子なしのファイルはすべて鍵ファイルとみなす
+  ls ~/.ssh/ | grep -vE 'config$|known_hosts$|\.' | xargs -I{} ssh-add ~/.ssh/{}
 fi
 #################################################################### デフォルトコマンドの拡張
 # tmux起動時

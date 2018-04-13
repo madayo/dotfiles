@@ -57,15 +57,14 @@ while read -p "$PROMPT" yn; do
 done
 
 # copmoser install
-if [[ "$(composer --version > /dev/null 2>&1; echo $?)" -ne 0 ]] ;then
+if [[ "$(composer --version > /dev/null 2>&1; echo $?)" -ne 0 && ! "$(uname 2> /dev/null)" =~ MSYS ]] ;then
   if [[ "$(sh ./bin/composer_install.sh > /dev/null; echo $?)" -ne 0 ]] ;then
     print_error 'copmoser install is failed.'
     exit 1;
   else
     print_info 'composer is installed on /usr/local/bin .'
+    composer global install
   fi
 fi
-
-composer global install
 
 print_success 'Completed! Please reopen console window.'

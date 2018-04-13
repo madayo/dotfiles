@@ -1,4 +1,19 @@
-# Ubuntu
+# 想定環境  
+メインの開発は仮想環境上で行うが、Windows(MSYS)も必要最低限の環境構築を行う構成になっている。  
+
+## 自動起動やインストール、各種設定を行うか？  
+
+||Windows<br>(MSYS)|Ubuntu|
+|:---|:---:|:---:|
+|ssh-agent|◯|◯|
+|ターミナルの見た目|◯|◯|
+|tmux|-|◯|
+|vim|◯|◯|
+|git|◯|◯|
+|php|-|◯|
+|composer|-|◯|
+
+# Ubuntu  
 ```sh
 cd ~/
 git clone https://github.com/Yosuke-Shimada/dotfiles.git
