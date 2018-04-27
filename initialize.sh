@@ -15,10 +15,10 @@ if [[ ! "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] && [[ ! "$(uname 2> /dev/n
 fi
 
 # package install
-/bin/bash install_package.sh
+#/bin/bash install_package.sh
 
 # tmux install
-/bin/bash install_tmux.sh
+#/bin/bash install_tmux.sh
 
 # link
 /bin/bash ./bin/link.sh

@@ -1,23 +1,22 @@
 #! /bin/bash -xue
 
 # for windows
-# windows 環境下では VBox などの仮想環境を利用するので直接 tmux はインストールしない
-# if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
-#  pacman -Sy make autoconf pkg-config automake-wrapper gcc mingw-w64-x86_64-ncurses ncurses-devel libtool --noconfirm
-#  cd ~/
-#  git clone https://github.com/libevent/libevent.git
-#  cd libevent
-#  sh autogen.sh
-#  ./configure && make && make install
-#
-#  cd ~/
-#  git clone https://github.com/tmux/tmux
-#  cd tmux
-#  # checkout latest tag
-#  git checkout $(git tag | sort -V | tail -n 1)
-#  sh autogen.sh
-#  ./configure && make && make install
-#fi
+if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
+  pacman -Sy make autoconf pkg-config automake-wrapper gcc mingw-w64-x86_64-ncurses ncurses-devel libtool --noconfirm
+  cd ~/
+  git clone https://github.com/libevent/libevent.git
+  cd libevent
+  sh autogen.sh
+  ./configure && make && make install
+
+  cd ~/
+  git clone https://github.com/tmux/tmux
+  cd tmux
+  # checkout latest tag
+  git checkout $(git tag | sort -V | tail -n 1)
+  sh autogen.sh
+  ./configure && make && make install
+fi
 
 # for ubuntu
 if [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]];then
