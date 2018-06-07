@@ -24,6 +24,7 @@
 [diff]
   # 使用できるツール一覧は `git difftool --tool-help` で確認可能
   tool = vimdiff
+  renameLimit = 0 # でかいリポジトリを操作していると、この上限に引っかかることがある。無制限にしておく
 [difftool]
   prompt = false  # 確認ダイアログを非表示
 [include]
