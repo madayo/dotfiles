@@ -15,7 +15,7 @@ alias phpfix='php-cs-fixer --ansi fix'
 if [[ ${SHLVL} = 1 ]]; then
   # windows
   if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
-    which tmux > /dev/null 2>&1 && tmux -S $(find /tmp -name 'tmux*')/default -2
+    which tmux > /dev/null 2>&1 && tmux -S $(find /tmp -name "tmux*")/default -2 && alias tmux='tmux -S $(find /tmp -name "tmux*")/default -2'
   # linux
   else
     which tmux > /dev/null 2>&1 && tmux -2
