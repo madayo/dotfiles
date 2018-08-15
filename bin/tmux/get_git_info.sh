@@ -4,11 +4,7 @@ function get_git_info {
   # 古いtmuxのバージョンでしか pane_current_path が使用できない
   #path=`tmux display-message -p "#{pane_current_path}"`
   # 基本的にタイトルにはパス情報を設定しているので、そちらから判定する
-  # 時々現在実行中のコマンド内容がタイトルに設定されてしまうケースがあるので、有効なパスであるか判定する
   local current_dir=$(tmux display-message -p "#T")
-  if [[ ! -d "$current_dir" ]];then
-    echo ""
-  fi
   cd $current_dir
   local user_name=`git config --get user.name`
   local email_address=`git config --get user.email`
