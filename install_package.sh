@@ -3,7 +3,7 @@
 # for windows
 if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
   export MSYS=winsymlinks:nativestrict
-  pacman -Sy vim --noconfirm
+  pacman -Sy vim winpty --noconfirm
   ln -s /usr/bin/vim /usr/bin/vi
 fi
 
