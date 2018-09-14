@@ -1,27 +1,9 @@
-#! /bin/bash -e
+#! /bin/bash -xue
 
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
-
-source bin/functions
-
 cd $SCRIPT_DIR
+source ../functions
 
-PROMPT=">   "
-
-# Ubuntu or Windows(MSYS) only stuff. Abort if not Ubuntu.
-if [[ ! "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] && [[ ! "$(uname 2> /dev/null)" =~ MSYS ]] ;then
-  print_error 'Only ubuntu or Windows(MSYS) is enabled.'
-  exit 1
-fi
-
-# package install
-/bin/bash install_package.sh
-# tmux install
-/bin/bash install_tmux.sh
-# link
-/bin/bash ./bin/link.sh
-
-# set git author
 echo "----------------------------"
 echo "Would you like to set committer information in '~/.gitconfig.local'? (y/n)"
 while read -p "$PROMPT" yn; do
@@ -54,15 +36,4 @@ while read -p "$PROMPT" yn; do
   esac
 done
 
-# copmoser install
-if [[ "$(composer --version > /dev/null 2>&1; echo $?)" -ne 0 && ! "$(uname 2> /dev/null)" =~ MSYS ]] ;then
-  if [[ "$(sh ./bin/composer_install.sh > /dev/null; echo $?)" -ne 0 ]] ;then
-    print_error 'copmoser install is failed.'
-    exit 1;
-  else
-    print_info 'composer is installed on /usr/local/bin .'
-    composer global install
-  fi
-fi
-
-print_success 'Completed! Please reopen console window.'
+git remote set-url origin git@github.com:chan-yo/dotfiles.git

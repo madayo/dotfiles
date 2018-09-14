@@ -1,5 +1,9 @@
 #! /bin/bash -xue
 
+SCRIPT_DIR=$(cd $(dirname $0); pwd)
+cd $SCRIPT_DIR
+source ../functions
+
 # for windows
 if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
   export MSYS=winsymlinks:nativestrict

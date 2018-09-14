@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash -xue
 
 for fgbg in 38 48 ; do # Foreground / Background
   for color in {1..255} ; do # Colors

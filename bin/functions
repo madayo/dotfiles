@@ -1,4 +1,4 @@
-#! /bin/bash -e
+#! /bin/bash -xue
 
 function print_error() {
   printf "\e[1;37;41m[Error] $1\e[m\n"

@@ -1,10 +1,10 @@
-#! /bin/bash -e
+#! /bin/bash -xue
 
-cd $(dirname $0)
+SCRIPT_DIR=$(cd $(dirname $0); pwd)
+cd $SCRIPT_DIR
+source ../functions
 
-source functions
-
-cd ../
+cd ../../
 # git管理下にある dotfile のみ抽出
 for f in `git ls-files | sed -s 's@/.*@@g' | grep '^\.' | uniq`; do
   make_symbolic_links ~/dotfiles/$f ~/$f

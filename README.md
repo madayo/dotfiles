@@ -18,7 +18,7 @@
 cd ~/
 git clone https://github.com/Yosuke-Shimada/dotfiles.git
 cd dotfiles
-/bin/bash initialize.sh
+/bin/bash /bin/initialize/initialize.sh
 ```  
 # Windows(MSYS)  
 ## MSYS2のインストール  
@@ -35,5 +35,5 @@ pacman -Sy git --noconfirm
 cd ~/
 git clone https://github.com/Yosuke-Shimada/dotfiles.git
 cd dotfiles
-/bin/bash initialize.sh
+/bin/bash bin/initialize/initialize.sh
 ```  

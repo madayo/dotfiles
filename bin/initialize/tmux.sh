@@ -1,21 +1,23 @@
 #! /bin/bash -xue
 
+SCRIPT_DIR=$(cd $(dirname $0); pwd)
+cd $SCRIPT_DIR
+source ../functions
+
 # for windows
 if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
   pacman -Sy make autoconf pkg-config automake-wrapper gcc mingw-w64-x86_64-ncurses ncurses-devel libtool --noconfirm
   cd ~/
   git clone https://github.com/libevent/libevent.git
   cd libevent
-  sh autogen.sh
-  ./configure && make && make install
-
+  sh autogen.sh && ./configure && make && make install
   cd ~/
   git clone https://github.com/tmux/tmux
   cd tmux
   # checkout latest tag
   git checkout $(git tag | sort -V | tail -n 1)
   sh autogen.sh
-  ./configure && make && make install
+  sh autogen.sh && ./configure && make && make install
 fi
 
 # for ubuntu
