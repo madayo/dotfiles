@@ -5,7 +5,7 @@ alias ll='ls -la --color=auto'
 alias grep='grep --color=auto'
 alias less='less -N'
 # 左右に並べてdiff
-alias diffv='diff -ybBw --side-by-side --suppress-common-lines'
+alias diffv='diff -ybBw -W 200 --suppress-common-lines'
 # composer 関連
 alias composer='composer --ansi'
 alias phpfixd='php-cs-fixer --ansi fix --dry-run --diff --diff-format udiff'

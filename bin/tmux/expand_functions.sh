@@ -27,8 +27,8 @@ function sftp() {
   tmux select-pane -t ${pane_id} -P 'default' && tmux select-pane -t ${pane_id} -T "$(pwd)"
 }
 
-function prompt {
-  # 毎回コマンド終了後に、paneのタイトルをカレントディレクトリにする
+function cd() {
+  command cd $@
+  # cd コマンド終了後に、paneのタイトルをカレントディレクトリにする
   tmux select-pane -T "$(pwd)"
 }
-PROMPT_COMMAND=prompt
