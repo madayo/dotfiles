@@ -15,10 +15,18 @@ function get_git_info {
   local str=
   if [[ $cmd != "ssh" ]] && [[ $cmd != "sftp" ]];then
     if [[ ! -z ${repo_name} ]];then
-      str+="#[fg=colour166][${repo_name}]"
+      if [[ ${#repo_name} -gt 20 ]];then
+        str+="#[fg=colour166][$(echo $repo_name | cut -c 1-17)...]"
+      else
+        str+="#[fg=colour166][${repo_name}]"
+      fi
     fi
     if [[ ! -z ${branch_name} ]];then
-      str+="#[fg=green][${branch_name}]"
+      if [[ ${#branch_name} -gt 20 ]];then
+        str+="#[fg=green][$(echo $branch_name | cut -c 1-17)...]"
+      else
+        str+="#[fg=green][${branch_name}]"
+      fi
     fi
     str+="#[fg=yellow]<${user_name} | ${email_address}> "
   fi
