@@ -42,6 +42,10 @@ fi
 # tmux起動時
 if [[ -n $(printenv TMUX) ]] ; then
   . ~/dotfiles/bin/tmux/expand_functions.sh
+  # ローカルのvmを使っている場合は背景色を変更しておく
+  if [[ $(hostname | grep 'vagrant-local') ]]; then
+    tmux select-pane -P 'bg=#3A2F40'
+  fi
 fi
 
 export NVM_DIR="$HOME/.nvm"
