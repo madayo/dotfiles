@@ -44,7 +44,7 @@ if [[ -n $(printenv TMUX) ]] ; then
   . ~/dotfiles/bin/tmux/expand_functions.sh
   # ローカルのvmを使っている場合は背景色を変更しておく
   if [[ $(hostname | grep 'vagrant-local') ]]; then
-    tmux select-pane -P 'bg=#3A2F40'
+    tmux select-pane -P 'bg=#2F2832'
   fi
 fi
 
