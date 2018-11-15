@@ -33,7 +33,8 @@ pacman -Sy git --noconfirm
 *管理者権限でコンソールを起動しておくこと*  
 ```sh
 cd ~/
-git clone https://github.com/Yosuke-Shimada/dotfiles.git
+git clone git@github.com:chan-yo/dotfiles.git
+### git clone https://github.com/Yosuke-Shimada/dotfiles.git
 cd dotfiles
 /bin/bash bin/initialize/initialize.sh
 ```  
