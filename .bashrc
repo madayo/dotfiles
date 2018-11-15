@@ -36,7 +36,7 @@ if ssh-add -l >&/dev/null ; then
   echo "ssh-agent: Identity is already stored."
 else
   # 拡張子なしのファイルはすべて鍵ファイルとみなす
-  ls ~/.ssh/ | grep -vE 'config$|known_hosts$|\.' | xargs -I{} ssh-add ~/.ssh/{}
+  find ~/.ssh/ -type f ! -name 'config' ! -name 'known_hosts' ! -name 'authorized_keys' | xargs -I{} ssh-add ~/.ssh/{}
 fi
 #################################################################### デフォルトコマンドの拡張
 # tmux起動時
