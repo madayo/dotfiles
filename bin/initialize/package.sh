@@ -7,8 +7,13 @@ source ../functions
 # for windows
 if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
   export MSYS=winsymlinks:nativestrict
-  pacman -Sy vim winpty --noconfirm
+  pacman -Sy vim winpty gcc make --noconfirm
   ln -s /usr/bin/vim /usr/bin/vi
+  wget https://osdn.jp/projects/nkf/downloads/64158/nkf-2.1.4.tar.gz
+  tar zxvf nkf-2.1.4.tar.gz
+  cd nkf-2.1.4
+  make && make install
+  rm nkf-2.1.4.tar.gz && rm -fr nkf-2.1.4
 fi
 
 # for ubuntu
