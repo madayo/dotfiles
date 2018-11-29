@@ -18,7 +18,7 @@
 cd ~/
 git clone https://github.com/Yosuke-Shimada/dotfiles.git
 cd dotfiles
-/bin/bash /bin/initialize/initialize.sh
+/bin/bash ./bin/initialize/initialize.sh
 ```  
 # Windows(MSYS)  
 ## MSYS2のインストール  

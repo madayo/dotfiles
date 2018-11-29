@@ -7,7 +7,7 @@ function ssh() {
     command ssh $@
   else
     # 現在のペインIDの退避と背景色の書き換え
-    local pane_id=`sh ~/dotfiles/bin/tmux/change_color_on_tmux_current_pane.sh $1`
+    local pane_id=`bash ~/dotfiles/bin/tmux/change_color_on_tmux_current_pane.sh $1`
     tmux select-pane -t "${pane_id}" -T "${1}"
 
     command ssh $@
@@ -19,7 +19,7 @@ function ssh() {
 
 function sftp() {
   # 現在のペインIDの退避と背景色の書き換え
-  local pane_id=`sh ~/dotfiles/bin/tmux/change_color_on_tmux_current_pane.sh $1`
+  local pane_id=`bash ~/dotfiles/bin/tmux/change_color_on_tmux_current_pane.sh $1`
 
   command sftp $@
 
