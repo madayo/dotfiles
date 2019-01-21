@@ -36,4 +36,4 @@ while read -p "$PROMPT" yn; do
   esac
 done
 
-git remote set-url origin git@github.com:chan-yo/dotfiles.git
+git remote set-url origin git@github.com:madayo/dotfiles.git
