@@ -18,7 +18,10 @@ fi
 
 # for ubuntu
 if [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]];then
+  # dein not support vim 7.4. need to use vim 8.0.
+  sudo add-apt-repository ppa:jonathonf/vim
   sudo apt-get update
+  sudo apt install vim
   sudo apt-get -y upgrade
   sudo apt-get -y dist-upgrade
 fi
