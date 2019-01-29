@@ -16,9 +16,10 @@
 # Ubuntu  
 ```sh
 cd ~/
-git clone https://github.com/Yosuke-Shimada/dotfiles.git
+git clone https://github.com/madayo/dotfiles.git
 cd dotfiles
 /bin/bash ./bin/initialize/initialize.sh
+git remote set-url origin git@github.com:madayo/dotfiles.git
 ```  
 # Windows(MSYS)  
 ## MSYS2のインストール  
@@ -34,7 +35,8 @@ pacman -Sy git --noconfirm
 ```sh
 cd ~/
 git clone git@github.com:madayo/dotfiles.git
-### git clone https://github.com/Yosuke-Shimada/dotfiles.git
+### git clone https://github.com/madayo/dotfiles.git
 cd dotfiles
-/bin/bash bin/initialize/initialize.sh
+/bin/bash ./bin/initialize/initialize.sh
+git remote set-url origin git@github.com:madayo/dotfiles.git
 ```  
