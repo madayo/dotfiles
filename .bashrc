@@ -31,13 +31,17 @@ if [ $? == 2 ] ; then
   ssh-agent >~/.ssh-agent-info
   source ~/.ssh-agent-info
 fi
-# 登録済みのキーが存在しない場合はssh-add実行
-if ssh-add -l >&/dev/null ; then
-  echo "ssh-agent: Identity is already stored."
-else
-  # 拡張子なしのファイルはすべて鍵ファイルとみなす
-  find ~/.ssh/ -maxdepth 1 -type f ! -name 'config' ! -name 'known_hosts' ! -name 'authorized_keys' ! -name '*.pub' | xargs ssh-add
-fi
+
+# 拡張子なしのファイルはすべて鍵ファイルとみなす
+for key in $(find ~/.ssh/ -maxdepth 1 -type f ! -name '*.pub' ! -name '*.ppk' | grep -vE 'config|known_hosts'); do
+  # ssh-agent に登録されていない場合は登録
+  if ssh-add -l | grep "${key}" > /dev/null; then
+    echo "ssh-agent: ${key} is already stored."
+  else
+    echo "ssh-agent: pleas store this key ${key}."
+    ssh-add $key
+  fi
+done
 #################################################################### デフォルトコマンドの拡張
 # tmux起動時
 if [[ -n $(printenv TMUX) ]] ; then

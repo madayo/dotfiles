@@ -10,7 +10,7 @@ fi
 
 RETURN=1
 default_args="--ansi --path-mode=intersection --stop-on-violation --dry-run --using-cache=no --config=${COMPOSER_HOME}/conf/php-cs-fixer/.php_cs.dist"
-# 拡張子がphpのものに対して実施
+# 拡張子が php のものに対して実施
 # 削除したファイル名に対して各コマンドを発行すると、ファイルが見つからないよとエラーになるので削除「D」は除外
 FILES=`echo "$(git diff --staged --name-only --diff-filter=ACMRTUXB HEAD | grep '\.php$')" | tr '\n' ' '`
 php-cs-fixer fix ${default_args} ${FILES}>&/dev/null
