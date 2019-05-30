@@ -28,7 +28,9 @@
 [difftool]
   prompt = false  # 確認ダイアログを非表示
 [include]
-  path = .gitconfig.local
+  path = ~/.gitconfig.local # dotfiles リポジトリの設定以外を個別に設定したい場合はこちらに記載。 user 設定など
+[init]
+  templatedir = ~/.git_template # init, clone 時に git hooks スクリプトを自動的にコピーする
 [push]
   default  = simple # branchやtag名を指定しなかった場合、現在のbranchをpushする。同名のbranchが存在しない場合は拒否する
 
