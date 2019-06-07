@@ -10,48 +10,34 @@ alias diffv='diff -ybBw -W 200 --suppress-common-lines'
 alias composer='composer --ansi'
 alias phpfixd='php-cs-fixer --ansi fix --dry-run --diff --diff-format udiff'
 alias phpfix='php-cs-fixer --ansi fix'
+# ssh-agent
+### tmux で複数の pane を起動している場合、少し工夫しないと多重起動が起こる
+### 起動中の ssh-agent PID などをファイル出力しておき、かつその PID が現在も起動されている場合はファイルから各種設定を読み込む
+### 基本的に開発マシンは windows なので vm 上で誤爆しないようにする
+if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
+  # alias 内の if を外出しにして、 alias 自体をシンプルにしたほうが可読性が上がるが標準出力の制御がめんどいので以下のようにした
+  # 若干怪しいが概ね期待通り
+  # 1. ssh-agent が複数起動している場合は一旦全て kill
+  # 2. ps 一覧を確認して ssh-agent が存在する場合は、その PID がファイル出力されているか確認
+  # 3. ファイル出力されている場合は、ファイルの内容を読み込む。ファイル出力されていない場合は ssh-agent を起動して、起動時の PID をファイル出力する
+  alias ssh-agent-reload="if [[ $(ps aux | grep '/ssh-agent' | grep -v 'grep' | wc -l) -gt 1 ]]; then ps aux | grep '/ssh-agent' | grep -v 'grep' | awk '{print \$1}' | xargs kill; fi; if [[ -n \"\$(ps aux | grep '/ssh-agent' | grep -v 'grep' | head -n 1 | awk '{print \$1}' | xargs -I{} grep \"SSH_AGENT_PID={}\" ~/.ssh-agent-info)\" ]]; then source ~/.ssh-agent-info; else ssh-agent > ~/.ssh-agent-info; cat ~/.ssh-agent-info; fi"
+#  alias ssh-agent-reload="if [[ $(ps aux | grep '/ssh-agent' | grep -v 'grep' | wc -l) -gt 1 ]]; then ps aux | grep '/ssh-agent' | grep -v 'grep' | awk '{print \$1}' | xargs kill; fi; if [[ -n \"\$(ps aux | grep '/ssh-agent' | grep -v 'grep' | head -n 1 | awk '{print $1}' | xargs -I{} grep \"SSH_AGENT_PID={}\" ~/.ssh-agent-info)\" ]]; then source ~/.ssh-agent-info; else ssh-agent > ~/.ssh-agent-info; cat ~/.ssh-agent-info; fi'
+fi
 #################################################################### tmux
-# 初回シェル時のみ tmux実行.
-if [[ ${SHLVL} = 1 ]]; then
-  # windows
-  if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
-    which tmux > /dev/null 2>&1 && tmux -S $(find /tmp -name "tmux*")/default -2 && alias tmux='tmux -S $(find /tmp -name "tmux*")/default -2'
-  # linux
-  else
-    which tmux > /dev/null 2>&1 && tmux -2
-  fi
+# windows 環境下のみ tmux の起動法が少々特殊
+# -2 オプションで強制的に端末が 256 色をサポートしていると認識させる
+if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
+  which tmux > /dev/null 2>&1 && alias tmux='tmux -S $(find /tmp -name "tmux*")/default -2'
+# linux
+else
+  which tmux > /dev/null 2>&1 && alias tmux='tmux -2'
 fi
-#################################################################### ssh-agent
-echo -n "ssh-agent: "
-source ~/.ssh-agent-info
-# ssh-agentと通信ができない場合は再起動
-ssh-add -l >&/dev/null
-if [ $? == 2 ] ; then
-  echo -n "ssh-agent: restart...."
-  ssh-agent >~/.ssh-agent-info
-  source ~/.ssh-agent-info
-fi
-
-# 拡張子なしのファイルはすべて鍵ファイルとみなす
-for key in $(find ~/.ssh/ -maxdepth 1 -type f ! -name '*.pub' ! -name '*.ppk' | grep -vE 'config|known_hosts'); do
-  # ssh-agent に登録されていない場合は登録
-  if ssh-add -l | grep "${key}" > /dev/null; then
-    echo "ssh-agent: ${key} is already stored."
-  else
-    echo "ssh-agent: pleas store this key ${key}."
-    ssh-add $key
-  fi
-done
 #################################################################### デフォルトコマンドの拡張
 # tmux起動時
 if [[ -n $(printenv TMUX) ]] ; then
-  . ~/dotfiles/bin/tmux/expand_functions.sh
+  . ~/dotfiles/bin/tmux/expand_functions.sh > /dev/null
   # ローカルのvmを使っている場合は背景色を変更しておく
   if [[ $(hostname | grep 'vagrant-local') ]]; then
-    tmux select-pane -P 'bg=#2F2832'
+    tmux select-pane -P 'bg=#2F2832' > /dev/null
   fi
 fi
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

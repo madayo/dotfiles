@@ -1,4 +1,4 @@
 # tmuxが終了している場合に限りssh-agentを終了
 if [[ -z $(printenv TMUX) ]]; then
-  /bin/ssh-agent -k
+  /bin/ssh-agent -k > /dev/null
 fi
