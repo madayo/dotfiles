@@ -6,7 +6,7 @@ source ../functions
 
 # for windows
 if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
-  pacman -Sy make autoconf pkg-config automake-wrapper gcc mingw-w64-x86_64-ncurses ncurses-devel libtool --noconfirm
+  pacman -Sy make autoconf automake pkg-config gcc ncurses ncurses-devel libtool bison --noconfirm
   cd ~/
   git clone https://github.com/libevent/libevent.git
   cd libevent
@@ -16,8 +16,8 @@ if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
   cd tmux
   # checkout latest tag
   git checkout $(git tag | sort -V | tail -n 1)
-  sh autogen.sh
   sh autogen.sh && ./configure && make && make install
+  mv tmux.exe /usr/local/bin/tmux
 fi
 
 # for ubuntu

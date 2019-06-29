@@ -21,7 +21,6 @@ if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
   # 2. ps 一覧を確認して ssh-agent が存在する場合は、その PID がファイル出力されているか確認
   # 3. ファイル出力されている場合は、ファイルの内容を読み込む。ファイル出力されていない場合は ssh-agent を起動して、起動時の PID をファイル出力する
   alias ssh-agent-reload="if [[ $(ps aux | grep '/ssh-agent' | grep -v 'grep' | wc -l) -gt 1 ]]; then ps aux | grep '/ssh-agent' | grep -v 'grep' | awk '{print \$1}' | xargs kill; fi; if [[ -n \"\$(ps aux | grep '/ssh-agent' | grep -v 'grep' | head -n 1 | awk '{print \$1}' | xargs -I{} grep \"SSH_AGENT_PID={}\" ~/.ssh-agent-info)\" ]]; then source ~/.ssh-agent-info; else ssh-agent > ~/.ssh-agent-info; cat ~/.ssh-agent-info; fi"
-#  alias ssh-agent-reload="if [[ $(ps aux | grep '/ssh-agent' | grep -v 'grep' | wc -l) -gt 1 ]]; then ps aux | grep '/ssh-agent' | grep -v 'grep' | awk '{print \$1}' | xargs kill; fi; if [[ -n \"\$(ps aux | grep '/ssh-agent' | grep -v 'grep' | head -n 1 | awk '{print $1}' | xargs -I{} grep \"SSH_AGENT_PID={}\" ~/.ssh-agent-info)\" ]]; then source ~/.ssh-agent-info; else ssh-agent > ~/.ssh-agent-info; cat ~/.ssh-agent-info; fi'
 fi
 #################################################################### tmux
 # windows 環境下のみ tmux の起動法が少々特殊

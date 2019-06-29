@@ -12,14 +12,14 @@ if [[ ! "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] && [[ ! "$(uname 2> /dev/n
   exit 1
 fi
 
+# git
+/bin/bash ./git.sh
 # package install
 /bin/bash ./package.sh
 # tmux install
 /bin/bash ./tmux.sh
 # link
 /bin/bash ./link.sh
-# git
-/bin/bash ./git.sh
 # copmoser install
 /bin/bash ./copmoser.sh
 

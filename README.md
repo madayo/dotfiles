@@ -43,5 +43,4 @@ cd ~/
 git clone https://github.com/madayo/dotfiles.git
 cd dotfiles
 /bin/bash ./bin/initialize/initialize.sh
-git remote set-url origin git@github.com:madayo/dotfiles.git
 ```  

@@ -4,6 +4,9 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 cd $SCRIPT_DIR
 source ../functions
 
+# init git template dir
+mkdir -p ~/.git_template/hooks
+
 echo "----------------------------"
 echo "Would you like to set committer information in '~/.gitconfig.local'? (y/n)"
 while read -p "$PROMPT" yn; do
