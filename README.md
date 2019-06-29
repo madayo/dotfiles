@@ -29,13 +29,18 @@ pacman -Syu --noconfirm
 # 何も更新されなくなるまで何度か実行する。
 pacman -Sy git --noconfirm
 ```  
-環境変数追加`MSYS2_PATH_TYPE`に`inherit`を設定する。  
+### 環境変数追加  
+- `MSYS2_PATH_TYPE`
+`inherit`  
+windows 側の環境変数を引き継ぐ。  
+- `MSYS`  
+`winsymlinks:nativestrict`  
+`ln -s` windows ネイティブのシンボリックリンクが作成される。ただし、コンソールを管理者権限で起動していることが条件となる。  
 ## initialize  
 *管理者権限でコンソールを起動しておくこと*  
 ```sh
 cd ~/
-git clone git@github.com:madayo/dotfiles.git
-### git clone https://github.com/madayo/dotfiles.git
+git clone https://github.com/madayo/dotfiles.git
 cd dotfiles
 /bin/bash ./bin/initialize/initialize.sh
 git remote set-url origin git@github.com:madayo/dotfiles.git

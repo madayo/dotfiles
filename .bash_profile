@@ -25,8 +25,6 @@
 export PS1="\[\e[01;32m\][\u@\H]\[\e[01;34m\]:\[\e[01;35m\]\W\[\e[01;34m\]\$ \[\e[00m\]"
 # Windows用
 if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
-  # lnコマンドでwindowsのシンボリックリンクを作成できるようにする
-  export MSYS=winsymlinks:nativestrict
   # windows 環境下でcomposerを利用する場合。若干バグあり。未対応
   export COMPOSER_HOME="${HOME}/.composer"
   export PATH="${PATH}:${COMPOSER_HOME}/vendor/bin"
