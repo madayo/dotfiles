@@ -44,3 +44,18 @@ git clone https://github.com/madayo/dotfiles.git
 cd dotfiles
 /bin/bash ./bin/initialize/initialize.sh
 ```  
+
+# 背景画像の設定  
+mintty 単体で起動する場合は背景画像の使用が可能。  
+tmux と連携すると表示できなくなる。  
+dotfiles/file/wallpaper.jpg を参照しているので、好きな画像をシンボリックリンクに設定する。  
+```sh
+cd image
+ln -sf aurora_12.jpg wallpaper.jpg
+```  
+透過度をいじりたいときは以下を変更する。  
+```sh
+$ grep 'wallpaper' .minttyrc
+Background=~/dotfiles/image/wallpaper.jpg,100
+```  
+
