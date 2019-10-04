@@ -1,0 +1,29 @@
+# これがあるところより上の階層の .editorconfig をたどっていかない
+root = true
+
+[*]
+end_of_line = lf
+charset = utf-8
+# 末尾の空白除去
+trim_trailing_whitespace = true
+# 最終行への空行の挿入
+insert_final_newline = true
+indent_style = space
+
+[*.php]
+indent_size = 4
+
+[*.blade.php]
+indent_size = 2
+
+[*.html, *.css, *.js]
+indent_size = 2
+
+[*.json]
+indent_size = 2
+
+[composer.{json, lock}]
+indent_size = 4
+
+[*.md]
+trim_trailing_whitespace = false
