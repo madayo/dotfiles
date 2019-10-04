@@ -1,0 +1,21 @@
+parameters:
+  level: 4
+  paths:
+    - app
+    - bootstrap
+    - config
+    - database/factories
+    - database/seeds
+    - tests
+  file_extensions:
+    - php
+  autoload_files:
+    - vendor/autoload.php
+  ignoreErrors:
+    - '#Call to an undefined static method App\\Models\\[a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\)\.#' # Model::create() などのマジックメソッドを解決できないので無視する
+    - '#Access to an undefined property App\\Models\\[a-zA-Z0-9\\_]+::\$[a-zA-Z0-9\\_]+\.#' # Model::id などのマジックメソッドを解決できないので無視する
+    - '#Call to an undefined (static )?method Illuminate\\[a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\)\.#' # laravel 配下のマジックメソッド、ファサード関連の呼び出しを無視する
+    - '#Call to static method [a-zA-Z0-9_]+\(\) on an unknown class [a-zA-z0-9]+\.#' # laravel 配下のマジックメソッド、ファサード関連の呼び出しを無視する
+    - '#Undefined variable: \$factory#' # faker の global 変数？ Laravel のお作法的な部分なので無視する
+    - '#Method App\\Http\\Controllers\\[a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) should return Illuminate\\Http\\Response but returns [a-zA-Z0-9\\_\|]+\.#' # make:controller --resource で自動生成された phpdoc の @return を無視する
+    - '#Method App\\Exceptions\\Handler::render\(\) should return Illuminate\\Http\\Response but returns [a-zA-Z0-9\\_\|]+\.#' # Handler::render() の @return を無視する

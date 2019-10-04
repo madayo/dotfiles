@@ -1,0 +1,85 @@
+<?php
+
+require_once __DIR__.'/vendor/autoload.php';
+
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__);
+
+return PhpCsFixer\Config::create()
+    ->setRules([
+        'psr0' => false, // PSR0 準拠
+        '@PSR2' => true, // ルールセット @PSR2 を使用する
+        'array_syntax' => [
+            'syntax' => 'short' // 配列の宣言時に短縮形の [] とするか array とするか
+        ],
+        'binary_operator_spaces' => [ // =, => 演算子の位置を揃えるか
+            'align_double_arrow' => true,
+            'align_equals' => true,
+        ],
+        'blank_line_after_namespace' => true, // namespace 宣言のあとの空行
+        'blank_line_after_opening_tag' => true, // php 宣言の後の空行
+        'blank_line_before_return' => true, // return の前の空行
+        'braces' => [ // 中括弧 { についてのルール. same: 同じ行, next; 次の行
+            'allow_single_line_closure' => false, // Closure のを 1 行で記述すること
+            'position_after_anonymous_constructs' => 'same', // Closure や無名クラスの中括弧開始位置
+            'position_after_control_structures' => 'same', // if, for などの制御構造の中括弧開始位置
+            'position_after_functions_and_oop_constructs' => 'next' // class, function 宣言の中括弧開始位置
+        ],
+        'cast_spaces' => [ // cast した場合の後ろのスペース
+            'space' => 'single' // single: 1 つ, none: 入れない
+        ],
+        'class_keyword_remove' => false, // :class の記述を絶対パスに置換する
+        'class_definition' => true, // ???
+        'compact_nullable_typehint' => true, // null を許容する型宣言で余分な空白を除去する
+        'concat_space' => [ // 結合演算子 「.」 のあとのスペースの数
+            'space' => 'one'
+        ],
+        'declare_strict_types' => true, // 厳格モードの宣言の矯正挿入。 Laravel の場合は bootstrap 配下 1 箇所に入れるだけで良い
+        'elseif' => true, // else if ではなく elseif
+        'encoding' => true, // BOM付き UTf8 にさせない
+        'full_opening_tag' => true, // echo を伴わないショートタグ <? の使用を禁止する
+        'function_declaration' => true, // 関数宣言後のスペース設定
+        'function_typehint_space' => true, // 関数の戻り値型宣言のスペース補完
+        'include' => true, // include, require に () を使わない
+        'increment_style' => [ // インクリメント演算子の位置
+            'style' => 'post'
+        ],
+        'indentation_type' => true, // コードインデントに定められたインデントしか使えない
+        'line_ending' => true, // すべての php ファイルで同じ改行コードを使用する
+        'linebreak_after_opening_tag' => true, // 開始タグの後はすぐ改行させる
+        'lowercase_cast' => true, // キャスト演算子内はすべて小文字にする
+        'lowercase_constants' => true, // const 演算子はすべて小文字にする
+        'lowercase_keywords' => true, // public などのキーワードはすべて小文字にする
+        'method_argument_space' => [ // 引数に対するスペースや改行など
+            'ensure_fully_multiline' => false, // 複数行に渡る場合は 1 行あたり 1 引数とする
+            'keep_multiple_spaces_after_comma' => true, // , のあとの空白は1つ
+        ],
+        'method_separation' => true, // 関数宣言のあとに 1 行だけ改行させる
+        'new_with_braces' => true, // new 演算子を用いた際は () を強制的に挿入する
+        'no_break_comment' => true, // ブロックコメントの * のあとに空白を入れない
+        'no_closing_tag' => true, // ファイル末尾にある php の閉じタグを除去する
+        'no_empty_comment' => true, // からのコメントを除去
+        'no_empty_phpdoc' => true, // からの phpdoc を除去
+        'no_empty_statement' => true, // からの ; を除去
+        'no_leading_import_slash' => false, // use 宣言の先頭の \ を除去
+        'no_leading_namespace_whitespace' => true, // namespace 宣言の前の空白を除去
+        'no_mixed_echo_print' => [ // echo, print を混在させない
+            'use' => 'echo'
+        ],//
+        'no_short_bool_cast' => true, // !! による bool へのキャストを禁止
+        'no_spaces_after_function_name' => true, // 関数名とその後のかっこの間にスペースを除去する
+        'no_spaces_inside_parenthesis' => true, // 開始カッコの後と閉じカッコの前のスペースを除去する
+        'no_trailing_whitespace' => false, // 最終行への空行の挿入
+        'no_trailing_whitespace_in_comment' => true, // コメントと phpdoc 内の余計な空白を除去する
+        'single_blank_line_at_eof' => true, // ???
+        'single_class_element_per_statement' => [ // ???
+            'elements' => ['property'],
+        ],
+        'single_import_per_statement' => true, // ???
+        'single_line_after_imports' => true, // ???
+        'switch_case_semicolon_to_colon' => true, // ???
+        'switch_case_space' => true, // ???
+        'visibility_required' => true, // ???
+    ])
+    ->setLineEnding("\n")
+    ->setFinder($finder);
