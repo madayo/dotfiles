@@ -18,6 +18,8 @@ fi
 /bin/bash ./package.sh
 # tmux install
 /bin/bash ./tmux.sh
+# tig install
+/bin/bash ./tig.sh
 # link
 /bin/bash ./link.sh
 # copmoser install
