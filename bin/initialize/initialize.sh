@@ -14,15 +14,12 @@ fi
 
 # git
 /bin/bash ./git.sh
-# package install
 /bin/bash ./package.sh
-# tmux install
 /bin/bash ./tmux.sh
-# tig install
 /bin/bash ./tig.sh
-# link
+# make symbolic link
 /bin/bash ./link.sh
-# copmoser install
 /bin/bash ./copmoser.sh
+/bin/bash ./node.sh
 
 print_success 'Completed! Please reopen console window.'
