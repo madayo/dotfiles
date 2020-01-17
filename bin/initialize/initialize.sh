@@ -19,7 +19,7 @@ fi
 /bin/bash ./tig.sh
 # make symbolic link
 /bin/bash ./link.sh
-/bin/bash ./copmoser.sh
+/bin/bash ./composer.sh
 /bin/bash ./node.sh
 
 print_success 'Completed! Please reopen console window.'

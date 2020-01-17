@@ -13,6 +13,7 @@ if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
 fi
 
 # for ubuntu
+# FIXME: n packgae 使用に変える
 if [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]];then
   apt install -y nodejs npm
   npm install n -g
