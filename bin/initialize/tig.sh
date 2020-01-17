@@ -6,7 +6,7 @@ source ../functions
 
 # for windows
 if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
-  pacman -Sy tig
+  pacman -Sy tig --noconfirm
 fi
 
 # for ubuntu
