@@ -6,18 +6,20 @@ source ../functions
 
 # for windows
 if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
-  pacman -Sy make autoconf automake pkg-config gcc ncurses ncurses-devel libtool bison --noconfirm
-  cd ~/
-  git clone https://github.com/libevent/libevent.git
-  cd libevent
-  sh autogen.sh && ./configure && make && make install
-  cd ~/
-  git clone https://github.com/tmux/tmux
-  cd tmux
-  # checkout latest tag
-  git checkout $(git tag | sort -V | tail -n 1)
-  sh autogen.sh && ./configure && make && make install
-  mv tmux.exe /usr/local/bin/tmux
+  pacman -Sy tmux --noconfirm
+  # 当初は pacman で入れれる tmux のバージョンが古かったが、最新のバージョンも入れれるようになっていた。
+  #  pacman -Sy make autoconf automake pkg-config gcc ncurses ncurses-devel libtool bison --noconfirm
+  #  cd ~/
+  #  git clone https://github.com/libevent/libevent.git
+  #  cd libevent
+  #  sh autogen.sh && ./configure && make && make install
+  #  cd ~/
+  #  git clone https://github.com/tmux/tmux
+  #  cd tmux
+  #  # checkout latest tag
+  #  git checkout $(git tag | sort -V | tail -n 1)
+  #  sh autogen.sh && ./configure && make && make install
+  #  mv tmux.exe /usr/local/bin/tmux
 fi
 
 # for ubuntu
