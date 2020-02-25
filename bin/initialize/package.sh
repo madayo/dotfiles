@@ -6,6 +6,7 @@ source ../functions
 
 # for windows
 if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
+  sed -i -e 's/^#Color$/Color/g' /etc/pacman.conf
   pacman -Sy vim winpty gcc make --noconfirm
   ln -s /usr/bin/vim /usr/bin/vi
   wget --no-check-certificate https://osdn.net/projects/nkf/downloads/70406/nkf-2.1.5.tar.gz
