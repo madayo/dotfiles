@@ -32,7 +32,7 @@ return PhpCsFixer\Config::create()
         'class_definition' => true, // ???
         'compact_nullable_typehint' => true, // null を許容する型宣言で余分な空白を除去する
         'concat_space' => [ // 結合演算子 「.」 のあとのスペースの数
-            'space' => 'one'
+            'spacing' => 'one'
         ],
         'declare_strict_types' => true, // 厳格モードの宣言の矯正挿入。 Laravel の場合は bootstrap 配下 1 箇所に入れるだけで良い
         'elseif' => true, // else if ではなく elseif

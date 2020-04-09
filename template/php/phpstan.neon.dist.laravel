@@ -7,7 +7,7 @@ parameters:
     - database/factories
     - database/seeds
     - tests
-  file_extensions:
+  fileExtensions:
     - php
   autoload_files:
     - vendor/autoload.php
