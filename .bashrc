@@ -11,6 +11,8 @@ alias composer='composer --ansi'
 alias phpfixd='php-cs-fixer --ansi fix --dry-run --diff --diff-format udiff'
 alias phpfix='php-cs-fixer --ansi fix'
 # ssh-agent
+alias ssh-add-all='find ~/.ssh/ -maxdepth 1 -mindepth 1 -type f -name "id_*" ! -name "*.pub" | xargs ssh-add'
+
 ### tmux で複数の pane を起動している場合、少し工夫しないと多重起動が起こる
 ### 起動中の ssh-agent PID などをファイル出力しておき、かつその PID が現在も起動されている場合はファイルから各種設定を読み込む
 ### windows と Linux とで ps の挙動が異なるので注意
