@@ -22,4 +22,6 @@ fi
 /bin/bash ./composer.sh
 /bin/bash ./node.sh
 
+git remote set-url origin git@github.com:madayo/dotfiles.git
+
 print_success 'Completed! Please reopen console window.'
