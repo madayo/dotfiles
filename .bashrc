@@ -41,7 +41,8 @@ fi
 if [[ -n $(printenv TMUX) ]] ; then
   . ~/dotfiles/bin/tmux/expand_functions.sh > /dev/null
   # ローカルのvmを使っている場合は背景色を変更しておく
-  if [[ $(hostname | grep 'vagrant-local') ]]; then
-    tmux select-pane -P 'bg=#2F2832' > /dev/null
+  # TODO: これだとアクティブな pane と非アクティブな pane の色区別ができていない。改善の余地あり
+  if [[ $(hostname -I | grep '192.168') ]]; then
+    tmux select-pane -P 'bg=#341442' > /dev/null
   fi
 fi
