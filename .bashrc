@@ -42,7 +42,7 @@ if [[ -n $(printenv TMUX) ]] ; then
   . ~/dotfiles/bin/tmux/expand_functions.sh > /dev/null
   # ローカルのvmを使っている場合は背景色を変更しておく
   # TODO: これだとアクティブな pane と非アクティブな pane の色区別ができていない。改善の余地あり
-  if [[ $(hostname -I | grep '192.168') ]]; then
+  if [[ $(hostname -I 2>/dev/null | grep '192.168') ]]; then
     tmux select-pane -P 'bg=#341442' > /dev/null
   fi
 fi
