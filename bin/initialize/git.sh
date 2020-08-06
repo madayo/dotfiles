@@ -7,8 +7,9 @@ source ../functions
 # reinstall git
 if [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]];then
   sudo apt -y remove git
+  sudo apt -y install make
   # その時点での最新版を入れる
-  ver=2.26.2
+  ver=2.28.0
   wget https://github.com/git/git/archive/v${ver}.tar.gz
   tar xfz v${ver}.tar.gz
   rm v${ver}.tar.gz
