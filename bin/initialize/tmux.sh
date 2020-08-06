@@ -27,7 +27,7 @@ if [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]];then
   cd /usr/local/src
 
   sudo apt-get -y remove tmux
-  sudo apt-get install -y automake pkg-config libevent-dev libncurses5-dev xsel
+  sudo apt-get install -y automake pkg-config libevent-dev libncurses5-dev xsel bison
 
   if [ ! -d tmux ]; then
     sudo git clone https://github.com/tmux/tmux.git
@@ -36,7 +36,7 @@ if [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]];then
   cd tmux
 
   # checkout latest tag
-  sudo git checkout $(git tag | sort -V | tail -n 1)
+  sudo git checkout $(git tag | grep -Ev '[a-z'] | sort -V | tail -n 1)
   sudo sh autogen.sh
   sudo ./configure && sudo make && sudo make install
 fi
