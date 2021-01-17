@@ -14,6 +14,7 @@ fi
 
 # git
 /bin/bash ./git.sh
+/bin/bash ./gitconfig.sh
 /bin/bash ./package.sh
 /bin/bash ./tmux.sh
 /bin/bash ./tig.sh
