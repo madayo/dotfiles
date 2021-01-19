@@ -18,8 +18,14 @@ CopyOnSelect=yes
 
 
 ### font等
+# 英字、記号ともにはっきりしててみやすい
+Font=Ricty Diminished
+# qg の区別がつかなくて微妙だった
+#Font=Cascadia Code
+# 記号の見た目がちょっと好みと違った
+#Font=Fira Code
 BoldAsFont=no
-FontHeight=9
+FontHeight=10
 FontIsBold=no
 FontSmoothing=default
 
