@@ -46,7 +46,7 @@ cd dotfiles
 
 # 背景画像の設定  
 mintty 単体で起動する場合は背景画像の使用が可能。  
-tmux と連携すると表示できなくなる。  
+tmux と連携すると表示できくなったりちょっと不安定。  
 dotfiles/file/wallpaper.jpg を参照しているので、好きな画像をシンボリックリンクに設定する。  
 ```sh
 cd image
