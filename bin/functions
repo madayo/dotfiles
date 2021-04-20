@@ -1,11 +1,11 @@
 #! /bin/bash -xue
 
 function print_error() {
-  printf "\e[1;37;41m[Error] $1\e[m\n"
+  printf "\e[1;37;41m$1\e[m\n"
 }
 
 function print_info() {
-  printf "\e[36;40;1m[Info] $1\e[m\n"
+  printf "\e[36;40;1m$1\e[m\n"
 }
 
 function print_success {
