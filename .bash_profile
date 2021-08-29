@@ -67,3 +67,6 @@ fi
 # if [ -d "${HOME}/info" ]; then
 #   INFOPATH="${HOME}/info:${INFOPATH}"
 # fi
+
+# vagrant 保存先
+export VAGRANT_HOME=/d/Users/madayo/.vagrant.d
