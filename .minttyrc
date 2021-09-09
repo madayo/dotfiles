@@ -19,7 +19,8 @@ CopyOnSelect=yes
 
 ### font等
 # 英字、記号ともにはっきりしててみやすい
-Font=Ricty Diminished
+# Font=Ricty Diminished
+Font=Ricty Diminished Discord
 # qg の区別がつかなくて微妙だった
 #Font=Cascadia Code
 # 記号の見た目がちょっと好みと違った
