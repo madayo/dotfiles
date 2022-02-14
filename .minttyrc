@@ -63,3 +63,8 @@ Scrollbar=none
 
 ### 背景画像
 Background=~/dotfiles/image/wallpaper.jpg,120
+
+### Beep 音
+BellType=2
+BellFlash=yes
+BellPopup=yes
