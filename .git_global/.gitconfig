@@ -34,3 +34,12 @@
 [push]
   default  = simple # branchやtag名を指定しなかった場合、現在のbranchをpushする。同名のbranchが存在しない場合は拒否する
 
+
+# WinMerge 使った diff
+[diff]
+    tool = WinMerge
+[difftool "WinMerge"]
+    path = C:/Program Files/WinMerge/WinMergeU.exe
+    cmd = \"C:/Program Files/WinMerge/WinMergeU.exe\" -f \"*.*\" -e -u -r \"$LOCAL\" \"$REMOTE\"
+[alias]
+    windiff = difftool -y -d -t WinMerge
