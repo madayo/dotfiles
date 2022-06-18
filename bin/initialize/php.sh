@@ -4,6 +4,16 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 cd $SCRIPT_DIR
 source ../functions
 
+# phpenv
+if [[ "$(composer --version > /dev/null 2>&1; echo $?)" -ne 0 && ! "$(uname 2> /dev/null)" =~ MSYS ]] ;then
+  print_info 'sccop を手動で入れる'
+  print_info 'パス参照は vscode 上くらいしかしないので、msys 配下のユーザディレクトリにシンボリックリンク貼る必要はない'
+fi
+if [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]];then
+  print_info 'phpenv のインストールはけっこう大変なのでひとまず手動で入れる'
+fi
+
+# composer
 if [[ "$(composer --version > /dev/null 2>&1; echo $?)" -ne 0 && ! "$(uname 2> /dev/null)" =~ MSYS ]] ;then
   EXPECTED_SIGNATURE=$(wget -q -O - https://composer.github.io/installer.sig)
   php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"

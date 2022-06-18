@@ -20,7 +20,7 @@ fi
 /bin/bash ./tig.sh
 # make symbolic link
 /bin/bash ./link.sh
-/bin/bash ./composer.sh
+/bin/bash ./php.sh
 /bin/bash ./node.sh
 
 git remote set-url origin git@github.com:madayo/dotfiles.git
