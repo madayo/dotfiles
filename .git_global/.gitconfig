@@ -4,6 +4,7 @@
   #email = xxx@xxx
 [alias]
   co = commit
+  pu = push
   st = status
   sw = switch
   ch = checkout
