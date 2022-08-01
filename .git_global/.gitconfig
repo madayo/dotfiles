@@ -8,6 +8,7 @@
   st = status
   sw = switch
   ch = checkout
+  fe = fetch
   m = merge
   b = branch
   d = diff
