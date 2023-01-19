@@ -14,14 +14,16 @@
   d = diff
   dt = difftool
   t = tag
+  l = mylog
 
   reco = commit --amend --no-edit
 
   ds = diff --staged
   dw = diff -w
   dws = diff -w --staged
+  wd = worddiff
 ### 見やすいlog
-  l = log --graph --pretty='format:%C(yellow)%h %C(green)(%cd,%cr) %C(red)%d %C(reset)%s : %b%- %C(cyan)Author:<%an | %ae> %C(blue)Commiter:<%cn | %ce>' --date=iso
+  mylog = log --graph --pretty='format:%C(yellow)%h %C(green)(%cd,%cr) %C(red)%d %C(reset)%s : %b%- %C(cyan)Author:<%an | %ae> %C(blue)Commiter:<%cn | %ce>' --date=iso
 ### 文字単位でのdiff
   worddiff = diff --word-diff=plain --word-diff-regex=.
 ### stagingにあるものを再度diff,add

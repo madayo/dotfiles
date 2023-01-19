@@ -22,7 +22,10 @@
 # a patch to the cygwin mailing list.
 
 # User dependent .bash_profile file
-export PS1="\[\e[01;32m\][\u@\H]\[\e[01;34m\]:\[\e[01;35m\]\W\[\e[01;34m\]\$ \[\e[00m\]"
+### \u ユーザ名
+### \h ホスト名
+### \W カレントディレクトリ
+export PS1="\[\e[01;32m\][\u@\H]\[\e[01;34m\]\[\e[00m\]: \e[01;35m\]`echo -e '\U1F416=3=3'` \[\e[01;34m\]\W\[\e[01;00m\] \$ "
 # Windows用
 if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
   # windows 環境下でcomposerを利用する場合。若干バグあり。未対応
