@@ -75,3 +75,6 @@ fi
 
 # vagrant 保存先
 export VAGRANT_HOME=/d/Users/madayo/.vagrant.d
+
+# gcloud コマンド用に入れた python の PATH が優先されず、microsoft store 側の python が優先されてしまうので順序調整
+export PATH="$(cygpath $LOCALAPPDATA)/Programs/Python/Python310/Scripts:$(cygpath $LOCALAPPDATA)/Programs/Python/Python310:${PATH}"
