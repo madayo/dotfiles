@@ -6,7 +6,7 @@ Charset=UTF-8
 ### windowsサイズ
 Columns=200
 Rows=25
-Transparency=30
+Transparency=low
 
 
 ### キー関連
@@ -33,7 +33,7 @@ FontSmoothing=default
 
 ### 色
 Term=xterm-256color
-BackgroundColour=13,25,38
+BackgroundColour=29,28,83
 ForegroundColour=237,237,237
 Black=0,0,0
 Red=255,100,0
@@ -54,7 +54,7 @@ BoldCyan=64,255,255
 BoldWhite=255,255,25
 
 ### カーソル
-CursorColour=255,200,200
+CursorColour=230,156,250
 CursorType=block
 CursorBlinks=yes
 
