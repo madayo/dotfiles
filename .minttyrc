@@ -4,10 +4,8 @@ Charset=UTF-8
 
 
 ### windowsサイズ
-Columns=200
-Rows=25
-Transparency=low
-
+Columns=170
+Rows=40
 
 ### キー関連
 BackspaceSendsBS=yes
@@ -33,28 +31,13 @@ FontSmoothing=default
 
 ### 色
 Term=xterm-256color
-BackgroundColour=29,28,83
-ForegroundColour=237,237,237
-Black=0,0,0
-Red=255,100,0
-Green=183,234,17
-Yellow=234,206,28
-Blue=65,105,225
-Magenta=237,157,185
-Cyan=0,191,191
-White=255,255,255
 
-BoldBlack=64,64,64
-BoldRed=255,100,0
-BoldGreen=183,234,17
-BoldYellow=234,206,28
-BoldBlue=107,155,219
-BoldMagenta=237,157,185
-BoldCyan=64,255,255
-BoldWhite=255,255,25
+# カラーパターン。透明度はテーマで指定する
+# 外部サイトからテンプレをコピって貼り付けること
+### https://github.com/AlexAkulov/putty-color-themes/blob/master/images/readme.md
+ThemeFile=mytheme2
 
 ### カーソル
-CursorColour=230,156,250
 CursorType=block
 CursorBlinks=yes
 
@@ -62,9 +45,10 @@ CursorBlinks=yes
 Scrollbar=none
 
 ### 背景画像
-Background=~/dotfiles/image/wallpaper.jpg,120
+Background=~/dotfiles/image/earth_01.jpg,190
 
 ### Beep 音
 BellType=2
 BellFlash=yes
 BellPopup=yes
+Transparency=off
