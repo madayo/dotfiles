@@ -12,7 +12,7 @@ BackspaceSendsBS=yes
 RightClickAction=paste
 ClicksTargetApp=no
 # 範囲選択はコピー
-CopyOnSelect=yes
+<!-- CopyOnSelect=yes -->
 
 
 ### font等
@@ -45,7 +45,7 @@ CursorBlinks=yes
 Scrollbar=none
 
 ### 背景画像
-Background=~/dotfiles/image/earth_01.jpg,190
+Background=~/dotfiles/image/wallpaper.jpg,100
 
 ### Beep 音
 BellType=2

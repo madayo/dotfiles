@@ -49,3 +49,10 @@ if [[ -n $(printenv TMUX) ]] ; then
     tmux select-pane -P 'bg=#341442' > /dev/null
   fi
 fi
+
+
+#################################################################### VIM 環境変数
+# syntax ファイルを正しく参照させるために以下を定義
+# vim のバージョンが 9 である前提の書き方なのでいずれ問題になるかも
+# export VIM=/usr/share/vim
+# export VIMRUNTIME=/usr/share/vim/vim90
