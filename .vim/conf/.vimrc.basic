@@ -1,6 +1,11 @@
 filetype plugin indent on
 
+" シンタックスハイライト
+" シンタックスハイライトファイルが適切に読み込まれない。 /usr/share/vim/vim82/syntax/syntax.vim を探しに行ってしまう
+" source /usr/share/vim/vim90/syntax/syntax.vim を /usr/share/vim/vim82/syntax/syntax.vim に cp してみたがなんかおかしい
+source /usr/share/vim/vim90/syntax/syntax.vim
 syntax on "コードの色分け
+
 set number "行番号を表示する
 set linespace=3 "行間の幅
 set guifont=Fira\ Code:h12  "font
