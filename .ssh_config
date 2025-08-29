@@ -1,0 +1,10 @@
+Include ~/.ssh/conf.d/hosts/*
+
+Host *.root
+  User              root
+
+# ssh-agent と相性が悪いのか、 mux_client_request_session が発生したので封印
+# Host *
+#   ControlMaster auto # 接続情報のキャッシュを使って高速化させる仕組みを On
+#   ControlPath ~/.ssh/mux-%r@%h:%p # 共有接続の保存先 %r: リモートユーザ名, %h: ホスト名, %p: ポート
+#   ControlPersist 12h # 維持時間

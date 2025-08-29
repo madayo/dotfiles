@@ -50,6 +50,14 @@ if [[ -n $(printenv TMUX) ]] ; then
   fi
 fi
 
+# docker コンテナへログイン
+login() {
+  if [ -z "$1" ]; then
+    echo "Usage: login <container_name>"
+    return 1
+  fi
+  docker compose exec "$1" bash
+}
 
 #################################################################### VIM 環境変数
 # syntax ファイルを正しく参照させるために以下を定義

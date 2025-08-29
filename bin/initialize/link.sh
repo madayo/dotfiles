@@ -12,6 +12,7 @@ done
 
 # リンク貼るが、ほかとディレクトリ構成が異なるものは個別に対応する
 make_symbolic_links ~/dotfiles/.git_global/.gitconfig ~/.gitconfig
+make_symbolic_links ~/dotfiles/.ssh_config $(cygpath $HOMEDRIVE$HOMEPATH/.ssh/config)
 
 # for windows
 if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
