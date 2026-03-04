@@ -1,57 +1,60 @@
 [[ "$-" != *i* ]] && return
 
-#################################################################### alias
-alias ll='ls -la --color=auto'
+# ==================== Basic ====================
+export EDITOR=vim
+export LANG=ja_JP.UTF-8
+
+# 履歴
+HISTSIZE=5000
+HISTFILESIZE=10000
+HISTCONTROL=ignoredups:erasedups
+shopt -s histappend
+
+# ターミナルのサイズ変更を検知して、行数と列数を自動で更新する
+shopt -s checkwinsize
+# less でバイナリファイル見る場合
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+# ls の色付け
+if [ -x /usr/bin/dircolors ]; then
+  eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+fi
+
+# 入力補完
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+  . /usr/share/bash-completion/bash_completion
+elif [ -f /etc/bash_completion ]; then
+  . /etc/bash_completion
+fi
+
+# fzf (key bindings / completion)
+[ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
+[ -f /usr/share/doc/fzf/examples/completion.bash ] && source /usr/share/doc/fzf/examples/completion.bash
+
+# ssh-agent のソケットパスを環境変数に設定
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR%/}/ssh-agent.socket"
+
+# ==================== alias ====================
+# ssh-agent に鍵を追加するエイリアス
+alias addkeys='for key in ~/.ssh/*; do [[ -f "$key" && ! "$key" =~ \.pub$ ]] && grep -q "PRIVATE KEY" "$key" 2>/dev/null && ssh-add "$key" 2>/dev/null; done; ssh-add -l'
+
+alias ll='ls -lah'
+alias la='ls -A'
 alias grep='grep --color=auto'
 alias less='less -N'
 # 左右に並べてdiff
 alias diffv='diff -ybBw -W 200 --suppress-common-lines'
-# composer 関連
-alias composer='composer --ansi'
-alias phpfixd='php-cs-fixer --ansi fix --dry-run --diff --diff-format udiff'
-alias phpfix='php-cs-fixer --ansi fix'
-# ssh-agent
-alias ssh-add-all='find ~/.ssh/ -maxdepth 1 -mindepth 1 -type f -name "id_*" ! -name "*.pub" | xargs ssh-add'
 # docker コマンドの色付け
 # スペース入の alias 名はだめだった
 alias dockercompose="docker compose --ansi=always"
 
-### tmux で複数の pane を起動している場合、少し工夫しないと多重起動が起こる
-### 起動中の ssh-agent PID などをファイル出力しておき、かつその PID が現在も起動されている場合はファイルから各種設定を読み込む
-### windows と Linux とで ps の挙動が異なるので注意
-if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
-  # alias 内の if を外出しにして、 alias 自体をシンプルにしたほうが可読性が上がるが標準出力の制御がめんどいので以下のようにした
-  # 若干怪しいが概ね期待通り
-  # 1. ssh-agent が複数起動している場合は一旦全て kill
-  # 2. ps 一覧を確認して ssh-agent が存在する場合は、その PID がファイル出力されているか確認
-  # 3. ファイル出力されている場合は、ファイルの内容を読み込む。ファイル出力されていない場合は ssh-agent を起動して、起動時の PID をファイル出力する
-  alias ssh-agent-reload="if [[ $(ps aux | grep '/ssh-agent' | grep -v 'grep' | wc -l) -gt 1 ]]; then ps aux | grep '/ssh-agent' | grep -v 'grep' | awk '{print \$1}' | xargs kill; fi; if [[ -n \"\$(ps aux | grep '/ssh-agent' | grep -v 'grep' | head -n 1 | awk '{print \$1}' | xargs -I{} grep \"SSH_AGENT_PID={}\" ~/.ssh-agent-info)\" ]]; then source ~/.ssh-agent-info; else ssh-agent > ~/.ssh-agent-info; cat ~/.ssh-agent-info; fi"
-fi
-if [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]];then
-  alias ssh-agent-reload="if [[ $(ps aux | grep 'ssh-agent' | grep -v 'grep' | wc -l) -gt 1 ]]; then ps aux | grep 'ssh-agent' | grep -v 'grep' | awk '{print \$2}' | xargs kill; fi; if [[ -n \"\$(ps aux | grep 'ssh-agent' | grep -v 'grep' | head -n 1 | awk '{print \$2}' | xargs -I{} grep \"SSH_AGENT_PID={}\" ~/.ssh-agent-info)\" ]]; then source ~/.ssh-agent-info; else ssh-agent > ~/.ssh-agent-info; cat ~/.ssh-agent-info; fi"
-fi
-#################################################################### tmux
-# windows 環境下のみ tmux の起動法が少々特殊
-# -2 オプションで強制的に端末が 256 色をサポートしていると認識させる
-if [[ "$(uname 2> /dev/null)" =~ MSYS ]];then
-  which tmux > /dev/null 2>&1 && alias tmux='tmux -S $(find /tmp -name "tmux*")/default -2'
-# linux
-else
-  which tmux > /dev/null 2>&1 && alias tmux='tmux -2'
-fi
-#################################################################### デフォルトコマンドの拡張
-# tmux起動時
-if [[ -n $(printenv TMUX) ]] ; then
-  . ~/dotfiles/bin/tmux/expand_functions.sh > /dev/null
-  # ローカルのvmを使っている場合は背景色を変更しておく
-  # TODO: これだとアクティブな pane と非アクティブな pane の色区別ができていない。改善の余地あり
-  if [[ $(hostname -I 2>/dev/null | grep '192.168') ]]; then
-    tmux select-pane -P 'bg=#341442' > /dev/null
-  fi
-fi
-
+# ==================== function ====================
+# git branch表示をプロンプトに入れる
+parse_git_branch() {
+  git branch 2>/dev/null | sed -n '/\* /s///p'
+}
 # docker コンテナへログイン
-login() {
+dlogin() {
   if [ -z "$1" ]; then
     echo "Usage: login <container_name>"
     return 1
@@ -59,8 +62,24 @@ login() {
   docker compose exec "$1" bash
 }
 
-#################################################################### VIM 環境変数
-# syntax ファイルを正しく参照させるために以下を定義
-# vim のバージョンが 9 である前提の書き方なのでいずれ問題になるかも
-# export VIM=/usr/share/vim
-# export VIMRUNTIME=/usr/share/vim/vim90
+# ==================== Prompt ====================
+PS1='\[\e[36m\]\u@\h\[\e[0m\]:\[\e[33m\]\W\[\e[0m\]\[\e[35m\] $(parse_git_branch)\[\e[0m\] $ '
+#  msys2 時代に使っていたもの
+# PS1="\[\e[01;32m\][\u@\H]\[\e[01;34m\]\[\e[00m\]:\[\e[01;35m\]\W\[\e[01;34m\] \$ \e[01;00m\]"
+
+
+# ===== WSL detection =====
+# $IS_WSL で WSL かどうかを判定できるようにする
+if [ -n "$WSL_DISTRO_NAME" ]; then
+  IS_WSL=1
+fi
+
+# ===== Windows PATH整理（WSL特有）=====
+if [ "$IS_WSL" = "1" ]; then
+  # Windows側PATHが長すぎる場合に整理
+  export PATH=$(echo "$PATH" | tr ':' '\n' | awk '!seen[$0]++' | paste -sd:)
+fi
+
+# ===== Volta =====
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
