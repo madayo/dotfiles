@@ -2,7 +2,8 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/lib/helper.sh"
+
+source "$SCRIPT_DIR/../../functions"
 
 SRC=$(get_windows_wt_settings_path) || exit 1
 DST=$(get_dotfiles_wt_settings_path)

@@ -54,7 +54,7 @@ get_windows_username() {
 
 # dotfiles 側 settings.json のパス
 get_dotfiles_wt_settings_path() {
-  echo "$HOME/dotfiles/windows-terminal/settings.json"
+  echo "$HOME/dotfiles/bin/windows-terminal-settings.json"
 }
 
 # Windows Terminal 実際の settings.json パス（Store版前提）
