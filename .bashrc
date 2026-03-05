@@ -22,13 +22,6 @@ if [ -x /usr/bin/dircolors ]; then
   alias ls='ls --color=auto'
 fi
 
-# 入力補完
-if [ -f /usr/share/bash-completion/bash_completion ]; then
-  . /usr/share/bash-completion/bash_completion
-elif [ -f /etc/bash_completion ]; then
-  . /etc/bash_completion
-fi
-
 # fzf (key bindings / completion)
 [ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
 [ -f /usr/share/doc/fzf/examples/completion.bash ] && source /usr/share/doc/fzf/examples/completion.bash
@@ -66,6 +59,19 @@ dlogin() {
 beep() {
   ffplay -nodisp -autoexit -loglevel quiet "$HOME/dotfiles/sound/beep.mp3" >/dev/null 2>&1 &
 }
+ssh() {
+    host="$1"
+
+    if [[ "$host" == *.dev.* ]]; then
+        PS1_STR='\[\e[30;42m\][DEV]\[\e[0m\] \u@\h:\w\$ '
+    elif [[ "$host" == *.production.* ]]; then
+        PS1_STR='\[\e[97;41m\][PROD]\[\e[0m\] \u@\h:\w\$ '
+    else
+        PS1_STR='\[\e[97;44m\][SSH]\[\e[0m\] \u@\h:\w\$ '
+    fi
+
+    command ssh "$host" -t "bash --rcfile <(cat ~/.bashrc; echo 'PS1=\"$PS1_STR\"') -i"
+}
 
 # ==================== Prompt ====================
 PS1='\[\e[36m\]\u@\h\[\e[0m\]:\[\e[33m\]\W\[\e[0m\]\[\e[35m\]$(parse_git_branch)\[\e[0m\] $ '
@@ -94,3 +100,7 @@ export PATH="$HOME/.local/bin:$PATH"
 # eval "$(oh-my-posh init bash --config $HOME/.poshthemes/onehalf.minimal.omp.json)"
 eval "$(oh-my-posh init bash --config $HOME/.poshthemes/my-theme.omp.json)"
 
+# 入力補完
+if [ -f /usr/share/bash-completion/completions/ssh ]; then
+  source /usr/share/bash-completion/completions/ssh
+fi
