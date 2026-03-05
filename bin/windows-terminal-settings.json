@@ -37,9 +37,6 @@
     {
         "defaults":
         {
-            "backgroundImage": "C:\\Users\\madayo\\Pictures\\bg1.jpg",
-            "backgroundImageOpacity": 0.1,
-            "backgroundImageStretchMode": "uniformToFill",
             "bellStyle":
             [
                 "audible",
@@ -57,14 +54,19 @@
             "padding": "8",
             "unfocusedAppearance":
             {
-                "backgroundImageOpacity": 0.5,
                 "opacity": 80
-            },
-            // "useAcrylic": true
+            }
         },
         "list":
         [
             {
+                "backgroundImage": "C:\\Users\\madayo\\Pictures\\bg1.jpg",
+                "backgroundImageOpacity": 0.4,
+                "backgroundImageStretchMode": "uniformToFill",
+                "unfocusedAppearance":
+                {
+                    "backgroundImageOpacity": 0.05
+                },
                 "commandline": "C:\\WINDOWS\\system32\\wsl.exe --distribution-id {32c2ab6f-c736-4ae3-b563-ba8cea50daba}",
                 "guid": "{f78da5a6-b9de-4f5b-92b1-01f7b5fe92a5}",
                 "hidden": false,
@@ -75,10 +77,31 @@
                 "suppressApplicationTitle": true
             },
             {
+                "background": "#002B00",
+                "commandline": "C:\\WINDOWS\\system32\\wsl.exe --distribution-id {32c2ab6f-c736-4ae3-b563-ba8cea50daba}",
+                "guid": "{d5fa7073-7c5c-46d1-a572-4386db6e20a9}",
+                "hidden": false,
+                "icon": "C:\\Users\\madayo\\AppData\\Local\\wsl\\{32c2ab6f-c736-4ae3-b563-ba8cea50daba}\\shortcut.ico",
+                "name": "custom Ubuntu-24.04 (ssh dev)",
+                "pathTranslationStyle": "wsl",
+                "startingDirectory": "~",
+                "suppressApplicationTitle": true
+            },
+            {
+                "background": "#2b0000",
+                "commandline": "C:\\WINDOWS\\system32\\wsl.exe --distribution-id {32c2ab6f-c736-4ae3-b563-ba8cea50daba}",
+                "guid": "{bf679c55-7a4f-413f-a47b-7d0d99496f75}",
+                "hidden": false,
+                "icon": "C:\\Users\\madayo\\AppData\\Local\\wsl\\{32c2ab6f-c736-4ae3-b563-ba8cea50daba}\\shortcut.ico",
+                "name": "custom Ubuntu-24.04 (ssh prod) ",
+                "pathTranslationStyle": "wsl",
+                "startingDirectory": "~",
+                "suppressApplicationTitle": true
+            },
+            {
                 "altGrAliasing": true,
                 "antialiasingMode": "grayscale",
                 "closeOnExit": "automatic",
-                "colorScheme": "Campbell",
                 "commandline": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
                 "cursorShape": "bar",
                 "font":
@@ -116,29 +139,6 @@
     },
     "schemes":
     [
-        {
-            "background": "#2E3440",
-            "black": "#3B4252",
-            "blue": "#81A1C1",
-            "brightBlack": "#4C566A",
-            "brightBlue": "#81A1C1",
-            "brightCyan": "#8FBCBB",
-            "brightGreen": "#A3BE8C",
-            "brightPurple": "#B48EAD",
-            "brightRed": "#BF616A",
-            "brightWhite": "#ECEFF4",
-            "brightYellow": "#EBCB8B",
-            "cursorColor": "#FFFFFF",
-            "cyan": "#88C0D0",
-            "foreground": "#D8DEE9",
-            "green": "#A3BE8C",
-            "name": "Nord",
-            "purple": "#B48EAD",
-            "red": "#BF616A",
-            "selectionBackground": "#FFFFFF",
-            "white": "#E5E9F0",
-            "yellow": "#EBCB8B"
-        },
         {
             "background": "#282C34",
             "black": "#282C34",
