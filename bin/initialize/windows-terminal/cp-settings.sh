@@ -3,28 +3,27 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-source "$SCRIPT_DIR/lib/helper.sh"
+source "$SCRIPT_DIR/../../functions"
 
-echo "=== Windows Terminal settings linker ==="
+print_info "=== Windows Terminal settings linker ==="
 echo
 
 # Store版か確認
 read -p "Microsoft Store版の Windows Terminal を使っていますか？ (y/n): " STORE
 
 if [[ "$STORE" != "y" && "$STORE" != "Y" ]]; then
-  echo "Store版ではないため中断します。"
-  echo "非Store版パスは別途対応が必要です。"
+  print_error "Store版ではないため中断します。非Store版パスは別途対応が必要です。"
   exit 1
 fi
 
 # Windowsユーザー名取得
 WIN_USER=$(get_windows_username)
 
-echo "検出された Windowsユーザー名: $WIN_USER"
+print_info "検出された Windowsユーザー名: $WIN_USER"
 read -p "このユーザー名で正しいですか？ (y/n): " CONFIRM
 
 if [[ "$CONFIRM" != "y" && "$CONFIRM" != "Y" ]]; then
-  echo "ユーザー名が一致しないため中断します。"
+  print_error "ユーザー名が一致しないため中断します。"
   exit 1
 fi
 
@@ -32,36 +31,36 @@ SRC=$(get_dotfiles_wt_settings_path)
 DST=$(get_windows_wt_settings_path)
 
 echo
-echo "コピー元: $SRC"
-echo "コピー先: $DST"
+print_info "コピー元: $SRC"
+print_info "コピー先: $DST"
 echo
 
 # 存在確認
 if [ ! -f "$SRC" ]; then
-  echo "repo側 settings.json が存在しません。中断します。"
+  print_error "repo側 settings.json が存在しません。中断します。"
   exit 1
 fi
 
 if [ ! -f "$DST" ]; then
-  echo "Windows Terminal 側 settings.json が存在しません。中断します。"
+  print_error "Windows Terminal 側 settings.json が存在しません。中断します。"
   exit 1
 fi
 
 # 未コミット変更チェック
 if has_uncommitted_changes "$SRC"; then
-  echo "settings.json に未コミット変更があります。"
+  print_error "settings.json に未コミット変更があります。"
   exit 1
 fi
 
-echo "WSL 側のファイルを Windows Terminal 側にコピーを行います。"
+print_info "WSL 側のファイルを Windows Terminal 側にコピーを行います。"
 read -p "続行しますか？ (y/n): " FINAL_CONFIRM
 
 if [[ "$FINAL_CONFIRM" != "y" && "$FINAL_CONFIRM" != "Y" ]]; then
-  echo "中断しました。"
+  print_error "中断しました。"
   exit 1
 fi
 
 # コピー作成
 cp "$SRC" "$DST"
 
-echo "✔ コピーしました。"
+print_success "コピーしました。"

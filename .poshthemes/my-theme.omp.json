@@ -1,0 +1,56 @@
+{
+  "version": 2,
+  "final_space": true,
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "session",
+          "style": "powerline",
+          "powerline_symbol": "",
+          "background": "#854877",
+          "foreground": "#c0caf5",
+          "template": " {{ .UserName }} "
+        },
+        {
+          "type": "path",
+          "style": "powerline",
+          "powerline_symbol": "",
+          "background": "#7aa2f7",
+          "foreground": "#424560",
+          "properties": {
+            "style": "folder"
+          },
+          "template": " {{ .Path }} "
+        },
+        {
+          "type": "git",
+          "style": "powerline",
+          "powerline_symbol": "",
+          "background": "#9ECE6A",
+          "foreground": "#1A1B26",
+          "properties": {
+            "fetch_status": true,
+            "branch_icon": " "
+          },
+          "template": " {{ .HEAD }}{{ $w := add (add (add (add .Working.Added .Working.Modified) .Working.Deleted) .Working.Untracked) .Working.Unmerged }}{{ $s := add (add (add (add .Staging.Added .Staging.Modified) .Staging.Deleted) .Staging.Untracked) .Staging.Unmerged }}{{ $t := add $w $s }}{{ if gt $t 0 }} +{{ $t }}{{ end }} "
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "newline": true,
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "#bb9af7",
+          "template": "❯ "
+        }
+      ]
+    }
+  ]
+}

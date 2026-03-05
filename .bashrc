@@ -4,6 +4,8 @@
 export EDITOR=vim
 export LANG=ja_JP.UTF-8
 
+echo -ne '\e[5 q'
+
 # 履歴
 HISTSIZE=5000
 HISTFILESIZE=10000
@@ -51,7 +53,7 @@ alias dockercompose="docker compose --ansi=always"
 # ==================== function ====================
 # git branch表示をプロンプトに入れる
 parse_git_branch() {
-  git branch 2>/dev/null | sed -n '/\* /s///p'
+  git branch 2>/dev/null | sed -n '/\* /s///p' | sed 's/^/ /'
 }
 # docker コンテナへログイン
 dlogin() {
@@ -61,9 +63,12 @@ dlogin() {
   fi
   docker compose exec "$1" bash
 }
+beep() {
+  ffplay -nodisp -autoexit -loglevel quiet "$HOME/dotfiles/sound/beep.mp3" >/dev/null 2>&1 &
+}
 
 # ==================== Prompt ====================
-PS1='\[\e[36m\]\u@\h\[\e[0m\]:\[\e[33m\]\W\[\e[0m\]\[\e[35m\] $(parse_git_branch)\[\e[0m\] $ '
+PS1='\[\e[36m\]\u@\h\[\e[0m\]:\[\e[33m\]\W\[\e[0m\]\[\e[35m\]$(parse_git_branch)\[\e[0m\] $ '
 #  msys2 時代に使っていたもの
 # PS1="\[\e[01;32m\][\u@\H]\[\e[01;34m\]\[\e[00m\]:\[\e[01;35m\]\W\[\e[01;34m\] \$ \e[01;00m\]"
 
@@ -83,3 +88,9 @@ fi
 # ===== Volta =====
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
+
+# ===== oh-my-posh =====
+export PATH="$HOME/.local/bin:$PATH"
+# eval "$(oh-my-posh init bash --config $HOME/.poshthemes/onehalf.minimal.omp.json)"
+eval "$(oh-my-posh init bash --config $HOME/.poshthemes/my-theme.omp.json)"
+
