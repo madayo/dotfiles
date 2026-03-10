@@ -8,6 +8,7 @@ make_symbolic_links ~/dotfiles/.bashrc ~/.bashrc
 make_symbolic_links ~/dotfiles/.vim ~/.vim
 make_symbolic_links ~/dotfiles/.vimrc ~/.vimrc
 make_symbolic_links ~/dotfiles/.poshthemes ~/.poshthemes
+make_symbolic_links ~/dotfiles/.tmux.conf ~/.tmux.conf
 
 # リンク貼るが、ほかとディレクトリ構成が異なるものは個別に対応する
 make_symbolic_links ~/dotfiles/.git_global/.gitconfig ~/.gitconfig

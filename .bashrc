@@ -57,7 +57,7 @@ dlogin() {
   docker compose exec "$1" bash
 }
 beep() {
-  ffplay -nodisp -autoexit -loglevel quiet "$HOME/dotfiles/sound/beep.mp3" >/dev/null 2>&1 &
+  ffplay -nodisp -autoexit -loglevel quiet "$HOME/dotfiles/sound/beep.mp3" >/dev/null 2>&1
 }
 ssh() {
     host="$1"
