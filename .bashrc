@@ -39,9 +39,7 @@ alias grep='grep --color=auto'
 alias less='less -N'
 # 左右に並べてdiff
 alias diffv='diff -ybBw -W 200 --suppress-common-lines'
-# docker コマンドの色付け
-# スペース入の alias 名はだめだった
-alias dockercompose="docker compose --ansi=always"
+alias dls='docker compose ls'
 
 # ==================== function ====================
 # git branch表示をプロンプトに入れる
@@ -103,4 +101,10 @@ eval "$(oh-my-posh init bash --config $HOME/.poshthemes/my-theme.omp.json)"
 # 入力補完
 if [ -f /usr/share/bash-completion/completions/ssh ]; then
   source /usr/share/bash-completion/completions/ssh
+fi
+
+# ===== tmux =====
+# tmux起動時
+if [[ -n $(printenv TMUX) ]] ; then
+  . ~/dotfiles/bin/tmux/expand_functions.sh > /dev/null
 fi
