@@ -108,3 +108,6 @@ fi
 if [[ -n $(printenv TMUX) ]] ; then
   . ~/dotfiles/bin/tmux/expand_functions.sh > /dev/null
 fi
+
+# ペイン分割時に、カレントディレクトリを維持できる設定
+PROMPT_COMMAND=${PROMPT_COMMAND:+"$PROMPT_COMMAND ; "}'printf "\e]9;9;%s\e\\" "$(wslpath -w "$PWD")"'
