@@ -53,10 +53,20 @@
   default  = simple # branchやtag名を指定しなかった場合、現在のbranchをpushする。同名のbranchが存在しない場合は拒否する
 
 # WinMerge 使った diff
+# 下記コマンドで wsl 配下にスクリプトを配置して、実行権限を付与してください。
+### sudo tee /usr/local/bin/winmerge-diff << 'EOF' > /dev/null
+### #!/bin/bash
+### # 引数を Windows パスに変換して WinMerge を起動
+### # -r オプションにより、ファイル単体でもディレクトリ一括(-d)でも対応可能
+### "/mnt/c/Program Files/WinMerge/WinMergeU.exe" -e -u -r -dl "Base" -dr "Mine" "$(wslpath -w "$1")" "$(wslpath -w "$2")"
+### EOF
+###
+### sudo chmod +x /usr/local/bin/winmerge-diff
 [diff]
-    tool = WinMerge
-[difftool "WinMerge"]
-    path = C:/Program Files/WinMerge/WinMergeU.exe
-    cmd = \"C:/Program Files/WinMerge/WinMergeU.exe\" -f \"*.*\" -e -u -r \"$LOCAL\" \"$REMOTE\"
+  tool = winmerge
+[difftool "winmerge"]
+  # 先ほど作ったスクリプトを呼び出すだけ。引用符もこれだけでOK。
+  cmd = winmerge-diff "$LOCAL" "$REMOTE"
 [alias]
-    windiff = difftool -y -d -t WinMerge
+  # -d (ディレクトリ比較) と -y (プロンプト無し) をセットにしたエイリアス
+  windiff = difftool -y -d -t winmerge
