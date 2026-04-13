@@ -37,6 +37,29 @@
 3. ユーザーが目視確認後、指示を待つ
 4. ユーザーから明示的なコミット・プッシュ指示が来たら実行
 
+# プロジェクト規約
+
+## Docker Compose
+- `COMPOSE_PROJECT_NAME` を必ず `.env` に設定する
+  - 未設定だとディレクトリ名がプロジェクト名になり、他プロジェクトとコンテナ名・ネットワーク名・volume 名が衝突する
+  - 値はリポジトリ名に合わせる（例: `vivola-career-api`）
+- ポートはすべて `.env` の変数経由で指定し、ハードコードしない
+- ルートの `.env` は `.gitignore` で除外し、`.env.example` のみ Git 管理する
+
+## ディレクトリ構成
+新規プロジェクトではアプリ本体をルート直下に置かず、1階層深く管理する：
+
+```
+project-root/
+├── src/        # アプリ本体（Laravel 等）
+├── docker/     # Dockerfile・Nginx 設定・証明書
+├── tools/      # スクリプト・開発補助ツール
+├── design/     # 仕様書・画面設計資料
+├── docker-compose.yml
+├── .env        # Git 除外（Docker Compose 変数）
+└── .env.example
+```
+
 # コンテキスト管理
 - 作業完了後は `/clear` を促すこと
 - 長いセッションでは `/compact` を提案すること

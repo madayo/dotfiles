@@ -10,10 +10,40 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/dotfiles/.claude/bin/claude-notify.sh 'Claude Code' '作業が完了しました'"
+            "command": "~/dotfiles/.claude/bin/claude-notify.sh"
           }
         ]
       }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/dotfiles/.claude/bin/claude-notify.sh"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/dotfiles/.claude/bin/statusline.sh"
+  },
+  "permissions": {
+    "disableBypassPermissionsMode": "disable",
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(git push *)",
+      "Bash(chmod 777 *)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(./config/credentials.json)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)"
     ]
   }
 }
