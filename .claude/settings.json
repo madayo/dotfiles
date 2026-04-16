@@ -4,7 +4,7 @@
   "cleanupPeriodDays": 14,
   "showTurnDuration": true,
   "model": "sonnet",
-  "effortLevel": "high",
+  "effortLevel": "medium",
   "hooks": {
     "Stop": [
       {
