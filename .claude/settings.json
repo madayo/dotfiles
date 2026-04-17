@@ -1,10 +1,22 @@
 {
-  "autoUpdatesChannel": "stable",
-  "language": "japanese",
   "cleanupPeriodDays": 14,
-  "showTurnDuration": true,
+  "permissions": {
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(git push *)",
+      "Bash(chmod 777 *)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(./config/credentials.json)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)"
+    ],
+    "disableBypassPermissionsMode": "disable"
+  },
   "model": "sonnet",
-  "effortLevel": "medium",
   "hooks": {
     "Stop": [
       {
@@ -31,20 +43,8 @@
     "type": "command",
     "command": "bash ~/dotfiles/.claude/bin/statusline.sh"
   },
-  "permissions": {
-    "disableBypassPermissionsMode": "disable",
-    "deny": [
-      "Bash(rm -rf *)",
-      "Bash(curl *)",
-      "Bash(wget *)",
-      "Bash(git push *)",
-      "Bash(chmod 777 *)",
-      "Read(./.env)",
-      "Read(./.env.*)",
-      "Read(./secrets/**)",
-      "Read(./config/credentials.json)",
-      "Read(**/*.pem)",
-      "Read(**/*.key)"
-    ]
-  }
+  "language": "japanese",
+  "effortLevel": "medium",
+  "autoUpdatesChannel": "stable",
+  "showTurnDuration": true
 }
