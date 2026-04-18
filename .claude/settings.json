@@ -4,8 +4,6 @@
     "allow": [
       "Bash(docker compose exec:*)",
       "Bash(docker run:*)",
-      "Read(~/.claude/CLAUDE.md)",
-      "Read(~/.claude/settings.json)",
       "WebFetch(domain:dev.classmethod.jp)"
     ],
     "deny": [
@@ -21,11 +19,7 @@
       "Read(./secrets/**)",
       "Read(./config/credentials.json)",
       "Read(**/*.pem)",
-      "Read(**/*.key)",
-      "Read(~/.claude/.credentials.json)",
-      "Read(~/.claude/history.jsonl)",
-      "Read(~/.claude/sessions/**)",
-      "Read(~/.claude/projects/**)"
+      "Read(**/*.key)"
     ],
     "disableBypassPermissionsMode": "disable"
   },
