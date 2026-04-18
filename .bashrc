@@ -7,10 +7,13 @@ export LANG=ja_JP.UTF-8
 echo -ne '\e[5 q'
 
 # 履歴
-HISTSIZE=5000
-HISTFILESIZE=10000
+HISTSIZE=10000
+HISTFILESIZE=20000
+# 重複防止
 HISTCONTROL=ignoredups:erasedups
+# 履歴を即書き込み
 shopt -s histappend
+PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # ターミナルのサイズ変更を検知して、行数と列数を自動で更新する
 shopt -s checkwinsize
@@ -25,6 +28,15 @@ fi
 # fzf (key bindings / completion)
 [ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
 [ -f /usr/share/doc/fzf/examples/completion.bash ] && source /usr/share/doc/fzf/examples/completion.bash
+# 履歴のペイン間共有を fxf にも適用
+__fzf_history__() {
+  history -a   # 今の履歴を保存
+  history -c   # メモリクリア
+  history -r   # ファイルから再読込
+  builtin fc -l 1 | fzf --tac | sed 's/^[ ]*[0-9]*[ ]*//'
+}
+
+bind -x '"\C-r": __fzf_history__'
 
 # ssh-agent のソケットパスを環境変数に設定
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR%/}/ssh-agent.socket"
