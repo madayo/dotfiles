@@ -1,23 +1,45 @@
 {
   "cleanupPeriodDays": 14,
   "permissions": {
+    "allow": [
+      "Bash(docker compose exec:*)",
+      "Bash(docker run:*)",
+      "Read(~/.claude/CLAUDE.md)",
+      "Read(~/.claude/settings.json)",
+      "WebFetch(domain:dev.classmethod.jp)"
+    ],
     "deny": [
       "Bash(rm -rf *)",
+      "Bash(git push --force *main*)",
+      "Bash(git push --force *master*)",
+      "Bash(git push -f *main*)",
+      "Bash(git push -f *master*)",
       "Bash(curl *)",
       "Bash(wget *)",
-      "Bash(git push *)",
       "Bash(chmod 777 *)",
       "Read(./.env)",
-      "Read(./.env.*)",
       "Read(./secrets/**)",
       "Read(./config/credentials.json)",
       "Read(**/*.pem)",
-      "Read(**/*.key)"
+      "Read(**/*.key)",
+      "Read(~/.claude/.credentials.json)",
+      "Read(~/.claude/history.jsonl)",
+      "Read(~/.claude/sessions/**)",
+      "Read(~/.claude/projects/**)"
     ],
     "disableBypassPermissionsMode": "disable"
   },
-  "model": "sonnet",
+  "model": "opusplan",
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git add*)",
+        "hooks": [{
+          "type": "command",
+          "command": "git diff --cached --name-only | grep -E '^\\.env' && echo '🚨 .env をステージしようとしています！' && exit 1 || exit 0"
+        }]
+      }
+    ],
     "Stop": [
       {
         "hooks": [
