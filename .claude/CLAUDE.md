@@ -43,7 +43,43 @@
 2. feature ブランチを作成してチェックアウト
 3. 実装・コミット
 4. feature ブランチへ push
-5. PR を作成し、URL をユーザーに報告して完了
+5. PR を作成し、URL をユーザーに報告
+6. Copilot レビューコメントを確認し、採否を判断して対応
+7. 対応結果を `gh pr comment` でコメントし完了
+
+## PR 作成フォーマット
+
+```
+gh pr create --title "<タイトル>" --body "$(cat <<'EOF'
+## Summary
+
+- <変更点を箇条書き>
+
+## Test plan
+
+- [ ] <確認項目>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+EOF
+)"
+```
+
+## Copilot レビュー対応
+
+PR 作成後、以下の手順でレビューコメントを処理する。
+
+1. `gh api repos/<owner>/<repo>/pulls/<番号>/comments` でコメント取得
+2. 各 suggestion を採用 / 不採用で判断し、採用分は修正・コミット・push
+3. 以下のフォーマットで `gh pr comment` を投稿して報告する
+
+```
+Copilot レビューへの対応:
+
+**#N (件名)** — 採用 / 不採用
+<理由と対応内容>
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+```
 
 # プロジェクト規約
 

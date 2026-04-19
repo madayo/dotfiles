@@ -2,8 +2,19 @@
   "cleanupPeriodDays": 14,
   "permissions": {
     "allow": [
-      "Bash(docker compose exec:*)",
       "Bash(docker run:*)",
+      "Bash(docker compose build:*)",
+      "Bash(docker compose run:*)",
+      "Bash(docker compose up:*)",
+      "Bash(docker compose exec:*)",
+      "Bash(npm run:*)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git push*)",
+      "Bash(gh pr create *)",
+      "Bash(gh pr comment *)",
+      "Bash(gh api *)",
       "WebFetch(domain:dev.classmethod.jp)"
     ],
     "deny": [
@@ -12,6 +23,10 @@
       "Bash(git push --force *master*)",
       "Bash(git push -f *main*)",
       "Bash(git push -f *master*)",
+      "Bash(git push origin main)",
+      "Bash(git push origin master)",
+      "Bash(git push -u origin main)",
+      "Bash(git push -u origin master)",
       "Bash(curl *)",
       "Bash(wget *)",
       "Bash(chmod 777 *)",
