@@ -44,7 +44,7 @@
 3. 実装・コミット
 4. feature ブランチへ push
 5. PR を作成し、URL をユーザーに報告
-6. Copilot レビューコメントを確認し、採否を判断して対応
+6. ユーザーからのCopilotのコメント確認の指示があれば、gh get-comments コマンドを実行して、Copilotの修正案（suggestion）を確認し、適切なら適用し、不適切なら理由を添えて修正
 7. 対応結果を `gh pr comment` でコメントし完了
 
 ## PR 作成フォーマット

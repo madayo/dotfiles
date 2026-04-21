@@ -7,14 +7,18 @@
       "Bash(docker compose run:*)",
       "Bash(docker compose up:*)",
       "Bash(docker compose exec:*)",
+      "Bash(npx *)",
       "Bash(npm run:*)",
       "Bash(git checkout:*)",
+      "Bash(git branch:*)",
       "Bash(git add:*)",
+      "Bash(git commit:*)",
       "Bash(git commit -m ':*)",
       "Bash(git push*)",
       "Bash(gh pr create *)",
       "Bash(gh pr comment *)",
       "Bash(gh api *)",
+      "Bash(gh get-comments:*)",
       "WebFetch(domain:dev.classmethod.jp)"
     ],
     "deny": [
