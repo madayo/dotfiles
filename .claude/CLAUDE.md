@@ -23,6 +23,21 @@
 
 # Git 操作
 
+## コミットメッセージ
+
+AI ツールを介して行ったコミットには、必ず `Co-Authored-By` トレーラーを付与する。
+
+- **Claude Code** の場合:
+  ```
+  Co-Authored-By: Claude <noreply@anthropic.com>
+  ```
+- **GitHub Copilot** の場合:
+  ```
+  Co-Authored-By: GitHub Copilot <copilot@github.com>
+  ```
+
+複数ツールを併用した場合は両方記載する。
+
 ## 禁止事項
 - **main / master への直接 commit・push**: PR 経由のみ許可
 - **force push**: いかなる場合も禁止
@@ -42,44 +57,8 @@
 1. 方針・実装内容をユーザーに説明し、許可を得る
 2. feature ブランチを作成してチェックアウト
 3. 実装・コミット
-4. feature ブランチへ push
-5. PR を作成し、URL をユーザーに報告
-6. ユーザーからのCopilotのコメント確認の指示があれば、gh get-comments コマンドを実行して、Copilotの修正案（suggestion）を確認し、適切なら適用し、不適切なら理由を添えて修正
-7. 対応結果を `gh pr comment` でコメントし完了
-
-## PR 作成フォーマット
-
-```
-gh pr create --title "<タイトル>" --body "$(cat <<'EOF'
-## Summary
-
-- <変更点を箇条書き>
-
-## Test plan
-
-- [ ] <確認項目>
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-EOF
-)"
-```
-
-## Copilot レビュー対応
-
-PR 作成後、以下の手順でレビューコメントを処理する。
-
-1. `gh api repos/<owner>/<repo>/pulls/<番号>/comments` でコメント取得
-2. 各 suggestion を採用 / 不採用で判断し、採用分は修正・コミット・push
-3. 以下のフォーマットで `gh pr comment` を投稿して報告する
-
-```
-Copilot レビューへの対応:
-
-**#N (件名)** — 採用 / 不採用
-<理由と対応内容>
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-```
+4. `/my-pr` で push・PR作成・URL報告
+5. Copilot レビュー対応の指示があれば `/my-copilot-review` を実行
 
 # プロジェクト規約
 
