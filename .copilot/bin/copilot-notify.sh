@@ -6,60 +6,11 @@ INPUT="$(cat)"
 CWD="$(printf '%s' "$INPUT" | jq -r '.cwd // ""')"
 SESSION_ID="$(printf '%s' "$INPUT" | jq -r '.sessionId // .session_id // ""')"
 HOOK_EVENT_NAME="$(printf '%s' "$INPUT" | jq -r '.hookEventName // "Stop"')"
-AGENT_TYPE="$(printf '%s' "$INPUT" | jq -r '.agent_type // .agentType // "Copilot"')"
-TOOL_NAME="$(printf '%s' "$INPUT" | jq -r '.tool_name // ""')"
-TOOL_INPUT="$(printf '%s' "$INPUT" | jq -c '.tool_input // {}')"
 
 PROJECT_NAME="$(basename "${CWD:-unknown}")"
 BRANCH="$(git -C "$CWD" rev-parse --abbrev-ref HEAD 2>/dev/null || echo '-')"
 
-# PreToolUse は全ツールで発火するため、そのままだと通知過多になります。
-# ここでは「ユーザー確認が発生しやすいコマンド実行系ツール」だけを通知対象に絞ります。
-should_notify_for_tool_event() {
-  case "$TOOL_NAME" in
-    run_in_terminal|create_and_run_task|send_to_terminal|run_vscode_command|install_extension)
-      return 0
-      ;;
-    *)
-      return 1
-      ;;
-  esac
-}
-
-# ツール実行系は入力 JSON の形が少しずつ違うため、通知文に載せる代表値だけを拾います。
-# 長すぎるコマンド全文をそのまま通知すると読みにくいため、1 行に潰して先頭だけ使います。
-build_tool_summary() {
-  local summary
-
-  summary="$(printf '%s' "$TOOL_INPUT" | jq -r '
-    .command // .task.command // .name // .url // empty
-  ' 2>/dev/null)"
-
-  summary="$(printf '%s' "$summary" | tr '\n' ' ' | sed 's/[[:space:]]\+/ /g; s/^ //; s/ $//')"
-
-  if [ -z "$summary" ]; then
-    summary="$TOOL_NAME"
-  fi
-
-  printf '%.80s' "$summary"
-}
-
-# PreToolUse の通知はコマンド実行系だけに限定し、その他のツール通知はここで捨てます。
 case "$HOOK_EVENT_NAME" in
-  PreToolUse)
-    if ! should_notify_for_tool_event; then
-      exit 0
-    fi
-    ;;
-esac
-
-TOOL_SUMMARY="$(build_tool_summary)"
-
-case "$HOOK_EVENT_NAME" in
-  PreToolUse)
-    TITLE="GitHub Copilot"
-    MESSAGE="${PROJECT_NAME} / ${BRANCH} / 確認待ちの可能性あり: ${TOOL_SUMMARY}"
-    ;;
   *)
     TITLE="GitHub Copilot"
     MESSAGE="${PROJECT_NAME} / ${BRANCH} / 返答待ちです"
