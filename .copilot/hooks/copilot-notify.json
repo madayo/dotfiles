@@ -6,19 +6,7 @@
         "command": "bash ~/dotfiles/.copilot/bin/copilot-notify.sh"
       }
     ],
-    "SubagentStop": [
-      {
-        "type": "command",
-        "command": "bash ~/dotfiles/.copilot/bin/copilot-notify.sh"
-      }
-    ],
     "PreToolUse": [
-      {
-        "type": "command",
-        "command": "bash ~/dotfiles/.copilot/bin/copilot-notify.sh"
-      }
-    ],
-    "PostToolUse": [
       {
         "type": "command",
         "command": "bash ~/dotfiles/.copilot/bin/copilot-notify.sh"
