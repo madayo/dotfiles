@@ -2,13 +2,12 @@
 
 ## 手順
 
-1. `gh pr view --json number,url` で現在のブランチの PR 番号を取得する。
-2. `gh api repos/<owner>/<repo>/pulls/<番号>/comments` で Copilot のコメントを取得する。
-   - owner/repo は `gh repo view --json nameWithOwner` で取得する。
-3. 各 suggestion を採用 / 不採用で判断する。
+1. `gh get-comments` でカレントブランチの PR コメントを取得する。
+   - 出力形式: `file / line / author / comment`
+2. 各 suggestion を採用 / 不採用で判断する。
    - 採用：コードを修正し、コミット・push する。
    - 不採用：理由を記録する。
-4. 以下のフォーマットで `gh pr comment` を投稿する。
+3. 以下のフォーマットで `gh pr comment` を投稿する。
 
 ```
 gh pr comment <番号> --body "$(cat <<'EOF'
