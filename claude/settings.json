@@ -58,7 +58,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/dotfiles/.claude/bin/claude-notify.sh"
+            "command": "~/dotfiles/claude/bin/claude-notify.sh"
           }
         ]
       }
@@ -68,7 +68,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/dotfiles/.claude/bin/claude-notify.sh"
+            "command": "~/dotfiles/claude/bin/claude-notify.sh"
           }
         ]
       }
@@ -76,7 +76,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "bash ~/dotfiles/.claude/bin/statusline.sh"
+    "command": "bash ~/dotfiles/claude/bin/statusline.sh"
   },
   "language": "japanese",
   "effortLevel": "medium",

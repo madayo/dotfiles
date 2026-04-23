@@ -13,8 +13,9 @@ make_symbolic_links ~/dotfiles/.tmux.conf ~/.tmux.conf
 # リンク貼るが、ほかとディレクトリ構成が異なるものは個別に対応する
 make_symbolic_links ~/dotfiles/.git_global/.gitconfig ~/.gitconfig
 make_symbolic_links ~/dotfiles/.ssh_config ~/.ssh/config
-make_symbolic_links ~/dotfiles/.claude/CLAUDE.md ~/.claude/CLAUDE.md
-make_symbolic_links ~/dotfiles/.claude/settings.json ~/.claude/settings.json
+make_symbolic_links ~/dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
+make_symbolic_links ~/dotfiles/claude/settings.json ~/.claude/settings.json
+make_symbolic_links ~/dotfiles/claude/commands ~/.claude/commands
 
 mkdir -p ~/.vscode-server/data/User
 make_symbolic_links ~/dotfiles/.copilot/prompts ~/.vscode-server/data/User/prompts
