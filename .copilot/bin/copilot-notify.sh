@@ -45,7 +45,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
-\$soundPath = \"\$env:USERPROFILE\\Music\\beep2.wav\"
+\$soundPath = \"\$env:USERPROFILE\\Music\\beep-copilot.wav\"
 
 if (Test-Path \$soundPath) {
   try {
