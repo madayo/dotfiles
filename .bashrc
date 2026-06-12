@@ -55,22 +55,8 @@ dlogin() {
   docker compose exec "$1" bash
 }
 beep() {
-  ffplay -nodisp -autoexit -loglevel quiet "$HOME/dotfiles/sound/beep.mp3" >/dev/null 2>&1
+  ffplay -nodisp -autoexit -loglevel quiet "$HOME/dotfiles/sound/beep-potato.mp3" >/dev/null 2>&1
 }
-ssh() {
-  local host="$1"
-
-  if [[ "$host" == *.dev.* ]]; then
-    PS1_STR='\[\e[30;42m\][DEV]\[\e[0m\] \u@\h:\w\$ '
-  elif [[ "$host" == *.production.* ]]; then
-    PS1_STR='\[\e[97;41m\][PROD]\[\e[0m\] \u@\h:\w\$ '
-  else
-    PS1_STR='\[\e[97;44m\][SSH]\[\e[0m\] \u@\h:\w\$ '
-  fi
-
-  command ssh "$host" -t "bash --rcfile <(cat ~/.bashrc; echo 'PS1=\"$PS1_STR\"') -i"
-}
-
 # ==================== Prompt ====================
 PS1='\[\e[36m\]\u@\h\[\e[0m\]:\[\e[33m\]\W\[\e[0m\]\[\e[35m\]$(parse_git_branch)\[\e[0m\] $ '
 #  msys2 時代に使っていたもの
