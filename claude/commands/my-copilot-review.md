@@ -2,12 +2,10 @@
 
 ## 手順
 
-1. `gh get-comments` でカレントブランチの PR コメントを取得する。
+1. 必ず `gh get-comments` でカレントブランチの PR コメントを取得する。
    - 出力形式: `file / line / author / comment`
-2. 各 suggestion を採用 / 不採用で判断する。
-   - 採用：コードを修正し、コミット・push する。
-   - 不採用：理由を記録する。
-3. 以下のフォーマットで `gh pr comment` を投稿する。
+2. 各 suggestion を採用 / 不採用で判断し、簡潔な理由も添えて報告する
+3. こちらの返答を受けて、最終的に以下のフォーマットで `gh pr comment` を投稿する。
 
 ```
 gh pr comment <番号> --body "$(cat <<'EOF'
