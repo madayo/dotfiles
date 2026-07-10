@@ -1,0 +1,50 @@
+# 使用モデル
+model = "gpt-5.5"
+
+# 日常的な開発作業向け。
+# 必要に応じて minimal / low / medium / high / xhigh に変更可能。
+model_reasoning_effort = "medium"
+
+# Codex が必要と判断した場合に承認を求める
+approval_policy = "on-request"
+
+# 現在のワークスペース内のみ書き込み可能
+sandbox_mode = "workspace-write"
+
+[features]
+hooks = true
+
+[projects."/home/madayo"]
+trust_level = "trusted"
+
+[projects."/home/madayo/dotfiles"]
+trust_level = "trusted"
+
+[projects."/home/madayo/develop/html-js-parts"]
+trust_level = "trusted"
+
+[projects."/home/madayo/develop/job/beyondage/otokomae/src"]
+trust_level = "trusted"
+
+[tui]
+# hooks側でWindows通知と音を出すため、
+# TUI標準通知は無効化して二重通知を防ぐ。
+notifications = false
+
+# ステータスラインに最低限ほしい情報を表示
+status_line = [
+  "model-with-reasoning",
+  "current-dir",
+  "git-branch",
+  "branch-changes",
+  "context-used",
+  "five-hour-limit",
+  "weekly-limit",
+  "codex-version",
+  "used-tokens",
+]
+status_line_use_colors = true
+
+[tui.model_availability_nux]
+"gpt-5.5" = 1
+"gpt-5.6-sol" = 2

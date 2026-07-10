@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/dotfiles/codex/codex-notify.sh\"",
+            "timeout": 10,
+            "statusMessage": "Sending completion notification"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/dotfiles/codex/codex-notify.sh\"",
+            "timeout": 10,
+            "statusMessage": "Sending approval notification"
+          }
+        ]
+      }
+    ]
+  }
+}

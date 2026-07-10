@@ -17,6 +17,9 @@ make_symbolic_links ~/dotfiles/AGENTS.md ~/CLAUDE.md
 make_symbolic_links ~/dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
 make_symbolic_links ~/dotfiles/claude/settings.json ~/.claude/settings.json
 make_symbolic_links ~/dotfiles/claude/commands ~/.claude/commands
+make_symbolic_links ~/dotfiles/codex/hooks.json ~/.codex/hooks.json
+
+print_info "codex の config.toml はシンボリックリンクにせず、必要な部分のテキストを手動でコピペしてください。"
 
 mkdir -p ~/.vscode-server/data/User
 make_symbolic_links ~/dotfiles/.copilot/prompts ~/.vscode-server/data/User/prompts
