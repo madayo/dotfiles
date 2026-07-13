@@ -1,0 +1,4 @@
+interface:
+  display_name: "my-handoff"
+  short_description: "Create a handoff note for continuing work in a new chat."
+  default_prompt: "Use $my-handoff to create a handoff note for the next chat."

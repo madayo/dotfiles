@@ -1,0 +1,4 @@
+interface:
+  display_name: "my-copilot-review"
+  short_description: "Handle Copilot review comments on the current PR."
+  default_prompt: "Use $my-copilot-review to handle Copilot review comments on this PR."

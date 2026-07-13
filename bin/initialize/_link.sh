@@ -19,6 +19,14 @@ make_symbolic_links ~/dotfiles/claude/settings.json ~/.claude/settings.json
 make_symbolic_links ~/dotfiles/claude/commands ~/.claude/commands
 make_symbolic_links ~/dotfiles/codex/hooks.json ~/.codex/hooks.json
 
+# ~/.codex/skills には Codex 管理の system skills も配置されるため、
+# ディレクトリごと置換せず、dotfiles 管理したい個別 skill だけをリンクする。
+mkdir -p ~/.codex/skills
+make_symbolic_links ~/dotfiles/codex/skills/my-pr ~/.codex/skills/my-pr
+make_symbolic_links ~/dotfiles/codex/skills/my-review ~/.codex/skills/my-review
+make_symbolic_links ~/dotfiles/codex/skills/my-copilot-review ~/.codex/skills/my-copilot-review
+make_symbolic_links ~/dotfiles/codex/skills/my-handoff ~/.codex/skills/my-handoff
+
 print_info "codex の config.toml はシンボリックリンクにせず、必要な部分のテキストを手動でコピペしてください。"
 
 mkdir -p ~/.vscode-server/data/User

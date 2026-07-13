@@ -1,0 +1,4 @@
+interface:
+  display_name: "my-review"
+  short_description: "Review current changes from a tech lead perspective."
+  default_prompt: "Use $my-review to review the current branch changes."

@@ -45,6 +45,8 @@ AIを利用したコミットには Co-Authored-By を付与する。
 
 - Claude
   `Co-Authored-By: Claude <noreply@anthropic.com>`
+- Codex
+  `Co-Authored-By: Codex <codex@openai.com>`
 - GitHub Copilot
   `Co-Authored-By: GitHub Copilot <copilot@github.com>`
 
