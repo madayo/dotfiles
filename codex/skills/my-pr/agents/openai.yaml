@@ -1,0 +1,4 @@
+interface:
+  display_name: "my-pr"
+  short_description: "Prepare, push, and create a GitHub PR."
+  default_prompt: "Use $my-pr to create a PR for the current branch."

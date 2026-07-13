@@ -2,19 +2,29 @@
 
 ## 引数
 
-* 引数なし: `git diff master...HEAD` で現ブランチ全体を対象にする
+* 引数なし: staged / unstaged の作業ツリー差分を優先し、なければ現ブランチ全体を対象にする
 * 引数あり: `git diff $ARGUMENTS` で任意の比較を対象にする（例: `HEAD~1`, `main..feature/xxx`）
 
 ## 手順
 
 1. 引数に応じて diff を取得する。
 
-   * 引数なし: `git diff master...HEAD`
+   * 引数なし:
+     1. `git status --short --branch` で現在のブランチと作業ツリー状態を確認する。
+     2. `git diff --cached` で staged 変更を確認する。
+     3. `git diff` で unstaged 変更を確認する。
+     4. staged / unstaged がどちらも空の場合、`main...HEAD` または `master...HEAD` で現ブランチ全体を確認する。
    * 引数あり: `git diff $ARGUMENTS`
-2. diff が空の場合は「変更なし」と報告して終了する。
-3. diff の内容を確認する。
-4. レビューに必要な情報が diff だけでは不足する場合は、関連する Controller / Service / Request / Policy / Model / Migration / Test なども調査する。
-5. 以下の観点でレビューを行う。
+2. diff が空の場合は、終了前に以下を確認する。
+
+   * `git branch --show-current` で作業ブランチを間違っていないか確認する。
+   * `git status --short --branch` で未追跡ファイル、staged / unstaged 変更、upstream との差分を確認する。
+   * `git branch --list main master` で比較先ブランチが存在するか確認する。
+   * `git log --oneline --decorate -5` で直近コミットが想定どおりか確認する。
+3. 上記を確認しても diff が空の場合のみ「変更なし」と報告して終了する。
+4. diff の内容を確認する。
+5. レビューに必要な情報が diff だけでは不足する場合は、関連する Controller / Service / Request / Policy / Model / Migration / Test なども調査する。
+6. 以下の観点でレビューを行う。
 
 ### レビュー観点
 
