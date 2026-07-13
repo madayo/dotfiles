@@ -32,10 +32,10 @@ feature / fix ブランチが未作成、またはコミットが未完了の場
   1. `git diff --cached` と `git diff` で staged / unstaged の変更内容を確認する。
   2. 変更内容をもとに、日本語で適切なコミットメッセージを提案する。
   3. ユーザーの許可を得てから関連ファイルのみ `git add` する。
-  4. AI を利用したコミットとして `Co-Authored-By` trailer を付ける。Codex 用の trailer がプロジェクトルールに明記されていない場合は、コミット前にユーザーへ確認する。
+  4. AI を利用したコミットとして、AGENTS.md のルールに従い `Co-Authored-By` trailer を付ける。Codex の場合は以下を使う。
 
 ```text
-Co-Authored-By: <name> <email>
+Co-Authored-By: Codex <codex@openai.com>
 ```
 
 ユーザーが trailer を指定した場合はそれに従う。
