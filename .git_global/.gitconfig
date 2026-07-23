@@ -15,6 +15,7 @@
   dt = difftool
   t = tag
   l = mylog
+  wt = worktree
 
   reco = commit --amend --no-edit
 

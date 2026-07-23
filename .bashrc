@@ -58,7 +58,8 @@ beep() {
   ffplay -nodisp -autoexit -loglevel quiet "$HOME/dotfiles/sound/beep-potato.mp3" >/dev/null 2>&1
 }
 # ==================== Prompt ====================
-PS1='\[\e[36m\]\u@\h\[\e[0m\]:\[\e[33m\]\W\[\e[0m\]\[\e[35m\]$(parse_git_branch)\[\e[0m\] $ '
+# oh-my-posh で定義しているので、ここのはコメントアウト
+# PS1='\[\e[36m\]\u@\h\[\e[0m\]:\[\e[33m\]\W\[\e[0m\]\[\e[35m\]$(parse_git_branch)\[\e[0m\] $ '
 #  msys2 時代に使っていたもの
 # PS1="\[\e[01;32m\][\u@\H]\[\e[01;34m\]\[\e[00m\]:\[\e[01;35m\]\W\[\e[01;34m\] \$ \e[01;00m\]"
 
