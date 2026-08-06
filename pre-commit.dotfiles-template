@@ -1,0 +1,97 @@
+#!/bin/sh
+# pre-commit: PHP / Node のコンテナ内で自動整形・lint・静的解析を実行する
+# ホストに PHP / Node がインストールされていない前提で、必ずコンテナ内で実行する。
+# コンテナは起動済みであることが前提。未起動なら commit を中止する。
+#
+# 流れ:
+#   1. 起動確認
+#   2. 自動整形 (FIXES) を実行。差分が出たら commit を中止し、確認・再 add を促す
+#   3. 差分が無ければ自動整形できないチェック (CHECKS) を実行。失敗があれば commit を中止
+#
+# 使い方: プロジェクトごとに下記 FIXES / CHECKS のみ書き換えて .git/hooks/pre-commit として配置する。
+#   フォーマット: サービス名|ラベル|コマンド (docker-compose.yml の service 名を指定)
+
+set -eu
+
+cd "$(git rev-parse --show-toplevel)"
+
+# --- ここをプロジェクトに合わせて書き換える ---
+FIXES='
+php|PHP Fix (Pint)|composer lint:fix
+node|Node Fix (prettier/eslint)|npm run fix
+'
+
+CHECKS='
+php|PHP 静的解析 (PHPStan)|composer phpstan
+node|Node Lint (stylelint 含む全体)|npm run lint
+'
+# --- ここまで ---
+
+# --- 起動確認 ---
+SERVICES=$(printf '%s%s' "$FIXES" "$CHECKS" | awk -F'|' 'NF>0{print $1}' | sort -u)
+NOT_RUNNING=""
+for service in $SERVICES; do
+    cid=$(docker compose ps -q "$service" 2>/dev/null || true)
+    if [ -z "$cid" ] || [ "$(docker inspect -f '{{.State.Running}}' "$cid" 2>/dev/null)" != "true" ]; then
+        NOT_RUNNING="$NOT_RUNNING $service"
+    fi
+done
+
+if [ -n "$NOT_RUNNING" ]; then
+    echo "❌ [pre-commit] 以下のコンテナが起動していません:$NOT_RUNNING"
+    echo "❌ [pre-commit] 'docker compose up -d' 等で起動してから commit してください。"
+    exit 1
+fi
+
+# サービス名|ラベル|コマンド の改行区切りリストを順に実行し、失敗したラベルを FAILED に積む
+run_list() {
+    list="$1"
+    OLD_IFS=$IFS
+    IFS='
+'
+    for line in $list; do
+        [ -z "$line" ] && continue
+        service=$(echo "$line" | cut -d'|' -f1)
+        label=$(echo "$line" | cut -d'|' -f2)
+        cmd=$(echo "$line" | cut -d'|' -f3)
+
+        echo "🔧 [pre-commit] $label を実行中... (docker compose exec -T $service $cmd)"
+        if ! docker compose exec -T "$service" sh -c "$cmd"; then
+            FAILED="$FAILED\n- $label"
+        fi
+    done
+    IFS=$OLD_IFS
+}
+
+# --- 自動整形 ---
+FAILED=""
+run_list "$FIXES"
+
+if [ -n "$FAILED" ]; then
+    echo ""
+    echo "❌ [pre-commit] 以下の自動整形コマンドがエラー終了したため commit を中止します:"
+    printf '%b\n' "$FAILED"
+    exit 1
+fi
+
+CHANGED=$(git diff --name-only)
+if [ -n "$CHANGED" ]; then
+    echo ""
+    echo "⚠️ [pre-commit] 自動整形によりファイルが変更されました。内容を確認のうえ git add してから再度 commit してください:"
+    echo "$CHANGED"
+    exit 1
+fi
+
+# --- 自動整形できないチェック ---
+FAILED=""
+run_list "$CHECKS"
+
+if [ -n "$FAILED" ]; then
+    echo ""
+    echo "❌ [pre-commit] 以下のチェックが失敗したため commit を中止します:"
+    printf '%b\n' "$FAILED"
+    exit 1
+fi
+
+echo "✅ [pre-commit] 全チェックが通過しました。"
+exit 0
