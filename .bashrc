@@ -57,6 +57,11 @@ dlogin() {
 beep() {
   ffplay -nodisp -autoexit -loglevel quiet "$HOME/dotfiles/sound/beep-potato.mp3" >/dev/null 2>&1
 }
+# 文字化け対策。UTF-8 文字列でクリップボードにコピーする（WSL2用）
+clip() {
+    iconv -f UTF-8 -t UTF-16LE | clip.exe
+}
+
 # ==================== Prompt ====================
 # oh-my-posh で定義しているので、ここのはコメントアウト
 # PS1='\[\e[36m\]\u@\h\[\e[0m\]:\[\e[33m\]\W\[\e[0m\]\[\e[35m\]$(parse_git_branch)\[\e[0m\] $ '

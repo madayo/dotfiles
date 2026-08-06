@@ -51,15 +51,15 @@ fi
 
 worktree=""
 if [ -n "$worktree_name" ] && [ -n "$worktree_branch" ] && [ "$worktree_name" != "$worktree_branch" ]; then
-  worktree=" 🌲 ${worktree_name}:${worktree_branch}"
+  worktree="🌲 ${worktree_name}:${worktree_branch}"
 elif [ -n "$worktree_name" ]; then
-  worktree=" 🌲 ${worktree_name}"
+  worktree="🌲 ${worktree_name}"
 elif [ -n "$worktree_branch" ]; then
-  worktree=" 🌲 ${worktree_branch}"
+  worktree="🌲 ${worktree_branch}"
 elif [ "$is_git_repo" -eq 1 ]; then
-  worktree=" 🌲 main tree"
+  worktree="🌲 main tree"
 else
-  worktree=" 🌲 no worktree"
+  worktree="🌲 no worktree"
 fi
 
 # --- ヘルパー: 使用率に応じた色付きプログレスバーを出力 ---
@@ -90,7 +90,7 @@ format_epoch() {
 # プロンプトセグメント（黄: dir、マゼンタ: branch）
 printf '%b📁 %s%b%b%s%b' "$THEME_DIR" "$dir" "$COLOR_RESET" "$THEME_BRANCH" "$branch" "$COLOR_RESET"
 
-printf ' | %b%s%b' "$THEME_LABEL" "$worktree" "$COLOR_RESET"
+printf ' %b%s%b' "$THEME_LABEL" "$worktree" "$COLOR_RESET"
 
 # モデル名 + 推論レベル（黄系）
 if [ -n "$model" ]; then
