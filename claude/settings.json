@@ -60,7 +60,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/dotfiles/claude/bin/claude-notify.sh"
+            "command": "~/dotfiles/claude/bin/claude-notify.sh stop"
           }
         ]
       }
@@ -70,7 +70,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/dotfiles/claude/bin/claude-notify.sh"
+            "command": "~/dotfiles/claude/bin/claude-notify.sh permission"
           }
         ]
       }

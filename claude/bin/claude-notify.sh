@@ -29,6 +29,10 @@
 #!/usr/bin/env bash
 set -u
 
+NOTIFY_TYPE="${1:-stop}"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SLACK_WEBHOOK_FILE="$SCRIPT_DIR/slack-webhook-url.txt"
+
 INPUT="$(cat)"
 
 CWD="$(printf '%s' "$INPUT" | jq -r '.cwd // ""')"
@@ -70,7 +74,15 @@ if [ -z "$SHORT_MSG" ] || [ "$SHORT_MSG" = "null" ]; then
 fi
 
 TITLE="Claude Code"
-MESSAGE="${PROJECT_NAME} / ${BRANCH} / ${SHORT_MSG}"
+
+case "$NOTIFY_TYPE" in
+  permission)
+    MESSAGE="🔐 ${PROJECT_NAME} / ${BRANCH} / 権限確認待ち / ${SHORT_MSG}"
+    ;;
+  stop|*)
+    MESSAGE="🤖 ${PROJECT_NAME} / ${BRANCH} / 入力待ち / ${SHORT_MSG}"
+    ;;
+esac
 
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/claude-notify"
 mkdir -p "$CACHE_DIR"
@@ -122,5 +134,22 @@ Start-Sleep -Milliseconds 1500
 Start-Sleep -Milliseconds 4000
 \$ni.Dispose()
 " >/dev/null 2>&1 || true
+
+
+# Slack Incoming Webhook へ通知
+# Webhook URL は Git 管理外のファイルに保存する
+if [ -f "$SLACK_WEBHOOK_FILE" ]; then
+  SLACK_WEBHOOK_URL="$(tr -d '\r\n' < "$SLACK_WEBHOOK_FILE")"
+
+  if [ -n "$SLACK_WEBHOOK_URL" ]; then
+    SLACK_PAYLOAD="$(jq -n --arg text "$MESSAGE" '{text: $text}')"
+    curl -sS \
+      -X POST \
+      -H 'Content-type: application/json' \
+      --data "$SLACK_PAYLOAD" \
+      "$SLACK_WEBHOOK_URL" \
+      >/dev/null 2>&1 || true
+  fi
+fi
 
 exit 0
