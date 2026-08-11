@@ -1,43 +1,61 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": [],
+    "actions": 
+    [
+        {
+            "command": "openTabRenamer",
+            "id": "User.openTabRenamer"
+        }
+    ],
     "alwaysShowNotificationIcon": true,
     "copyFormatting": "none",
     "copyOnSelect": true,
     "defaultProfile": "{f78da5a6-b9de-4f5b-92b1-01f7b5fe92a5}",
     "initialCols": 120,
     "initialRows": 30,
-    "keybindings":
+    "keybindings": 
     [
         {
             "id": "Terminal.TogglePaneZoom",
             "keys": "ctrl+alt+z"
         },
         {
+            "id": "Terminal.DuplicatePaneRight",
+            "keys": "alt+shift+\\"
+        },
+        {
             "id": "Terminal.CopyToClipboard",
             "keys": "ctrl+c"
+        },
+        {
+            "id": "Terminal.DuplicatePaneDown",
+            "keys": "alt+shift+minus"
+        },
+        {
+            "id": "Terminal.PasteFromClipboard",
+            "keys": "ctrl+v"
         },
         {
             "id": "Terminal.FindText",
             "keys": "ctrl+shift+f"
         },
         {
-            "id": "Terminal.PasteFromClipboard",
-            "keys": "ctrl+v"
+            "id": "User.openTabRenamer",
+            "keys": "ctrl+shift+r"
         }
     ],
-    "newTabMenu":
+    "newTabMenu": 
     [
         {
             "type": "remainingProfiles"
         }
     ],
-    "profiles":
+    "profiles": 
     {
-        "defaults":
+        "defaults": 
         {
-            "bellStyle":
+            "bellStyle": 
             [
                 "audible",
                 "taskbar"
@@ -45,28 +63,24 @@
             "closeOnExit": "graceful",
             "colorScheme": "miku",
             "cursorShape": "bar",
-            "font":
+            "font": 
             {
                 "face": "PlemolJP Console NF",
-                "size": 22
+                "size": 16
             },
             "opacity": 90,
             "padding": "8",
-            "unfocusedAppearance":
+            "unfocusedAppearance": 
             {
                 "opacity": 80
             }
         },
-        "list":
+        "list": 
         [
             {
                 "backgroundImage": "C:\\Users\\madayo\\Pictures\\bg1.jpg",
                 "backgroundImageOpacity": 0.4,
                 "backgroundImageStretchMode": "uniformToFill",
-                "unfocusedAppearance":
-                {
-                    "backgroundImageOpacity": 0.05
-                },
                 "commandline": "C:\\WINDOWS\\system32\\wsl.exe --distribution-id {32c2ab6f-c736-4ae3-b563-ba8cea50daba}",
                 "guid": "{f78da5a6-b9de-4f5b-92b1-01f7b5fe92a5}",
                 "hidden": false,
@@ -74,10 +88,15 @@
                 "name": "custom Ubuntu-24.04",
                 "pathTranslationStyle": "wsl",
                 "startingDirectory": "~",
-                "suppressApplicationTitle": true
+                "suppressApplicationTitle": true,
+                "unfocusedAppearance": 
+                {
+                    "backgroundImageOpacity": 0.05
+                }
             },
             {
                 "background": "#002B00",
+                "colorScheme": "miku-ssh",
                 "commandline": "C:\\WINDOWS\\system32\\wsl.exe --distribution-id {32c2ab6f-c736-4ae3-b563-ba8cea50daba}",
                 "guid": "{d5fa7073-7c5c-46d1-a572-4386db6e20a9}",
                 "hidden": false,
@@ -88,7 +107,8 @@
                 "suppressApplicationTitle": true
             },
             {
-                "background": "#2b0000",
+                "background": "#2B0000",
+                "colorScheme": "miku-ssh",
                 "commandline": "C:\\WINDOWS\\system32\\wsl.exe --distribution-id {32c2ab6f-c736-4ae3-b563-ba8cea50daba}",
                 "guid": "{bf679c55-7a4f-413f-a47b-7d0d99496f75}",
                 "hidden": false,
@@ -104,7 +124,7 @@
                 "closeOnExit": "automatic",
                 "commandline": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
                 "cursorShape": "bar",
-                "font":
+                "font": 
                 {
                     "face": "Cascadia Mono",
                     "size": 18
@@ -137,15 +157,15 @@
             }
         ]
     },
-    "schemes":
+    "schemes": 
     [
         {
             "background": "#282C34",
             "black": "#282C34",
-            "blue": "#61AFEF",
+            "blue": "#7DB7FF",
             "brightBlack": "#5A6374",
-            "brightBlue": "#61AFEF",
-            "brightCyan": "#56B6C2",
+            "brightBlue": "#9CDCFE",
+            "brightCyan": "#7DDDEB",
             "brightGreen": "#98C379",
             "brightPurple": "#C678DD",
             "brightRed": "#E06C75",
@@ -161,26 +181,49 @@
             "selectionBackground": "#FFFFFF",
             "white": "#DCDFE4",
             "yellow": "#E5C07B"
+        },
+        {
+            "background": "#282C34",
+            "black": "#282C34",
+            "blue": "#7DB7FF",
+            "brightBlack": "#5A6374",
+            "brightBlue": "#9CDCFE",
+            "brightCyan": "#7DDDEB",
+            "brightGreen": "#98C379",
+            "brightPurple": "#C678DD",
+            "brightRed": "#E06C75",
+            "brightWhite": "#DCDFE4",
+            "brightYellow": "#E5C07B",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#56B6C2",
+            "foreground": "#DCDFE4",
+            "green": "#98C379",
+            "name": "miku-ssh",
+            "purple": "#C678DD",
+            "red": "#E06C75",
+            "selectionBackground": "#FFFFFF",
+            "white": "#DCDFE4",
+            "yellow": "#E5C07B"
         }
     ],
     "theme": "custom",
-    "themes":
+    "themes": 
     [
         {
             "name": "custom",
-            "tab":
+            "tab": 
             {
                 "background": "#4682B4FF",
                 "iconStyle": "default",
                 "showCloseButton": "always",
                 "unfocusedBackground": null
             },
-            "tabRow":
+            "tabRow": 
             {
                 "background": "#1E1E1EFF",
                 "unfocusedBackground": null
             },
-            "window":
+            "window": 
             {
                 "applicationTheme": "dark",
                 "experimental.rainbowFrame": false,
