@@ -65,12 +65,32 @@
         ]
       }
     ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/dotfiles/claude/bin/claude-notify.sh prompt"
+          }
+        ]
+      }
+    ],
     "PermissionRequest": [
       {
         "hooks": [
           {
             "type": "command",
             "command": "~/dotfiles/claude/bin/claude-notify.sh permission"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/dotfiles/claude/bin/claude-notify.sh session_end"
           }
         ]
       }
