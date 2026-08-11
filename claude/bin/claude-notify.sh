@@ -32,6 +32,7 @@ set -u
 NOTIFY_TYPE="${1:-stop}"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SLACK_WEBHOOK_FILE="$SCRIPT_DIR/slack-webhook-url.txt"
+SLACK_DELAY_SECONDS="${CLAUDE_NOTIFY_SLACK_DELAY_SECONDS:-180}"
 
 INPUT="$(cat)"
 
@@ -105,6 +106,58 @@ fi
 
 touch "$STAMP_FILE"
 
+send_slack() {
+  local message="$1"
+
+  # Slack Incoming Webhook へ通知
+  # Webhook URL は Git 管理外のファイルに保存する
+  if [ -f "$SLACK_WEBHOOK_FILE" ]; then
+    local slack_webhook_url
+    slack_webhook_url="$(tr -d '\r\n' < "$SLACK_WEBHOOK_FILE")"
+
+    if [ -n "$slack_webhook_url" ]; then
+      local slack_payload
+      slack_payload="$(jq -n --arg text "$message" '{text: $text}')"
+      curl -sS \
+        -X POST \
+        -H 'Content-type: application/json' \
+        --data "$slack_payload" \
+        "$slack_webhook_url" \
+        >/dev/null 2>&1 || true
+    fi
+  fi
+}
+
+file_state() {
+  local path="$1"
+
+  if [ -f "$path" ]; then
+    stat -c '%Y:%s' "$path" 2>/dev/null || echo "0:0"
+  else
+    echo "0:0"
+  fi
+}
+
+schedule_slack_if_idle() {
+  local message="$1"
+  local transcript_path="$2"
+  local delay_seconds="$3"
+  local base_state
+  base_state="$(file_state "$transcript_path")"
+
+  (
+    sleep "$delay_seconds"
+
+    local current_state
+    current_state="$(file_state "$transcript_path")"
+
+    # Stop 後に transcript が更新されていれば、ユーザーが反応したとみなす。
+    if [ "$current_state" = "$base_state" ]; then
+      send_slack "$message"
+    fi
+  ) >/dev/null 2>&1 &
+}
+
 WIN_TITLE="$(printf '%s' "$TITLE" | sed "s/'/''/g")"
 WIN_MESSAGE="$(printf '%s' "$MESSAGE" | sed "s/'/''/g")"
 
@@ -135,21 +188,13 @@ Start-Sleep -Milliseconds 4000
 \$ni.Dispose()
 " >/dev/null 2>&1 || true
 
-
-# Slack Incoming Webhook へ通知
-# Webhook URL は Git 管理外のファイルに保存する
-if [ -f "$SLACK_WEBHOOK_FILE" ]; then
-  SLACK_WEBHOOK_URL="$(tr -d '\r\n' < "$SLACK_WEBHOOK_FILE")"
-
-  if [ -n "$SLACK_WEBHOOK_URL" ]; then
-    SLACK_PAYLOAD="$(jq -n --arg text "$MESSAGE" '{text: $text}')"
-    curl -sS \
-      -X POST \
-      -H 'Content-type: application/json' \
-      --data "$SLACK_PAYLOAD" \
-      "$SLACK_WEBHOOK_URL" \
-      >/dev/null 2>&1 || true
-  fi
-fi
+case "$NOTIFY_TYPE" in
+  permission)
+    send_slack "$MESSAGE"
+    ;;
+  stop|*)
+    schedule_slack_if_idle "$MESSAGE" "$TRANSCRIPT_PATH" "$SLACK_DELAY_SECONDS"
+    ;;
+esac
 
 exit 0
