@@ -1,9 +1,9 @@
 # 使用モデル
-model = "gpt-5.5"
+model = "gpt-5.6-sol"
 
 # 日常的な開発作業向け。
 # 必要に応じて minimal / low / medium / high / xhigh に変更可能。
-model_reasoning_effort = "medium"
+model_reasoning_effort = "high"
 
 # Codex が必要と判断した場合に承認を求める
 approval_policy = "on-request"
@@ -38,16 +38,10 @@ status_line = [
   "git-branch",
   "branch-changes",
   "context-used",
-  "context-remaining",
   "five-hour-limit",
   "weekly-limit",
   "codex-version",
   "used-tokens",
-  "total-input-tokens",
-  "total-output-tokens",
-  "task-progress",
-  "run-state",
-  "thread-id",
 ]
 status_line_use_colors = true
 

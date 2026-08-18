@@ -82,7 +82,28 @@ case "$NOTIFY_TYPE" in
     ;;
 esac
 
-PROJECT_NAME="$(basename "${CWD:-unknown}")"
+project_name_from_cwd() {
+  local cwd="$1"
+
+  if [ -z "$cwd" ] || [ "$cwd" = "null" ]; then
+    printf 'unknown'
+    return
+  fi
+
+  printf '%s\n' "$cwd" | jq -Rr '
+    rtrimstr("/")
+    | if . == "" then "/"
+      else
+        split("/")
+        | map(select(. != ""))
+        | reverse
+        | .[:3]
+        | join(" / ")
+      end
+  '
+}
+
+PROJECT_NAME="$(project_name_from_cwd "$CWD")"
 BRANCH="$(git -C "$CWD" rev-parse --abbrev-ref HEAD 2>/dev/null || echo '-')"
 
 LAST_USER_MSG="$(

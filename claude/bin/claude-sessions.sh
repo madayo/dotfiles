@@ -64,8 +64,8 @@ if [ "${#files[@]}" -eq 0 ]; then
   exit 0
 fi
 
-printf '%-16s %-6s %-12s %-24s %-18s %s\n' "STATUS" "AGE" "SESSION" "PROJECT" "BRANCH" "LAST USER MESSAGE"
-printf '%-16s %-6s %-12s %-24s %-18s %s\n' "----------------" "------" "------------" "------------------------" "------------------" "------------------------"
+printf '%-16s %-6s %-12s %-36s %-18s %s\n' "STATUS" "AGE" "SESSION" "PROJECT" "BRANCH" "LAST USER MESSAGE"
+printf '%-16s %-6s %-12s %-36s %-18s %s\n' "----------------" "------" "------------" "------------------------------------" "------------------" "------------------------"
 
 jq -s -r '
   sort_by(.updated_at // 0)
@@ -81,7 +81,7 @@ jq -s -r '
     ]
   | @tsv
 ' "${files[@]}" | while IFS=$'\t' read -r status updated_at session project branch message; do
-  printf '%-16s %-6s %-12s %-24.24s %-18.18s %s\n' \
+  printf '%-16s %-6s %-12s %-36.36s %-18.18s %s\n' \
     "$(status_label "$status")" \
     "$(age_label "$updated_at")" \
     "$session" \
