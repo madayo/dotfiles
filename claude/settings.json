@@ -31,8 +31,6 @@
       "Bash(git push origin master)",
       "Bash(git push -u origin main)",
       "Bash(git push -u origin master)",
-      "Bash(curl *)",
-      "Bash(wget *)",
       "Bash(chmod 777 *)",
       "Read(./.env)",
       "Read(./secrets/**)",
@@ -101,7 +99,7 @@
     "command": "bash ~/dotfiles/claude/bin/statusline.sh"
   },
   "language": "japanese",
-  "effortLevel": "medium",
+  "effortLevel": "high",
   "autoUpdatesChannel": "stable",
   "showTurnDuration": true
 }
