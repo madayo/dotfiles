@@ -1,7 +1,7 @@
 # 基本
 
 - 共通ルールは以下を参照。
-@~/AGENTS.md
+@~/.codex/AGENTS.md
 
 # 作業ルール
 
