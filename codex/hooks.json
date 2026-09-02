@@ -1,12 +1,24 @@
 {
   "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/dotfiles/codex/codex-notify.sh\"",
+            "timeout": 5,
+            "statusMessage": "Tracking Codex session"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "hooks": [
           {
             "type": "command",
             "command": "bash \"$HOME/dotfiles/codex/codex-notify.sh\"",
-            "timeout": 10,
+            "timeout": 5,
             "statusMessage": "Sending completion notification"
           }
         ]
@@ -18,8 +30,56 @@
           {
             "type": "command",
             "command": "bash \"$HOME/dotfiles/codex/codex-notify.sh\"",
-            "timeout": 10,
+            "timeout": 5,
             "statusMessage": "Sending approval notification"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/dotfiles/codex/codex-notify.sh\"",
+            "timeout": 5,
+            "statusMessage": "Updating Codex session"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/dotfiles/codex/codex-notify.sh\"",
+            "timeout": 5,
+            "statusMessage": "Tracking Codex subagent"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/dotfiles/codex/codex-notify.sh\"",
+            "timeout": 5,
+            "statusMessage": "Tracking Codex subagent"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/dotfiles/codex/codex-notify.sh\"",
+            "timeout": 3,
+            "statusMessage": "Closing Codex session"
           }
         ]
       }
