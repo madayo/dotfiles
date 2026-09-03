@@ -57,7 +57,7 @@ status_label() {
       printf '🔐 permission'
       ;;
     unhandled)
-      printf '👀 unread'
+      printf '👀 unhandled'
       ;;
     *)
       printf '%s' "$status"
