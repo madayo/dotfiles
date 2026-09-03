@@ -11,10 +11,12 @@ description: Retrieve and handle GitHub Copilot review comments for the pull req
 
 1. 必ず `gh get-comments` でカレントブランチの PR コメントを取得する。
    - 出力形式: `file / line / author / comment`
-2. 各 suggestion を採用 / 不採用で判断し、簡潔な理由を添えてユーザーに報告する。
-3. 修正が必要な suggestion は、ユーザーの許可を得てから実装する。
-4. 修正後は必要なテスト・ログ・差分確認を行う。
-5. 最終的に、ユーザーの確認を得てから以下の形式で `gh pr comment` を投稿する。
+2. 各 suggestion に取得順で `#1` から始まる一意の連番を付ける。
+   - 採用判定・修正・最終報告まで同じ番号を維持し、再採番しない。
+3. 各 suggestion を採用 / 不採用で判断し、番号と簡潔な理由を添えてユーザーに報告する。
+4. 修正が必要な suggestion は、ユーザーの許可を得てから実装する。
+5. 修正後は必要なテスト・ログ・差分確認を行う。
+6. 最終的に、ユーザーの確認を得てから以下の形式で `gh pr comment` を投稿する。
 
 ```text
 gh pr comment <番号> --body "$(cat <<'EOF'
