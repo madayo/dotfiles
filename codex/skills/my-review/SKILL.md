@@ -63,6 +63,8 @@ description: Review the current code changes from a tech lead perspective. Use w
 - diff のみで「問題なし」と判断しない。
 - 認証・認可・バリデーションは実装箇所まで追跡して確認する。
 - 指摘は重要度順に並べる。
+- 問題の指摘には、重要度順に `#1` から始まる一意の連番を付ける。
+- 修正の相談・確認など後続のやり取りでも同じ番号を維持し、再採番しない。
 - Codex の標準的なコードレビュー形式を優先し、問題がある場合は findings を先に出す。
 
 ## 出力フォーマット
@@ -75,7 +77,7 @@ description: Review the current code changes from a tech lead perspective. Use w
 
 ### 問題あり
 
-- [重要度: 高/中/低] `ファイル名:行番号`
+- #N [重要度: 高/中/低] `ファイル名:行番号`
   - 問題
   - 影響
   - 修正案
