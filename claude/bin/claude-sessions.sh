@@ -65,9 +65,12 @@ status_label() {
   esac
 }
 
-# 出力先が端末で、かつ NO_COLOR が未設定のときだけ色を付ける。
-# パイプ・リダイレクト時は生の ANSI を混ぜない。watch -c は端末扱いなので色が出る。
-if [ -t 1 ] && [ -z "${NO_COLOR:-}" ]; then
+# 出力先が端末、または FORCE_COLOR 指定時に色を付ける（NO_COLOR が優先）。
+# watch は子プロセスの標準出力をパイプにするため [ -t 1 ] が false になり、
+# 単体実行時と違って色が消える。watch 経由でも付けたい場合は FORCE_COLOR=1 を渡す。
+if [ -n "${NO_COLOR:-}" ]; then
+  USE_COLOR=0
+elif [ -t 1 ] || [ -n "${FORCE_COLOR:-}" ]; then
   USE_COLOR=1
 else
   USE_COLOR=0
