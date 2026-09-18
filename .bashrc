@@ -54,6 +54,18 @@ dlogin() {
   fi
   docker compose exec "$1" bash
 }
+# docker compose をバックグラウンドで起動
+dup() {
+  docker compose up -d "$@"
+}
+# docker compose のコンテナを停止
+dstop() {
+  docker compose stop "$@"
+}
+# docker compose のコンテナを破棄
+ddown() {
+  docker compose down "$@"
+}
 beep() {
   ffplay -nodisp -autoexit -loglevel quiet "$HOME/dotfiles/sound/beep-potato.mp3" >/dev/null 2>&1
 }
