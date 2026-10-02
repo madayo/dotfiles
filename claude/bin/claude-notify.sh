@@ -96,8 +96,7 @@ project_name_from_cwd() {
       else
         split("/")
         | map(select(. != ""))
-        | reverse
-        | .[:3]
+        | .[-3:]
         | join(" / ")
       end
   '
@@ -165,11 +164,21 @@ write_session_state() {
   state_file="$(session_state_file "$SESSION_ID")"
   tmp_file="${state_file}.$$"
 
+  # 一覧用の project / branch は、セッション開始時（最初に hook を受けた時点）の cwd 基準で固定する。
+  # hook の cwd は作業中の cd で変わるため、既に記録済みの start_cwd があればそれを引き継ぐ。
+  # SessionEnd で状態ファイルを消すので、resume 時はその起動ディレクトリが新たに記録される。
+  local start_cwd start_project start_branch
+  start_cwd="$(jq -r '.start_cwd // empty' "$state_file" 2>/dev/null)"
+  [ -n "$start_cwd" ] || start_cwd="$CWD"
+  start_project="$(project_name_from_cwd "$start_cwd")"
+  start_branch="$(git -C "$start_cwd" rev-parse --abbrev-ref HEAD 2>/dev/null || echo '-')"
+
   jq -n \
     --arg session_id "$SESSION_ID" \
     --arg status "$status" \
-    --arg project "$PROJECT_NAME" \
-    --arg branch "$BRANCH" \
+    --arg project "$start_project" \
+    --arg branch "$start_branch" \
+    --arg start_cwd "$start_cwd" \
     --arg cwd "$CWD" \
     --arg transcript_path "$TRANSCRIPT_PATH" \
     --arg last_user_message "$SHORT_MSG" \
@@ -179,6 +188,7 @@ write_session_state() {
       status: $status,
       project: $project,
       branch: $branch,
+      start_cwd: $start_cwd,
       cwd: $cwd,
       transcript_path: $transcript_path,
       last_user_message: $last_user_message,

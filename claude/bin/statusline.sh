@@ -11,6 +11,7 @@ reasoning_level=$(echo "$input" | jq -r '[.effort.level, .model.reasoning_level,
 cwd=$(echo "$input" | jq -r '.workspace.current_dir // empty')
 worktree_name=$(echo "$input" | jq -r '.worktree.name // .workspace.git_worktree // empty')
 worktree_branch=$(echo "$input" | jq -r '.worktree.branch // empty')
+session_name=$(echo "$input" | jq -r '.session_name // empty')
 
 # --- レート制限情報（Pro/Max のみ） ---
 rl_5h=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
@@ -36,6 +37,7 @@ THEME_MODEL='\033[33m'
 THEME_REASONING='\033[93m'
 THEME_LABEL='\033[94m'
 THEME_RESET_TIME='\033[37m'
+THEME_SESSION='\033[36m'
 
 # --- PS1 スタイルプロンプト: dir [branch] ---
 dir=$(basename "$cwd")
@@ -127,3 +129,8 @@ if [ -n "$rl_5h" ] || [ -n "$rl_7d" ]; then
 fi
 
 printf '\n'
+
+# 2行目: セッション名（未設定なら出力しない。長い場合は表示側で自然に見切れる）
+if [ -n "$session_name" ]; then
+  printf '%b💬 %s%b\n' "$THEME_SESSION" "$session_name" "$COLOR_RESET"
+fi
