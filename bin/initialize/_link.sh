@@ -28,7 +28,7 @@ make_symbolic_links ~/dotfiles/codex/skills/my-review ~/.codex/skills/my-review
 make_symbolic_links ~/dotfiles/codex/skills/my-copilot-review ~/.codex/skills/my-copilot-review
 make_symbolic_links ~/dotfiles/codex/skills/my-handoff ~/.codex/skills/my-handoff
 
-print_info "codex の config.toml はシンボリックリンクにせず、必要な部分のテキストを手動でコピペしてください。"
+print_info "codex の config.toml はシンボリックリンクにせず、必要な部分のテキストを手動で ~/.codex/config.toml にコピペしてください。"
 
 mkdir -p ~/.vscode-server/data/User
 make_symbolic_links ~/dotfiles/.copilot/prompts ~/.vscode-server/data/User/prompts

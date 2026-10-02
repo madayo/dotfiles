@@ -65,6 +65,45 @@ status_label() {
   esac
 }
 
+# $1 を表示幅 $2 桁に切り詰め、足りない分は空白で埋める。
+# printf の幅指定はバイト数基準で日本語が崩れるため、全角を 2 桁として数える。
+fit_width() {
+  if ! command -v python3 >/dev/null 2>&1; then
+    printf '%-*.*s' "$2" "$2" "$1"
+    return
+  fi
+  python3 -c '
+import sys, unicodedata
+text, width = sys.argv[1], int(sys.argv[2])
+out, used = "", 0
+for ch in text:
+    w = 2 if unicodedata.east_asian_width(ch) in "WF" else 1
+    if used + w > width:
+        break
+    out, used = out + ch, used + w
+sys.stdout.write(out + " " * (width - used))
+' "$1" "$2"
+}
+
+# transcript から表示用タイトルを取り出す。
+# /rename で付けた名前（custom-title）を優先し、無ければ自動生成（ai-title）を使う。
+# どちらも追記式なので最後の 1 件が最新。見つからなければ "-"。
+session_title() {
+  local transcript="$1" title
+
+  if [ "$transcript" = "-" ] || [ ! -f "$transcript" ]; then
+    printf '%s' "-"
+    return
+  fi
+
+  title="$(grep -F '"type":"custom-title"' "$transcript" | tail -n 1 | jq -r '.customTitle // empty' 2>/dev/null)"
+  if [ -z "$title" ]; then
+    title="$(grep -F '"type":"ai-title"' "$transcript" | tail -n 1 | jq -r '.aiTitle // empty' 2>/dev/null)"
+  fi
+  # 表の崩れ防止: タブ・改行は空白に置き換える
+  printf '%s' "${title:--}" | tr '\t\n\r' '   '
+}
+
 # 出力先が端末、または FORCE_COLOR 指定時に色を付ける（NO_COLOR が優先）。
 # watch は子プロセスの標準出力をパイプにするため [ -t 1 ] が false になり、
 # 単体実行時と違って色が消える。watch 経由でも付けたい場合は FORCE_COLOR=1 を渡す。
@@ -100,8 +139,8 @@ if [ "${#files[@]}" -eq 0 ]; then
   exit 0
 fi
 
-printf '%-16s %-6s %-12s %-36s %-18s %s\n' "STATUS" "AGE" "SESSION" "PROJECT" "BRANCH" "LAST USER MESSAGE"
-printf '%-16s %-6s %-12s %-36s %-18s %s\n' "----------------" "------" "------------" "------------------------------------" "------------------" "------------------------"
+printf '%-16s %-6s %-12s %-24s %s\n' "STATUS" "AGE" "SESSION" "TITLE" "PROJECT"
+printf '%-16s %-6s %-12s %-24s %s\n' "----------------" "------" "------------" "------------------------" "------------------------------------"
 
 now="$(date +%s)"
 
@@ -113,12 +152,12 @@ jq -s -r '
       (.status // "-"),
       ((.updated_at // 0) | tostring),
       ((.session_id // "-") | .[:12]),
+      ((.transcript_path // "") | if . == "" then "-" else . end),
       (.project // "-"),
-      (.branch // "-"),
-      (.last_user_message // "-")
+      (.branch // "-")
     ]
   | @tsv
-' "${files[@]}" | while IFS=$'\t' read -r status updated_at session project branch message; do
+' "${files[@]}" | while IFS=$'\t' read -r status updated_at session transcript project branch; do
   # 色分けルール（ANSI 分で桁がずれないよう、先にパディングしてから色を巻く）:
   #   STATUS 列 … 自分のアクション待ち（permission / unhandled）のみ太字赤。AI 待ちは色なし。
   #   AGE 列    … updated_at から 1 日（86400 秒）以上経過した行のみ太字赤。1 日未満は色なし。
@@ -131,11 +170,16 @@ jq -s -r '
   if [ "$((now - updated_at))" -ge 86400 ]; then
     age_field="$(paint_alert "$age_field")"
   fi
-  printf '%s %s %-12s %-36.36s %-18.18s %s\n' \
+  # PROJECT 列: statusline と同じ絵文字で "📁 a/b/c (🌿 branch)" 形式にする。
+  # project は "a / b / c" 形式で記録されているので区切りを詰める。branch が無ければ省略。
+  project_field="📁 ${project// \/ //}"
+  if [ -n "$branch" ] && [ "$branch" != "-" ]; then
+    project_field="$project_field (🌿 $branch)"
+  fi
+  printf '%s %s %-12s %s %s\n' \
     "$status_field" \
     "$age_field" \
     "$session" \
-    "$project" \
-    "$branch" \
-    "$message"
+    "$(fit_width "$(session_title "$transcript")" 24)" \
+    "$project_field"
 done
