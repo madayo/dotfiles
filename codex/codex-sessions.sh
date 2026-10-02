@@ -6,6 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/codex-notify"
 SESSION_DIR="$CACHE_DIR/sessions"
 PRUNE_DAYS="${CODEX_SESSION_PRUNE_DAYS:-7}"
+SESSION_INDEX="${CODEX_HOME:-$HOME/.codex}/session_index.jsonl"
 
 age_label() {
   local updated_at="$1"
@@ -64,6 +65,43 @@ status_label() {
   esac
 }
 
+# $1 を表示幅 $2 桁に切り詰め、足りない分は空白で埋める。
+# printf の幅指定はバイト数基準で日本語が崩れるため、全角を 2 桁として数える。
+fit_width() {
+  if ! command -v python3 >/dev/null 2>&1; then
+    printf '%-*.*s' "$2" "$2" "$1"
+    return
+  fi
+  python3 -c '
+import sys, unicodedata
+text, width = sys.argv[1], int(sys.argv[2])
+out, used = "", 0
+for ch in text:
+    w = 2 if unicodedata.east_asian_width(ch) in "WF" else 1
+    if used + w > width:
+        break
+    out, used = out + ch, used + w
+sys.stdout.write(out + " " * (width - used))
+' "$1" "$2"
+}
+
+# Codex の thread_name は session_index.jsonl に追記される。
+# 同じセッションの最後の 1 件が最新の名前（/rename を含む）。
+# session_index が無い場合は、状態ファイルに保存した最終ユーザーメッセージを使う。
+session_title() {
+  local session_id="$1" fallback="$2" title=""
+
+  if [ -f "$SESSION_INDEX" ]; then
+    title="$(jq -r --arg session_id "$session_id" \
+      'select(.id == $session_id) | .thread_name // empty' \
+      "$SESSION_INDEX" 2>/dev/null | tail -n 1)"
+  fi
+  if [ -z "$title" ]; then
+    title="$fallback"
+  fi
+  printf '%s' "${title:--}" | tr '\t\n\r' '   '
+}
+
 # 出力先が端末、または FORCE_COLOR 指定時に色を付ける（NO_COLOR が優先）。
 # watch は子プロセスの標準出力をパイプにするため [ -t 1 ] が false になり、
 # 単体実行時と違って色が消える。watch 経由でも付けたい場合は FORCE_COLOR=1 を渡す。
@@ -99,10 +137,8 @@ if [ "${#files[@]}" -eq 0 ]; then
   exit 0
 fi
 
-printf '%-16s %-6s %-12s %-36s %-18s %s\n' \
-  "STATUS" "AGE" "SESSION" "PROJECT" "BRANCH" "LAST USER MESSAGE"
-printf '%-16s %-6s %-12s %-36s %-18s %s\n' \
-  "----------------" "------" "------------" "------------------------------------" "------------------" "------------------------"
+printf '%-16s %-6s %-12s %-24s %s\n' "STATUS" "AGE" "SESSION" "TITLE" "PROJECT"
+printf '%-16s %-6s %-12s %-24s %s\n' "----------------" "------" "------------" "------------------------" "------------------------------------"
 
 now="$(date +%s)"
 
@@ -113,8 +149,11 @@ jq -s -r '
   | [
       (.status // "-"),
       ((.updated_at // 0) | tostring),
-      ((.session_id // "-") | .[:12]),
-      (.project // "-"),
+      (.session_id // "-"),
+      (if (.project // "-") == "-"
+       then "-"
+       else ((.project // "-") | split(" / ") | reverse | join(" / "))
+       end),
       (.branch // "-"),
       (.last_user_message // "-")
     ]
@@ -132,11 +171,18 @@ jq -s -r '
   if [ "$((now - updated_at))" -ge 86400 ]; then
     age_field="$(paint_alert "$age_field")"
   fi
-  printf '%s %s %-12s %-36.36s %-18.18s %s\n' \
+  session_short="${session:0:12}"
+  # PROJECT 列: statusline と同じ絵文字で "📁 a/b/c (🌿 branch)" 形式にする。
+  # project は記録時に末尾から 3 階層の順で保存されるため、表示時に元の順へ戻す。
+  # branch が無ければ省略。
+  project_field="📁 ${project// \/ //}"
+  if [ -n "$branch" ] && [ "$branch" != "-" ]; then
+    project_field="$project_field (🌿 $branch)"
+  fi
+  printf '%s %s %-12s %s %s\n' \
     "$status_field" \
     "$age_field" \
-    "$session" \
-    "$project" \
-    "$branch" \
-    "$message"
+    "$session_short" \
+    "$(fit_width "$(session_title "$session" "$message")" 24)" \
+    "$project_field"
 done

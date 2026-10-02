@@ -1,5 +1,5 @@
 # 使用モデル
-model = "gpt-5.6-sol"
+model = "gpt-6.1-sol"
 
 # 日常的な開発作業向け。
 # 必要に応じて minimal / low / medium / high / xhigh に変更可能。
@@ -36,15 +36,15 @@ status_line = [
   "model-with-reasoning",
   "current-dir",
   "git-branch",
-  "branch-changes",
+  "thread-name",
   "context-used",
   "five-hour-limit",
   "weekly-limit",
-  "codex-version",
-  "used-tokens",
+  "used-tokens"
 ]
 status_line_use_colors = true
 
+# codex が自動で追記するエリア。使用するモデルではないので特に気しないこと
 [tui.model_availability_nux]
 "gpt-5.5" = 1
 "gpt-5.6-sol" = 2

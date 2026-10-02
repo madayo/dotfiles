@@ -145,17 +145,25 @@ write_session_state() {
   local last_user_message="$2"
   local notification_token="${3:-}"
   local pending_permissions="${4:-[]}"
-  local active_subagents
+  local active_subagents start_cwd start_project start_branch
   local tmp_file
 
   active_subagents="$(active_agent_count)"
   tmp_file="${STATE_FILE}.$$"
 
+  # 一覧用の project / branch は、セッション開始時の cwd 基準で固定する。
+  # hook の cwd は作業中の cd で変わるため、既に記録済みの start_cwd を引き継ぐ。
+  start_cwd="$(jq -r '.start_cwd // empty' "$STATE_FILE" 2>/dev/null)"
+  [ -n "$start_cwd" ] || start_cwd="$CWD"
+  start_project="$(project_name_from_cwd "$start_cwd")"
+  start_branch="$(git -C "$start_cwd" rev-parse --abbrev-ref HEAD 2>/dev/null || echo '-')"
+
   jq -n \
     --arg session_id "$SESSION_ID" \
     --arg status "$status" \
-    --arg project "$PROJECT_NAME" \
-    --arg branch "$BRANCH" \
+    --arg project "$start_project" \
+    --arg branch "$start_branch" \
+    --arg start_cwd "$start_cwd" \
     --arg cwd "$CWD" \
     --arg turn_id "$TURN_ID" \
     --arg last_user_message "$last_user_message" \
@@ -168,6 +176,7 @@ write_session_state() {
       status: $status,
       project: $project,
       branch: $branch,
+      start_cwd: $start_cwd,
       cwd: $cwd,
       turn_id: $turn_id,
       last_user_message: $last_user_message,
