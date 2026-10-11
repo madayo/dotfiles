@@ -100,6 +100,14 @@
   },
   "language": "japanese",
   "effortLevel": "high",
+  "modelSettings": {
+    "claude-sonnet-5-5": {
+      "effortLevel": "xhigh"
+    },
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  },
   "autoUpdatesChannel": "stable",
   "showTurnDuration": true
 }
