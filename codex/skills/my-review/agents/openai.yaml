@@ -1,4 +1,4 @@
 interface:
   display_name: "my-review"
-  short_description: "Review current changes from a tech lead perspective."
-  default_prompt: "Use $my-review to review the current branch changes."
+  short_description: "Plan reviews, reuse prior results, and wait for approval."
+  default_prompt: "Use $my-review to assess changes against master or main and prior reviews, interpret any additional instructions, propose a review plan including each review's model and reasoning effort, and wait for my approval before running it."
