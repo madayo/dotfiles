@@ -1,6 +1,6 @@
 ---
 name: my-pr
-description: Prepare the current branch and create a GitHub pull request. Use when the user invokes my-pr or asks Codex to create a PR, including checking the current branch, creating a feature/fix branch when needed, committing pending changes with the required AI co-author trailer, pushing, creating the PR body, and reporting the PR URL.
+description: Prepare the current branch, commit pending changes, push, and create a GitHub pull request. Use only when the user explicitly invokes my-pr.
 ---
 
 # my-pr

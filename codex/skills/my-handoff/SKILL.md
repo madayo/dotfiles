@@ -1,6 +1,6 @@
 ---
 name: my-handoff
-description: Create a complete handoff note for continuing the current work in a new Codex chat. Use when the user invokes my-handoff or asks Codex to summarize the current conversation for another chat without losing background, decisions, unresolved items, and the next request.
+description: Create a complete handoff note preserving context, decisions, unresolved items, and the next request for a new chat. Use only when the user explicitly invokes my-handoff.
 ---
 
 # my-handoff

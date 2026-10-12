@@ -1,0 +1,4 @@
+interface:
+  display_name: "my-implement"
+  short_description: "Implement approved changes and verify acceptance criteria."
+  default_prompt: "Use $my-implement to implement the approved plan, verify acceptance criteria, self-review the final diff, and report results and remaining limitations."

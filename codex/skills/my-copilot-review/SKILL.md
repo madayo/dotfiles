@@ -1,6 +1,6 @@
 ---
 name: my-copilot-review
-description: Retrieve and handle GitHub Copilot review comments for the pull request associated with the current branch. Use when the user invokes my-copilot-review or asks Codex to check Copilot review comments, judge whether suggestions should be adopted, apply approved fixes, and prepare a PR comment response.
+description: Retrieve Copilot comments on the current branch's PR, judge suggestions, apply approved fixes, and prepare a PR response. Use only when the user explicitly invokes my-copilot-review.
 ---
 
 # my-copilot-review

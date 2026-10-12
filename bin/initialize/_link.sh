@@ -25,6 +25,9 @@ make_symbolic_links ~/dotfiles/codex/hooks.json ~/.codex/hooks.json
 mkdir -p ~/.codex/skills
 make_symbolic_links ~/dotfiles/codex/skills/my-pr ~/.codex/skills/my-pr
 make_symbolic_links ~/dotfiles/codex/skills/my-review ~/.codex/skills/my-review
+make_symbolic_links ~/dotfiles/codex/skills/my-investigate ~/.codex/skills/my-investigate
+make_symbolic_links ~/dotfiles/codex/skills/my-design ~/.codex/skills/my-design
+make_symbolic_links ~/dotfiles/codex/skills/my-implement ~/.codex/skills/my-implement
 make_symbolic_links ~/dotfiles/codex/skills/my-copilot-review ~/.codex/skills/my-copilot-review
 make_symbolic_links ~/dotfiles/codex/skills/my-handoff ~/.codex/skills/my-handoff
 
