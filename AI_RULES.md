@@ -54,7 +54,7 @@ AIを利用したコミットには、実際に利用したAIの Co-Authored-By 
 
 ### PR
 
-- feature ブランチで作業する
+- feature / fix ブランチで作業する
 - PR 作成前にレビューを提案する
 - PR 作成・push はユーザーの指示後に行う
 
