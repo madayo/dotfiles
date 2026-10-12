@@ -1,7 +1,7 @@
 # 基本
 
 - 共通ルールは以下を参照。
-@~/.codex/AGENTS.md
+@~/dotfiles/AI_RULES.md
 
 ## このリポジトリの前提
 
