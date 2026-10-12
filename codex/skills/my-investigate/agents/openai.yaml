@@ -1,0 +1,4 @@
+interface:
+  display_name: "my-investigate"
+  short_description: "Investigate behavior and report evidence without code changes."
+  default_prompt: "Use $my-investigate to investigate the issue, distinguish evidence from hypotheses, and report the cause, impact, and remaining questions without implementing changes."

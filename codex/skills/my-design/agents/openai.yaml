@@ -1,0 +1,4 @@
+interface:
+  display_name: "my-design"
+  short_description: "Design scoped changes and validation before implementation."
+  default_prompt: "Use $my-design to ground a change proposal in requirements and existing code, explain its impact and validation, and obtain approval before implementation."

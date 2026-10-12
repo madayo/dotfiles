@@ -1,6 +1,10 @@
 # 想定環境  
 WSL * Windows Terminal 向けの設定
 
+## Codex 開発スキル
+
+調査・設計・実装・レビュー・PR 作成・Copilot 対応・引き継ぎの使用順と入力例は [開発スキルの使い方](codex/skills/USAGE.md) を参照してください。
+
 ## Copilot 設定
 
 - workspace 共通 instruction: `.github/copilot-instructions.md`
