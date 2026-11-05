@@ -1,6 +1,6 @@
 ---
 name: my-implement
-description: Implement an approved change and verify it against acceptance criteria. Use when my-implement is invoked or execution of an agreed plan is requested; resolve missing approval or material plan changes before dependent edits.
+description: Implement an approved change and verify it against acceptance criteria. Use when my-implement is invoked or execution of an agreed plan is requested; use my-implement-wt for requested worktree implementation and my-verify to resume its deferred verification. Resolve missing approval or material plan changes before dependent edits.
 ---
 
 # my-implement

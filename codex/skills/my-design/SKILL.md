@@ -33,8 +33,11 @@ description: Design a concrete change grounded in requirements and existing code
 4. 副作用・リスクと検証方法。
 5. 未解決事項と、実装を始められる条件。
 
+worktree モードの場合は、ブランチ名（`feature/<name>` または `fix/<name>`）、worktree のパス（`.codex/worktrees/<name>`）、起点、保留する検証、ローカル commit を行うこと（push はしない）も示す。
+
 設計だけの依頼では、提案と未解決事項を返して終了し、実装承認は求めない。
 実装まで依頼されている場合は、実装を妨げる未解決事項を先に解消する。方針が具体化したら「この方針で実装してよいですか？」と確認して待つ。
 承認の再確認は共通ルールに従う。設計スキルの選択・呼び出しだけを実装承認と扱わない。
+承認後は `my-implement`（worktree モードなら `my-implement-wt`）の `SKILL.md` を読み、その手順で実装する。
 
 後続工程に渡す要件、設計上の選択、承認された範囲、検証方法を会話内に残す。永続的な設計書は依頼された場合に作成し、毎回の必須成果物にしない。

@@ -15,6 +15,8 @@ PR 作成・Copilot 対応・引き継ぎは、後述のスキル名を明示し
 | [my-investigate](my-investigate/SKILL.md) | 原因・既存動作・変更影響の調査 |
 | [my-design](my-design/SKILL.md) | 変更方針・影響・検証方法の設計 |
 | [my-implement](my-implement/SKILL.md) | 承認済み方針の実装・検証・セルフレビュー |
+| [my-implement-wt](my-implement-wt/SKILL.md) | worktree 上での実装・静的確認・ローカル commit（実行検証は保留） |
+| [my-verify](my-verify/SKILL.md) | worktree モードで保留した検証をメインツリーで再開 |
 | [my-review](my-review/SKILL.md) | レビュー構成の提案と承認後の実行 |
 
 ## 現状の仕様を調べたい
@@ -64,6 +66,27 @@ PR 作成・Copilot 対応・引き継ぎは、後述のスキル名を明示し
 想定する工程は `my-design` → 方針の承認 → `my-implement` です。
 既存構造の不確実さが大きければ、その前に調査を含めます。
 設計だけ相談したい場合は「まず方針の比較まで。実装は不要」と添えると、その範囲で終了します。
+
+## worktree で実装し、検証を後から再開したい
+
+```text
+注文一覧のCSV出力を worktree で実装して。
+docker での検証はメインツリーが空いてから行いたい。
+```
+
+「worktree」を実行方法として指定すると worktree モードになります。想定する工程は設計（メインツリー）→ 方針の承認 → `my-implement-wt` → `my-verify` → 必要ならレビューです。
+質問への回答とスキルの直接指定が優先され、「worktree について調べて」のような話題としての言及では切り替わりません。
+
+方針にはブランチ・worktree のパス・起点・保留する検証と、ローカル commit（push はしない）を含めます。承認後、`.codex/worktrees/<name>` で実装と静的確認を行い、commit と `<git-common-dir>/codex-verify/<ブランチ名>.md` の検証待ちメモを残します。通常の実装方針を承認した後で worktree モードへ変更する場合は、commit を含む実行モードだけを追加で確認します。
+
+メインツリーで作業していた別セッションの操作を終えてから、同じセッションで次のように伝えます。
+
+```text
+メインが空いたから戻って検証を再開して。
+```
+
+`my-verify` がメインツリーへ操作先を移し、対象 worktree を取り外してブランチを切り替え、保留した検証を行います。未コミット変更や、削除される ignore 済みファイルがあれば停止・確認します。依存は切り替え前の lockfile と docker のインストール状態も確認し、必要なら再インストールします。
+検証中の修正は未 commit のまま残し、未確認があればメモを更新します。すべて確認できたらメモを削除し、対象ブランチに留まります。
 
 ## 変更をレビューしてほしい
 

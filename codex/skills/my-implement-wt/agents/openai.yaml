@@ -1,0 +1,4 @@
+interface:
+  display_name: "my-implement-wt"
+  short_description: "Implement in a worktree and defer runtime verification."
+  default_prompt: "Use $my-implement-wt to implement the approved worktree plan, perform static checks, commit locally without pushing, and leave a pending verification memo."
