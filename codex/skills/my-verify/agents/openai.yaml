@@ -1,0 +1,4 @@
+interface:
+  display_name: "my-verify"
+  short_description: "Resume deferred verification in the main working tree."
+  default_prompt: "Use $my-verify to return operations to the main working tree, verify the pending worktree change, and report results and any uncommitted fixes."

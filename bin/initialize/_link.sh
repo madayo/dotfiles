@@ -28,6 +28,8 @@ make_symbolic_links ~/dotfiles/codex/skills/my-review ~/.codex/skills/my-review
 make_symbolic_links ~/dotfiles/codex/skills/my-investigate ~/.codex/skills/my-investigate
 make_symbolic_links ~/dotfiles/codex/skills/my-design ~/.codex/skills/my-design
 make_symbolic_links ~/dotfiles/codex/skills/my-implement ~/.codex/skills/my-implement
+make_symbolic_links ~/dotfiles/codex/skills/my-implement-wt ~/.codex/skills/my-implement-wt
+make_symbolic_links ~/dotfiles/codex/skills/my-verify ~/.codex/skills/my-verify
 make_symbolic_links ~/dotfiles/codex/skills/my-copilot-review ~/.codex/skills/my-copilot-review
 make_symbolic_links ~/dotfiles/codex/skills/my-handoff ~/.codex/skills/my-handoff
 
