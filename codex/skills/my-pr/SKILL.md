@@ -52,11 +52,11 @@ push は外部状態を変更するため、実行前にユーザーの明示的
 
 `git log main..HEAD --oneline` を確認する。main が存在しない場合は `master..HEAD` を使う。
 
-コミット一覧と diff から日本語の PR タイトル、Summary、Test plan を作成し、ユーザーに PR 作成内容を確認する。
-許可を得てから以下の形式で PR を作成する。
+コミット一覧と diff から日本語の PR タイトルを作成し、タイトルだけをユーザーに確認する。
+PR 本文（Summary、Test plan など）は確認対象に含めず、チャットにも出力しない。
+タイトルの許可を得てから、以下の形式で日本語の本文を作成して一時ファイルに保存し、`gh pr create --title "<日本語のタイトル>" --body-file <本文ファイル>` で PR を作成する。本文の表示や本文への追加承認は求めない。
 
 ```text
-gh pr create --title "<日本語のタイトル>" --body "$(cat <<'EOF'
 ## Summary
 
 - <変更点を日本語で箇条書き>
@@ -66,8 +66,6 @@ gh pr create --title "<日本語のタイトル>" --body "$(cat <<'EOF'
 - [ ] <確認項目を日本語で記載>
 
 Generated with Codex
-EOF
-)"
 ```
 
 ### 5. 報告
