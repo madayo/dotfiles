@@ -1,4 +1,4 @@
 interface:
   display_name: "my-review"
   short_description: "Present a review plan, reuse prior results, and run the review."
-  default_prompt: "Use $my-review to assess changes against master or main and prior reviews, interpret any additional instructions, present a review plan including each review's model and reasoning effort, and run it without waiting for my confirmation."
+  default_prompt: "Use $my-review to assess changes against master or main and prior reviews, interpret any additional instructions, present each review's model and reasoning effort, and run the review after my decision on the main session's recommended settings; reuse that decision within the same task if the recommendation is unchanged."
